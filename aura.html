@@ -52,9 +52,10 @@ nav{position:fixed;top:18px;left:24px;right:24px;z-index:50;display:flex;align-i
 .ring1::after{content:'';position:absolute;top:-5px;left:50%;width:10px;height:10px;border-radius:50%;background:var(--cyan);box-shadow:0 0 16px var(--cyan)}
 .ring2::after{content:'';position:absolute;bottom:-5px;left:30%;width:8px;height:8px;border-radius:50%;background:var(--vio);box-shadow:0 0 14px var(--vio)}
 @keyframes spin{to{transform:rotate(360deg)}}
-.sil{position:absolute;left:50%;bottom:6%;transform:translateX(-50%);width:52%;height:74%;
-  background:radial-gradient(46% 38% at 50% 22%,rgba(228,232,255,.85),rgba(139,92,255,.4) 46%,rgba(7,5,15,0) 74%);
-  clip-path:polygon(32% 0,68% 0,86% 32%,78% 100%,22% 100%,14% 32%)}
+.sil{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:64%;aspect-ratio:1;border-radius:50%;overflow:hidden;border:1px solid rgba(139,92,255,.4);box-shadow:0 0 70px rgba(139,92,255,.35)}
+.sil img{width:100%;height:100%;object-fit:cover;object-position:center 12%;filter:grayscale(1) contrast(1.08) brightness(.85)}
+.sil .tone{position:absolute;inset:0;background:linear-gradient(160deg,rgba(139,92,255,.65),rgba(56,225,255,.45));mix-blend-mode:color}
+.sil::after{content:'';position:absolute;inset:0;border-radius:50%;background:radial-gradient(70% 70% at 50% 30%,transparent 55%,rgba(7,5,15,.55))}
 .chip{position:absolute;padding:14px 18px;z-index:3}
 .chip .l{font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan)}
 .chip .b{font-family:'Space Grotesk';font-size:26px;font-weight:700;margin-top:2px}
@@ -97,7 +98,9 @@ section{padding:110px 0}
 .pcard:hover{transform:translateY(-5px);border-color:rgba(56,225,255,.4);box-shadow:0 18px 46px -18px rgba(139,92,255,.5)}
 .aura{position:relative;width:96px;height:96px;margin:0 auto 16px}
 .aura .ring{inset:-9px;border-color:rgba(56,225,255,.35)}
-.aura .core{position:absolute;inset:0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk';font-weight:700;font-size:26px;color:#0a0818;box-shadow:0 0 30px rgba(139,92,255,.45)}
+.aura .core{position:absolute;inset:0;border-radius:50%;overflow:hidden;box-shadow:0 0 30px rgba(139,92,255,.45)}
+.aura .core img{width:100%;height:100%;object-fit:cover;object-position:center 10%;filter:grayscale(1) contrast(1.08) brightness(.9)}
+.aura .core .tone{position:absolute;inset:0;border-radius:50%;mix-blend-mode:color}
 .pcard .nm{font-family:'Space Grotesk';font-weight:600;font-size:15px}
 .pcard .rl{font-size:11px;color:var(--mut);margin-top:3px}
 .pcard .pts{margin-top:12px;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);border:1px solid rgba(56,225,255,.3);border-radius:999px;padding:5px 11px;display:inline-block}
@@ -130,6 +133,31 @@ section{padding:110px 0}
 .step .ln{position:absolute;top:57px;left:calc(30px + 44px + 12px);right:24px;height:1px;background:linear-gradient(90deg,rgba(56,225,255,.4),transparent)}
 .step:last-child .ln{display:none}
 @media(max-width:860px){.step .ln{display:none}}
+
+/* SIGNING MOMENT (scroll-scrubbed) */
+.sign{height:240vh;position:relative}
+.sign-pin{position:sticky;top:0;height:100vh;display:flex;align-items:center;overflow:hidden}
+.sign-pin::before{content:'';position:absolute;inset:0;background:radial-gradient(48% 44% at 64% 50%,rgba(139,92,255,.16),rgba(7,5,15,0) 70%)}
+.sign-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:48px;align-items:center;width:100%;position:relative}
+@media(max-width:900px){.sign-grid{grid-template-columns:1fr;gap:8px}}
+.sign-copy h2{font-family:'Space Grotesk';font-weight:600;font-size:clamp(32px,4.4vw,54px);letter-spacing:-.025em;line-height:1.06;margin:16px 0 16px}
+.sign-copy h2 .g{background:linear-gradient(90deg,var(--vio),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sign-copy p{color:var(--mut);font-size:15px;max-width:380px}
+.sign-hint{margin-top:26px;display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);border:1px solid rgba(56,225,255,.35);border-radius:999px;padding:10px 18px;background:rgba(56,225,255,.06)}
+.sign-hint svg{animation:hintY 1.6s ease-in-out infinite}
+@keyframes hintY{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+@media (prefers-reduced-motion:reduce){.sign-hint svg{animation:none}}
+.sign-stage{position:relative;aspect-ratio:300/340;max-height:70vh;margin:0 auto;width:100%;max-width:460px;border-radius:24px;background:var(--glass);border:1px solid var(--gborder);backdrop-filter:blur(14px)}
+@media(max-width:900px){.sign-stage{max-height:52vh}}
+.sign-stage svg{position:absolute;inset:0;width:100%;height:100%}
+.jersey path{stroke:rgba(238,240,255,.4);stroke-width:2;fill:rgba(238,240,255,.03);stroke-linejoin:round}
+.jersey .thin{stroke:rgba(238,240,255,.2);fill:none;stroke-width:1.6}
+.jersey text{fill:rgba(238,240,255,.1);font-family:'Space Grotesk',sans-serif;font-size:60px;font-weight:700}
+.sig path{stroke:var(--cyan);stroke-width:4;fill:none;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 8px rgba(56,225,255,.8))}
+.sig circle{fill:#eaffff;opacity:0;filter:drop-shadow(0 0 10px var(--cyan))}
+.sigseal{position:absolute;right:4%;bottom:5%;display:flex;align-items:center;gap:9px;border:1px solid rgba(56,225,255,.4);border-radius:12px;padding:10px 16px;background:rgba(10,8,22,.8);backdrop-filter:blur(8px);font-family:'Space Grotesk';font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:0;transform:scale(.7);transition:opacity .45s,transform .45s cubic-bezier(.2,1.4,.4,1)}
+.sigseal.on{opacity:1;transform:none}
+.sigseal .ic{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,var(--vio),var(--cyan));display:flex;align-items:center;justify-content:center;flex:none}
 
 /* TRUST */
 .trust{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
@@ -185,7 +213,8 @@ footer{border-top:1px solid var(--gborder);padding:70px 0 36px;background:rgba(2
 
 <header class="hero" id="top">
   <div class="orbwrap" aria-hidden="true">
-    <div class="ring ring1"></div><div class="ring ring2"></div><div class="orb"></div><div class="sil"></div>
+    <div class="ring ring1"></div><div class="ring ring2"></div><div class="orb"></div>
+    <div class="sil"><img src="assets/players/kohli.jpg" alt=""><div class="tone"></div></div>
     <div class="chip glass c1"><div class="l">Your aura</div><div class="b">1,240</div><div class="s">Top 3% of Bumrah fans</div></div>
     <div class="chip glass c2"><div class="l">Fan number</div><div class="b">#0214</div><div class="s">OG · since day one</div></div>
   </div>
@@ -238,6 +267,37 @@ footer{border-top:1px solid var(--gborder);padding:70px 0 36px;background:rgba(2
       <div class="step glass"><div class="n">1</div><div class="ln" aria-hidden="true"></div><h3>Choose your item</h3><p>Jerseys, match balls, bats, framed prints, every piece a numbered, limited run.</p></div>
       <div class="step glass"><div class="n">2</div><div class="ln" aria-hidden="true"></div><h3>Select your player</h3><p>Hand-signed by the icon you choose at an official, filmed signing session.</p></div>
       <div class="step glass"><div class="n">3</div><h3>Delivered to your door</h3><p>Sealed, scanned and tracked. Museum-grade packaging, at your door in 30 days.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sign" id="sign">
+  <div class="sign-pin">
+    <div class="wrap sign-grid">
+      <div class="sign-copy">
+        <span class="kick">The signature moment</span>
+        <h2>Scroll. He signs.<br><span class="g">It's yours.</span></h2>
+        <p>Keep scrolling. Every piece on FanGram is signed on camera, sealed and numbered before it ships. Proof, not promises.</p>
+        <div class="sign-hint" aria-hidden="true">Scroll to sign
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+        </div>
+      </div>
+      <div class="sign-stage" role="img" aria-label="A neon signature draws itself across a team jersey as you scroll, then a verified seal appears">
+        <svg class="jersey" viewBox="0 0 300 340" aria-hidden="true">
+          <path d="M95 30 L40 62 L64 108 L84 96 L84 306 L216 306 L216 96 L236 108 L260 62 L205 30 C190 52 168 62 150 62 C132 62 110 52 95 30 Z"/>
+          <path class="thin" d="M115 30 C125 45 137 51 150 51 C163 51 175 45 185 30"/>
+          <path class="thin" d="M84 236 L216 236"/>
+          <text x="150" y="132" text-anchor="middle">18</text>
+        </svg>
+        <svg class="sig" viewBox="0 0 300 340" aria-hidden="true">
+          <path id="sigpath" d="M76 208 C84 168 100 156 105 180 C108 198 96 218 87 210 C102 176 126 158 139 170 C149 179 140 200 131 198 C148 176 168 164 184 172 C198 179 189 202 177 198 C194 180 212 172 231 180 M82 226 C130 242 190 226 238 206"/>
+          <circle id="sigpen" r="5" cx="0" cy="0"/>
+        </svg>
+        <div class="sigseal" id="sigseal">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#07050f" stroke-width="3" width="12" height="12"><path d="M20 6L9 17l-5-5"/></svg></span>
+          Scan verified · Piece #047
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -304,13 +364,13 @@ footer{border-top:1px solid var(--gborder);padding:70px 0 36px;background:rgba(2
 </footer>
 
 <script>
-const players=[["Virat Kohli","Batsman","VK","9.8k"],["Rohit Sharma","Batsman","RS","8.9k"],["Jasprit Bumrah","Fast bowler","JB","9.3k"],["Ravindra Jadeja","All-rounder","RJ","7.1k"],["KL Rahul","Batsman · WK","KL","6.8k"],["Hardik Pandya","All-rounder","HP","7.7k"],["Shubman Gill","Batsman","SG","8.2k"],["Rishabh Pant","Batsman · WK","RP","7.4k"],["Suryakumar Yadav","Batsman","SY","6.9k"],["Mohammed Siraj","Fast bowler","MS","6.2k"]];
+const players=[["Virat Kohli","Batsman","kohli"],["Rohit Sharma","Batsman","sharma"],["Jasprit Bumrah","Fast bowler","bumrah"],["Ravindra Jadeja","All-rounder","jadeja"],["KL Rahul","Batsman · WK","rahul"],["Hardik Pandya","All-rounder","pandya"],["Shubman Gill","Batsman","gill"],["Rishabh Pant","Batsman · WK","pant"],["Suryakumar Yadav","Batsman","yadav"],["Mohammed Siraj","Fast bowler","siraj"]];
 const grads=[["#8b5cff","#38e1ff"],["#38e1ff","#ff5ce1"],["#ff5ce1","#8b5cff"],["#6a8bff","#38ffd1"],["#a25cff","#38b6ff"],["#38e1ff","#8b5cff"],["#ff5ca8","#8b5cff"],["#5cffdd","#8b5cff"],["#8b5cff","#ff8a5c"],["#38e1ff","#5c7dff"]];
 document.getElementById('pgrid').innerHTML=players.map((p,i)=>{
   const[a,b]=grads[i%grads.length];
   return `<article class="pcard glass rev" style="transition-delay:${i*40}ms">
     <div class="aura"><div class="ring ring1" aria-hidden="true" style="animation-duration:${18+i}s"></div>
-      <div class="core" style="background:linear-gradient(135deg,${a},${b})">${p[2]}</div></div>
+      <div class="core"><img src="assets/players/${p[2]}.jpg" alt="${p[0]}" loading="lazy"><div class="tone" style="background:linear-gradient(135deg,${a}cc,${b}99)"></div></div></div>
     <div class="nm">${p[0]}</div><div class="rl">${p[1]}</div>
     <span class="pts">+50 aura / msg</span>
   </article>`}).join('');
@@ -331,6 +391,30 @@ document.getElementById('prgrid').innerHTML=prods.map((p,i)=>`
 
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
 document.querySelectorAll('.rev').forEach(el=>io.observe(el));
+
+/* scroll-scrubbed signing */
+(function(){
+  const sec=document.getElementById('sign'),path=document.getElementById('sigpath'),
+        pen=document.getElementById('sigpen'),seal=document.getElementById('sigseal');
+  if(!sec||!path)return;
+  const L=path.getTotalLength();
+  path.style.strokeDasharray=L;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){path.style.strokeDashoffset=0;seal.classList.add('on');return}
+  path.style.strokeDashoffset=L;
+  let ticking=false;
+  function upd(){
+    ticking=false;
+    const r=sec.getBoundingClientRect(),total=r.height-innerHeight;
+    const p=Math.min(1,Math.max(0,-r.top/total));
+    const drawn=Math.min(1,p*1.22);
+    path.style.strokeDashoffset=L*(1-drawn);
+    if(drawn>0&&drawn<1){const pt=path.getPointAtLength(L*drawn);pen.setAttribute('cx',pt.x);pen.setAttribute('cy',pt.y);pen.style.opacity=1}
+    else pen.style.opacity=0;
+    seal.classList.toggle('on',p>.85);
+  }
+  addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(upd)}},{passive:true});
+  upd();
+})();
 </script>
 </body>
 </html>

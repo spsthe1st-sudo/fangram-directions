@@ -71,9 +71,9 @@ section{padding:120px 0;position:relative}
 .pframe{position:relative;aspect-ratio:3/4;border:1px solid var(--gline);padding:9px;background:var(--bg2);transition:box-shadow .35s,transform .35s}
 .pcard:hover .pframe{box-shadow:0 24px 60px -18px rgba(201,168,76,.28);transform:translateY(-4px)}
 .pinner{position:relative;width:100%;height:100%;overflow:hidden;border:1px solid var(--line)}
-.pinner .fill{position:absolute;inset:0}
-.pinner .mono{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:300;font-size:52px;color:rgba(239,231,216,.2)}
-.pinner .lamp{position:absolute;top:0;left:20%;right:20%;height:52%;background:radial-gradient(60% 60% at 50% 0%,rgba(240,223,168,.3),transparent 75%)}
+.pinner img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(.85) sepia(.4) contrast(1.04) brightness(.82)}
+.pinner .tone{position:absolute;inset:0;background:linear-gradient(0deg,rgba(11,9,8,.5),rgba(11,9,8,0) 45%)}
+.pinner .lamp{position:absolute;top:0;left:20%;right:20%;height:52%;background:radial-gradient(60% 60% at 50% 0%,rgba(240,223,168,.32),transparent 75%)}
 .pmeta{text-align:center;padding:16px 4px 0}
 .pmeta .nm{font-family:'Fraunces',serif;font-weight:400;font-size:16.5px}
 .pmeta .rl{font-size:10.5px;color:var(--faint);letter-spacing:.2em;text-transform:uppercase;margin-top:4px}
@@ -107,6 +107,33 @@ section{padding:120px 0;position:relative}
 .step .n{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:54px;color:var(--gold);opacity:.75;line-height:1}
 .step h3{font-family:'Fraunces',serif;font-weight:400;font-size:21px;margin:20px 0 10px}
 .step p{font-size:13px;color:var(--mut);max-width:270px;margin:0 auto}
+
+/* SIGNING MOMENT (scroll-scrubbed) */
+.sign{height:240vh;position:relative}
+.sign-pin{position:sticky;top:0;height:100vh;display:flex;align-items:center;overflow:hidden}
+.sign-pin::before{content:'';position:absolute;inset:0;background:radial-gradient(44% 40% at 62% 48%,rgba(201,168,76,.12),rgba(11,9,8,0) 70%)}
+.sign-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:52px;align-items:center;width:100%;position:relative}
+@media(max-width:900px){.sign-grid{grid-template-columns:1fr;gap:8px}}
+.sign-copy .no{font-family:'Fraunces',serif;font-style:italic;font-size:14px;color:var(--faint)}
+.sign-copy h2{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(32px,4.4vw,54px);letter-spacing:-.015em;line-height:1.08;margin:14px 0 16px}
+.sign-copy h2 em{font-style:italic;color:var(--gold)}
+.sign-copy p{color:var(--mut);font-size:14.5px;max-width:380px}
+.sign-hint{margin-top:26px;display:inline-flex;align-items:center;gap:10px;font-size:10.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gline);border-radius:2px;padding:11px 18px}
+.sign-hint svg{animation:hintY 1.6s ease-in-out infinite}
+@keyframes hintY{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+@media (prefers-reduced-motion:reduce){.sign-hint svg{animation:none}}
+.sign-stage{position:relative;aspect-ratio:300/340;max-height:70vh;margin:0 auto;width:100%;max-width:440px;border:1px solid var(--gline);padding:10px;background:var(--bg2)}
+@media(max-width:900px){.sign-stage{max-height:52vh}}
+.sign-inner{position:absolute;inset:10px;border:1px solid var(--line);background:radial-gradient(56% 44% at 50% 36%,rgba(201,168,76,.14),rgba(11,9,8,0) 72%)}
+.sign-stage svg{position:absolute;inset:10px;width:calc(100% - 20px);height:calc(100% - 20px)}
+.jersey path{stroke:rgba(239,231,216,.42);stroke-width:2;fill:rgba(239,231,216,.03);stroke-linejoin:round}
+.jersey .thin{stroke:rgba(239,231,216,.2);fill:none;stroke-width:1.6}
+.jersey text{fill:rgba(239,231,216,.12);font-family:'Fraunces',serif;font-size:62px;font-style:italic}
+.sig path{stroke:var(--gold);stroke-width:4;fill:none;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 6px rgba(201,168,76,.5))}
+.sig circle{fill:var(--gold2);opacity:0;filter:drop-shadow(0 0 8px var(--gold))}
+.sigseal{position:absolute;right:6%;bottom:6%;display:flex;align-items:center;gap:9px;border:1px solid var(--gline);border-radius:999px;padding:10px 16px;background:rgba(18,15,12,.85);font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;opacity:0;transform:scale(.7) rotate(-5deg);transition:opacity .5s,transform .5s cubic-bezier(.2,1.4,.4,1)}
+.sigseal.on{opacity:1;transform:none}
+.sigseal .dot{width:20px;height:20px;border-radius:50%;background:conic-gradient(var(--gold),var(--gold2),#8a6d2e,var(--gold));flex:none}
 
 /* TRUST */
 .trust{display:grid;grid-template-columns:1.05fr 1fr;gap:70px;align-items:center}
@@ -213,6 +240,35 @@ footer{border-top:1px solid var(--gline);padding:74px 0 40px;background:var(--bg
   </div>
 </section>
 
+<section class="sign" id="sign">
+  <div class="sign-pin">
+    <div class="wrap sign-grid">
+      <div class="sign-copy">
+        <div class="no">— The witnessing —</div>
+        <h2>Watch him<br><em>sign yours.</em></h2>
+        <p>Keep scrolling. Every piece in the vault is signed on camera, sealed and numbered before it ships. What you own is beyond question.</p>
+        <div class="sign-hint" aria-hidden="true">Scroll to sign
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+        </div>
+      </div>
+      <div class="sign-stage" role="img" aria-label="A gold signature draws itself across a jersey under gallery light as you scroll, then a verified seal appears">
+        <div class="sign-inner" aria-hidden="true"></div>
+        <svg class="jersey" viewBox="0 0 300 340" aria-hidden="true">
+          <path d="M95 30 L40 62 L64 108 L84 96 L84 306 L216 306 L216 96 L236 108 L260 62 L205 30 C190 52 168 62 150 62 C132 62 110 52 95 30 Z"/>
+          <path class="thin" d="M115 30 C125 45 137 51 150 51 C163 51 175 45 185 30"/>
+          <path class="thin" d="M84 236 L216 236"/>
+          <text x="150" y="130" text-anchor="middle">93</text>
+        </svg>
+        <svg class="sig" viewBox="0 0 300 340" aria-hidden="true">
+          <path id="sigpath" d="M76 208 C84 168 100 156 105 180 C108 198 96 218 87 210 C102 176 126 158 139 170 C149 179 140 200 131 198 C148 176 168 164 184 172 C198 179 189 202 177 198 C194 180 212 172 231 180 M82 226 C130 242 190 226 238 206"/>
+          <circle id="sigpen" r="5" cx="0" cy="0"/>
+        </svg>
+        <div class="sigseal" id="sigseal"><span class="dot"></span>Sealed · Piece № 047 of 500</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="prod" id="authenticity">
   <div class="wrap">
     <div class="trust">
@@ -275,15 +331,13 @@ footer{border-top:1px solid var(--gline);padding:74px 0 40px;background:var(--bg
 </footer>
 
 <script>
-const players=[["Virat Kohli","Batsman","VK"],["Rohit Sharma","Batsman","RS"],["Jasprit Bumrah","Fast bowler","JB"],["Ravindra Jadeja","All-rounder","RJ"],["KL Rahul","Batsman · WK","KL"],["Hardik Pandya","All-rounder","HP"],["Shubman Gill","Batsman","SG"],["Rishabh Pant","Batsman · WK","RP"],["Suryakumar Yadav","Batsman","SY"],["Mohammed Siraj","Fast bowler","MS"]];
+const players=[["Virat Kohli","Batsman","kohli"],["Rohit Sharma","Batsman","sharma"],["Jasprit Bumrah","Fast bowler","bumrah"],["Ravindra Jadeja","All-rounder","jadeja"],["KL Rahul","Batsman · WK","rahul"],["Hardik Pandya","All-rounder","pandya"],["Shubman Gill","Batsman","gill"],["Rishabh Pant","Batsman · WK","pant"],["Suryakumar Yadav","Batsman","yadav"],["Mohammed Siraj","Fast bowler","siraj"]];
 document.getElementById('pgrid').innerHTML=players.map((p,i)=>`
   <article class="pcard rev" style="transition-delay:${i*45}ms">
     <div class="pframe"><div class="pinner">
-      <div class="fill" style="background:
-        radial-gradient(62% 46% at 50% 28%,rgba(232,210,150,.4),rgba(11,9,8,0) 72%),
-        linear-gradient(180deg,#221d15,#0e0b08)"></div>
+      <img src="assets/players/${p[2]}.jpg" alt="${p[0]}" loading="lazy">
+      <div class="tone" aria-hidden="true"></div>
       <div class="lamp" aria-hidden="true"></div>
-      <div class="mono" aria-hidden="true">${p[2]}</div>
     </div></div>
     <div class="pmeta"><div class="nm">${p[0]}</div><div class="rl">${p[1]}</div></div>
   </article>`).join('');
@@ -304,6 +358,30 @@ document.getElementById('prgrid').innerHTML=prods.map((p,i)=>`
 
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
 document.querySelectorAll('.rev').forEach(el=>io.observe(el));
+
+/* scroll-scrubbed signing */
+(function(){
+  const sec=document.getElementById('sign'),path=document.getElementById('sigpath'),
+        pen=document.getElementById('sigpen'),seal=document.getElementById('sigseal');
+  if(!sec||!path)return;
+  const L=path.getTotalLength();
+  path.style.strokeDasharray=L;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){path.style.strokeDashoffset=0;seal.classList.add('on');return}
+  path.style.strokeDashoffset=L;
+  let ticking=false;
+  function upd(){
+    ticking=false;
+    const r=sec.getBoundingClientRect(),total=r.height-innerHeight;
+    const p=Math.min(1,Math.max(0,-r.top/total));
+    const drawn=Math.min(1,p*1.22);
+    path.style.strokeDashoffset=L*(1-drawn);
+    if(drawn>0&&drawn<1){const pt=path.getPointAtLength(L*drawn);pen.setAttribute('cx',pt.x);pen.setAttribute('cy',pt.y);pen.style.opacity=1}
+    else pen.style.opacity=0;
+    seal.classList.toggle('on',p>.85);
+  }
+  addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(upd)}},{passive:true});
+  upd();
+})();
 </script>
 </body>
 </html>

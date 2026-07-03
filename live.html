@@ -40,9 +40,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:cent
 .slash{position:absolute;top:-10%;bottom:-10%;right:30%;width:52%;background:linear-gradient(155deg,#14204d,var(--blue) 55%,var(--red) 135%);transform:skewX(-12deg);opacity:.85}
 .slash2{position:absolute;top:-10%;bottom:-10%;right:26%;width:2%;background:var(--red);transform:skewX(-12deg);opacity:.9}
 .hfade{position:absolute;inset:0;background:linear-gradient(90deg,var(--bg) 32%,rgba(10,11,15,.35) 58%,rgba(10,11,15,.1))}
-.hsil{position:absolute;right:7%;bottom:0;width:min(500px,42vw);height:86%;pointer-events:none;
-  background:radial-gradient(46% 38% at 50% 22%,rgba(255,255,255,.9),rgba(140,160,230,.4) 44%,rgba(10,11,15,0) 72%);
-  clip-path:polygon(30% 0,70% 0,90% 33%,80% 100%,20% 100%,10% 33%)}
+.hsil{position:absolute;right:0;top:0;bottom:0;width:46%;pointer-events:none;overflow:hidden}
+.hsil img{width:100%;height:100%;object-fit:cover;object-position:center 12%;filter:grayscale(.2) contrast(1.18) saturate(1.05) brightness(.92)}
+.hsil .tone{position:absolute;inset:0;background:linear-gradient(165deg,rgba(30,91,255,.28),rgba(255,61,61,.22));mix-blend-mode:overlay}
+.hsil::after{content:'';position:absolute;inset:0;background:
+  linear-gradient(90deg,var(--bg) 0%,rgba(10,11,15,.25) 40%,rgba(10,11,15,0) 70%),
+  linear-gradient(0deg,rgba(10,11,15,.7) 4%,rgba(10,11,15,0) 32%)}
 .hero-in{position:relative;z-index:2;max-width:700px}
 h1{font-family:'Archivo';font-weight:900;font-size:clamp(56px,9vw,124px);line-height:.92;letter-spacing:-.04em;text-transform:uppercase;margin:20px 0 22px}
 h1 span{color:var(--red)}
@@ -83,7 +86,10 @@ section{padding:110px 0;position:relative}
 .pcard:hover{transform:translateY(-5px);border-color:rgba(255,61,61,.5)}
 .pcard .fill{position:absolute;inset:0;transition:transform .45s cubic-bezier(.2,.6,.2,1)}
 .pcard:hover .fill{transform:scale(1.05)}
-.pcard .jno{position:absolute;top:8px;right:14px;font-family:'Archivo';font-weight:900;font-size:64px;letter-spacing:-.04em;color:rgba(242,244,248,.13);line-height:1}
+.pcard .fill img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(.25) contrast(1.16) saturate(1.05) brightness(.85)}
+.pcard .tone{position:absolute;inset:0;background:linear-gradient(165deg,rgba(30,91,255,.22),rgba(255,61,61,.16));mix-blend-mode:overlay}
+.pcard .tone2{position:absolute;inset:0;background:linear-gradient(0deg,rgba(6,7,10,.6),rgba(6,7,10,0) 42%)}
+.pcard .jno{position:absolute;top:8px;right:14px;font-family:'Archivo';font-weight:900;font-size:64px;letter-spacing:-.04em;color:rgba(242,244,248,.22);line-height:1;text-shadow:0 2px 14px rgba(0,0,0,.5)}
 .pcard .meta{position:absolute;left:0;right:0;bottom:0;padding:14px;background:linear-gradient(0deg,rgba(6,7,10,.94),rgba(6,7,10,0))}
 .pcard .nm{font-family:'Archivo';font-weight:800;font-size:15px;text-transform:uppercase;letter-spacing:-.01em}
 .pcard .rl{font-size:10.5px;font-weight:700;color:var(--red2);letter-spacing:.14em;text-transform:uppercase;margin-top:3px}
@@ -118,6 +124,30 @@ section{padding:110px 0;position:relative}
 .step .n{font-family:'Archivo';font-weight:900;font-size:14px;color:#fff;background:var(--red);width:44px;height:44px;border-radius:9px;display:flex;align-items:center;justify-content:center}
 .step h3{font-family:'Archivo';font-weight:800;font-size:20px;text-transform:uppercase;letter-spacing:-.01em;margin:20px 0 8px;position:relative}
 .step p{font-size:13.5px;color:var(--mut);position:relative}
+
+/* SIGNING MOMENT (scroll-scrubbed) */
+.sign{height:240vh;position:relative}
+.sign-pin{position:sticky;top:0;height:100vh;display:flex;align-items:center;overflow:hidden}
+.sign-pin::before{content:'';position:absolute;top:-10%;bottom:-10%;right:-4%;width:44%;background:linear-gradient(155deg,rgba(30,91,255,.16),rgba(255,61,61,.1));transform:skewX(-12deg)}
+.sign-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:48px;align-items:center;width:100%;position:relative}
+@media(max-width:900px){.sign-grid{grid-template-columns:1fr;gap:8px}}
+.sign-copy h2{font-family:'Archivo',sans-serif;font-weight:900;font-size:clamp(36px,5vw,64px);letter-spacing:-.04em;line-height:.94;text-transform:uppercase;margin:16px 0 16px}
+.sign-copy h2 span{color:var(--red)}
+.sign-copy p{color:var(--mut);font-size:15px;max-width:380px}
+.sign-hint{margin-top:26px;display:inline-flex;align-items:center;gap:10px;font-family:'Archivo';font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--red);border-radius:8px;padding:12px 20px}
+.sign-hint svg{animation:hintY 1.4s ease-in-out infinite}
+@keyframes hintY{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+@media (prefers-reduced-motion:reduce){.sign-hint svg{animation:none}}
+.sign-stage{position:relative;aspect-ratio:300/340;max-height:70vh;margin:0 auto;width:100%;max-width:460px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(155deg,#111830,#0a0b0f 65%)}
+@media(max-width:900px){.sign-stage{max-height:52vh}}
+.sign-stage svg{position:absolute;inset:0;width:100%;height:100%}
+.jersey path{stroke:rgba(242,244,248,.45);stroke-width:2.2;fill:rgba(242,244,248,.03);stroke-linejoin:round}
+.jersey .thin{stroke:rgba(242,244,248,.22);fill:none;stroke-width:1.8}
+.jersey text{fill:rgba(242,244,248,.12);font-family:'Archivo',sans-serif;font-weight:900;font-size:64px}
+.sig path{stroke:var(--red);stroke-width:4.6;fill:none;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 7px rgba(255,61,61,.6))}
+.sig circle{fill:#ffd7d7;opacity:0;filter:drop-shadow(0 0 9px var(--red))}
+.sigseal{position:absolute;right:4%;bottom:5%;display:flex;align-items:center;gap:9px;border-radius:10px;padding:11px 16px;background:var(--red);font-family:'Archivo';font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#fff;opacity:0;transform:scale(.7) rotate(-6deg);transition:opacity .4s,transform .4s cubic-bezier(.2,1.4,.4,1);box-shadow:0 14px 34px -10px rgba(255,61,61,.55)}
+.sigseal.on{opacity:1;transform:none}
 
 /* TRUST */
 .trust{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
@@ -171,7 +201,8 @@ footer{padding:70px 0 36px;background:var(--bg)}
 
 <header class="hero" id="top">
   <div class="slash" aria-hidden="true"></div><div class="slash2" aria-hidden="true"></div>
-  <div class="hsil" aria-hidden="true"></div><div class="hfade" aria-hidden="true"></div>
+  <div class="hsil" aria-hidden="true"><img src="assets/players/pant.jpg" alt=""><div class="tone"></div></div>
+  <div class="hfade" aria-hidden="true"></div>
   <div class="wrap hero-in">
     <span class="kick rev">Real fans, on the record</span>
     <h1 class="rev">Own the<br><span>moment.</span></h1>
@@ -230,6 +261,34 @@ footer{padding:70px 0 36px;background:var(--bg)}
       <div class="step"><div class="big">1</div><div class="n">01</div><h3>Choose your item</h3><p>Jerseys, match balls, bats, framed shots, every piece a numbered, limited drop.</p></div>
       <div class="step"><div class="big">2</div><div class="n">02</div><h3>Select your player</h3><p>Hand-signed by the player you pick, at an official filmed signing session.</p></div>
       <div class="step"><div class="big">3</div><div class="n">03</div><h3>Delivered to your door</h3><p>Sealed, tracked and at your door within 30 days. Game on.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sign" id="sign">
+  <div class="sign-pin">
+    <div class="wrap sign-grid">
+      <div class="sign-copy">
+        <span class="kick">The signature moment</span>
+        <h2>Signed<br><span>live.</span></h2>
+        <p>Keep scrolling. Every piece is signed on camera, sealed and numbered before it ships. No fakes. Ever.</p>
+        <div class="sign-hint" aria-hidden="true">Scroll to sign
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" width="13" height="13"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+        </div>
+      </div>
+      <div class="sign-stage" role="img" aria-label="A red marker signature draws itself across a team jersey as you scroll, then a verified stamp appears">
+        <svg class="jersey" viewBox="0 0 300 340" aria-hidden="true">
+          <path d="M95 30 L40 62 L64 108 L84 96 L84 306 L216 306 L216 96 L236 108 L260 62 L205 30 C190 52 168 62 150 62 C132 62 110 52 95 30 Z"/>
+          <path class="thin" d="M115 30 C125 45 137 51 150 51 C163 51 175 45 185 30"/>
+          <path class="thin" d="M84 236 L216 236"/>
+          <text x="150" y="132" text-anchor="middle">17</text>
+        </svg>
+        <svg class="sig" viewBox="0 0 300 340" aria-hidden="true">
+          <path id="sigpath" d="M76 208 C84 168 100 156 105 180 C108 198 96 218 87 210 C102 176 126 158 139 170 C149 179 140 200 131 198 C148 176 168 164 184 172 C198 179 189 202 177 198 C194 180 212 172 231 180 M82 226 C130 242 190 226 238 206"/>
+          <circle id="sigpen" r="5" cx="0" cy="0"/>
+        </svg>
+        <div class="sigseal" id="sigseal">Verified · #047/500</div>
+      </div>
     </div>
   </div>
 </section>
@@ -295,14 +354,11 @@ footer{padding:70px 0 36px;background:var(--bg)}
 </footer>
 
 <script>
-const players=[["Virat Kohli","Batsman",18],["Rohit Sharma","Batsman",45],["Jasprit Bumrah","Fast bowler",93],["Ravindra Jadeja","All-rounder",8],["KL Rahul","Batsman · WK",1],["Hardik Pandya","All-rounder",33],["Shubman Gill","Batsman",77],["Rishabh Pant","Batsman · WK",17],["Suryakumar Yadav","Batsman",63],["Mohammed Siraj","Fast bowler",73]];
-const tints=[[224,60],[218,55],[228,50],[214,58],[232,52],[220,56],[210,60],[226,54],[216,52],[230,56]];
+const players=[["Virat Kohli","Batsman",18,"kohli"],["Rohit Sharma","Batsman",45,"sharma"],["Jasprit Bumrah","Fast bowler",93,"bumrah"],["Ravindra Jadeja","All-rounder",8,"jadeja"],["KL Rahul","Batsman · WK",1,"rahul"],["Hardik Pandya","All-rounder",33,"pandya"],["Shubman Gill","Batsman",77,"gill"],["Rishabh Pant","Batsman · WK",17,"pant"],["Suryakumar Yadav","Batsman",63,"yadav"],["Mohammed Siraj","Fast bowler",73,"siraj"]];
 document.getElementById('pgrid').innerHTML=players.map((p,i)=>{
-  const[h,s]=tints[i%tints.length];
   return `<article class="pcard rev" style="transition-delay:${i*35}ms">
-    <div class="fill" style="background:
-      radial-gradient(64% 46% at 50% 30%,hsla(${h},${s}%,72%,.5),rgba(10,11,15,0) 72%),
-      linear-gradient(160deg,hsl(${h},${s}%,17%),hsl(${h},${s-14}%,7%))"></div>
+    <div class="fill"><img src="assets/players/${p[3]}.jpg" alt="${p[0]}" loading="lazy"></div>
+    <div class="tone" aria-hidden="true"></div><div class="tone2" aria-hidden="true"></div>
     <div class="jno" aria-hidden="true">${p[2]}</div>
     <div class="dm">DM open</div>
     <div class="meta"><div class="nm">${p[0]}</div><div class="rl">${p[1]}</div></div>
@@ -325,6 +381,30 @@ document.getElementById('prgrid').innerHTML=prods.map((p,i)=>`
 
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.1});
 document.querySelectorAll('.rev').forEach(el=>io.observe(el));
+
+/* scroll-scrubbed signing */
+(function(){
+  const sec=document.getElementById('sign'),path=document.getElementById('sigpath'),
+        pen=document.getElementById('sigpen'),seal=document.getElementById('sigseal');
+  if(!sec||!path)return;
+  const L=path.getTotalLength();
+  path.style.strokeDasharray=L;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){path.style.strokeDashoffset=0;seal.classList.add('on');return}
+  path.style.strokeDashoffset=L;
+  let ticking=false;
+  function upd(){
+    ticking=false;
+    const r=sec.getBoundingClientRect(),total=r.height-innerHeight;
+    const p=Math.min(1,Math.max(0,-r.top/total));
+    const drawn=Math.min(1,p*1.22);
+    path.style.strokeDashoffset=L*(1-drawn);
+    if(drawn>0&&drawn<1){const pt=path.getPointAtLength(L*drawn);pen.setAttribute('cx',pt.x);pen.setAttribute('cy',pt.y);pen.style.opacity=1}
+    else pen.style.opacity=0;
+    seal.classList.toggle('on',p>.85);
+  }
+  addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(upd)}},{passive:true});
+  upd();
+})();
 </script>
 </body>
 </html>

@@ -1,0 +1,52 @@
+{
+  "kohli": {
+    "file": "assets/players/kohli.jpg",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Virat_Kohli_in_PMO_New_Delhi.jpg",
+    "article": "https://en.wikipedia.org/wiki/Virat_Kohli"
+  },
+  "sharma": {
+    "file": "assets/players/sharma.jpg",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/1/1e/Prime_Minister_Of_Bharat_Shri_Narendra_Damodardas_Modi_with_Shri_Rohit_Gurunath_Sharma_%28Cropped%29.jpg",
+    "article": "https://en.wikipedia.org/wiki/Rohit_Sharma"
+  },
+  "bumrah": {
+    "file": "assets/players/bumrah.jpg",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/0/02/Jasprit_Bumrah_in_PMO_New_Delhi.jpg",
+    "article": "https://en.wikipedia.org/wiki/Jasprit_Bumrah"
+  },
+  "jadeja": {
+    "file": "assets/players/jadeja.jpg",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/2/2c/PM_Shri_Narendra_Modi_with_Ravindra_Jadeja_%28Cropped%29.jpg",
+    "article": "https://en.wikipedia.org/wiki/Ravindra_Jadeja"
+  },
+  "pandya": {
+    "file": "assets/players/pandya.jpg",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/f/fc/Hardik_Pandya_in_PMO_New_Delhi.jpg",
+    "article": "https://en.wikipedia.org/wiki/Hardik_Pandya"
+  },
+  "pant": {
+    "file": "assets/players/pant.jpg",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/7/77/Rishabh_Pant.jpg",
+    "article": "https://en.wikipedia.org/wiki/Rishabh_Pant"
+  },
+  "siraj": {
+    "file": "assets/players/siraj.jpg",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/d/da/Prime_Minister_Of_Bharat_Shri_Narendra_Damodardas_Modi_with_Mohammad_Siraj_%28cropped%29.jpg",
+    "article": "https://en.wikipedia.org/wiki/Mohammed_Siraj"
+  },
+  "rahul": {
+    "file": "assets/players/rahul.jpg",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/6/69/KL_Rahul_at_Femina_Miss_India_2018_Grand_Finale_%28cropped%29.jpg",
+    "article": "https://en.wikipedia.org/wiki/KL_Rahul"
+  },
+  "gill": {
+    "file": "assets/players/gill.jpg",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/3/34/Shubman_Gill_2023_%28cropped%29.jpg",
+    "article": "https://en.wikipedia.org/wiki/Shubman_Gill"
+  },
+  "yadav": {
+    "file": "assets/players/yadav.jpg",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Suryakumar_Yadav_in_PMO_New_Delhi.jpg",
+    "article": "https://en.wikipedia.org/wiki/Suryakumar_Yadav"
+  }
+}
