@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FanGram — Live</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0b0f; --bg2:#0e1016; --ink:#f2f4f8; --mut:#9aa0b0; --faint:#5c6272;
+  --red:#ff3d3d; --red2:#ff6a5f; --blue:#1e5bff; --line:rgba(242,244,248,.1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:var(--red);color:#fff}
+.disp{font-family:'Archivo',sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.03em}
+a{color:inherit;text-decoration:none}
+svg{display:block}
+.wrap{max-width:1280px;margin:0 auto;padding:0 32px}
+.kick{font-size:11px;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--red)}
+.rev{opacity:0;transform:translateY(30px);transition:opacity .7s cubic-bezier(.2,.6,.2,1),transform .7s cubic-bezier(.2,.6,.2,1)}
+.rev.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rev{opacity:1;transform:none;transition:none}.tick-track{animation:none!important}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:18px 40px;background:rgba(10,11,15,.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.logo{font-family:'Archivo';font-weight:900;font-size:20px;letter-spacing:-.02em;text-transform:uppercase}
+.logo span{color:var(--red)}
+.nl{display:flex;gap:32px;font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+.nl a{transition:color .2s;cursor:pointer;padding:6px 2px}
+.nl a:hover{color:var(--red2)}
+.ncta{font-family:'Archivo';font-weight:800;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--red);padding:13px 26px;border-radius:8px;transition:background .2s,transform .15s;cursor:pointer;min-height:44px;display:inline-flex;align-items:center}
+.ncta:hover{background:#ff5252}
+@media(max-width:900px){.nl{display:none}}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;padding:130px 0 120px;overflow:hidden}
+.slash{position:absolute;top:-10%;bottom:-10%;right:30%;width:52%;background:linear-gradient(155deg,#14204d,var(--blue) 55%,var(--red) 135%);transform:skewX(-12deg);opacity:.85}
+.slash2{position:absolute;top:-10%;bottom:-10%;right:26%;width:2%;background:var(--red);transform:skewX(-12deg);opacity:.9}
+.hfade{position:absolute;inset:0;background:linear-gradient(90deg,var(--bg) 32%,rgba(10,11,15,.35) 58%,rgba(10,11,15,.1))}
+.hsil{position:absolute;right:7%;bottom:0;width:min(500px,42vw);height:86%;pointer-events:none;
+  background:radial-gradient(46% 38% at 50% 22%,rgba(255,255,255,.9),rgba(140,160,230,.4) 44%,rgba(10,11,15,0) 72%);
+  clip-path:polygon(30% 0,70% 0,90% 33%,80% 100%,20% 100%,10% 33%)}
+.hero-in{position:relative;z-index:2;max-width:700px}
+h1{font-family:'Archivo';font-weight:900;font-size:clamp(56px,9vw,124px);line-height:.92;letter-spacing:-.04em;text-transform:uppercase;margin:20px 0 22px}
+h1 span{color:var(--red)}
+.sub{font-size:17px;color:var(--mut);max-width:440px;margin-bottom:36px}
+.btns{display:flex;gap:14px;flex-wrap:wrap}
+.b1{font-family:'Archivo';font-weight:800;font-size:14px;letter-spacing:.04em;text-transform:uppercase;background:var(--red);color:#fff;padding:18px 36px;border-radius:8px;cursor:pointer;min-height:44px;display:inline-flex;align-items:center;transition:background .2s,transform .15s}
+.b1:hover{background:#ff5252}
+.b2{font-family:'Archivo';font-weight:800;font-size:14px;letter-spacing:.04em;text-transform:uppercase;border:2px solid rgba(242,244,248,.25);color:var(--ink);padding:16px 32px;border-radius:8px;cursor:pointer;min-height:44px;display:inline-flex;align-items:center;gap:10px;transition:border-color .2s}
+.b2:hover{border-color:var(--red)}
+.hstats{position:absolute;left:0;right:0;bottom:0;z-index:3;border-top:1px solid var(--line);background:rgba(10,11,15,.72);backdrop-filter:blur(10px)}
+.hstats .in{display:flex;gap:0}
+.hstat{flex:1;padding:20px 28px;border-right:1px solid var(--line)}
+.hstat:last-child{border-right:none}
+.hstat .n{font-family:'Archivo';font-weight:900;font-size:30px;letter-spacing:-.02em}
+.hstat .n em{font-style:normal;color:var(--red)}
+.hstat .l{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-top:2px}
+@media(max-width:760px){.hstat{padding:14px 16px}.hstat .n{font-size:20px}}
+
+/* TICKER */
+.tick{background:var(--red);padding:13px 0;overflow:hidden}
+.tick-track{display:flex;gap:48px;width:max-content;animation:mq 26s linear infinite}
+@keyframes mq{to{transform:translateX(-50%)}}
+.tick-track span{font-family:'Archivo';font-weight:800;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#fff;white-space:nowrap;display:flex;align-items:center;gap:12px}
+.tick-track i{width:7px;height:7px;background:#fff;display:inline-block;transform:rotate(45deg)}
+
+/* SECTIONS */
+section{padding:110px 0;position:relative}
+.shead{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;margin-bottom:52px}
+.shead h2{font-family:'Archivo';font-weight:900;font-size:clamp(34px,4.6vw,60px);letter-spacing:-.035em;line-height:.96;text-transform:uppercase;margin-top:14px}
+.shead h2 span{color:var(--red)}
+.shead p{color:var(--mut);font-size:15px;max-width:340px}
+
+/* PLAYERS */
+.pgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+@media(max-width:1080px){.pgrid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:640px){.pgrid{grid-template-columns:repeat(2,1fr)}}
+.pcard{position:relative;aspect-ratio:3/4;border-radius:12px;overflow:hidden;cursor:pointer;border:1px solid var(--line);transition:transform .25s,border-color .25s}
+.pcard:hover{transform:translateY(-5px);border-color:rgba(255,61,61,.5)}
+.pcard .fill{position:absolute;inset:0;transition:transform .45s cubic-bezier(.2,.6,.2,1)}
+.pcard:hover .fill{transform:scale(1.05)}
+.pcard .jno{position:absolute;top:8px;right:14px;font-family:'Archivo';font-weight:900;font-size:64px;letter-spacing:-.04em;color:rgba(242,244,248,.13);line-height:1}
+.pcard .meta{position:absolute;left:0;right:0;bottom:0;padding:14px;background:linear-gradient(0deg,rgba(6,7,10,.94),rgba(6,7,10,0))}
+.pcard .nm{font-family:'Archivo';font-weight:800;font-size:15px;text-transform:uppercase;letter-spacing:-.01em}
+.pcard .rl{font-size:10.5px;font-weight:700;color:var(--red2);letter-spacing:.14em;text-transform:uppercase;margin-top:3px}
+.pcard .dm{position:absolute;top:12px;left:12px;font-size:9.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--red);border-radius:6px;padding:6px 10px;opacity:0;transform:translateY(-4px);transition:opacity .25s,transform .25s}
+.pcard:hover .dm{opacity:1;transform:none}
+
+/* PRODUCTS */
+.prod{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+.prod .diag{position:absolute;top:0;bottom:0;left:-6%;width:34%;background:linear-gradient(155deg,rgba(30,91,255,.14),rgba(255,61,61,.08));transform:skewX(-12deg);pointer-events:none}
+.prgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;position:relative}
+@media(max-width:1080px){.prgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.prgrid{grid-template-columns:1fr}}
+.prcard{border:1px solid var(--line);border-radius:14px;padding:26px;background:var(--bg);display:flex;flex-direction:column;min-height:420px;cursor:pointer;position:relative;overflow:hidden;transition:transform .25s,border-color .25s,box-shadow .25s}
+.prcard:hover{transform:translateY(-6px);border-color:rgba(255,61,61,.55);box-shadow:0 22px 50px -20px rgba(255,61,61,.35)}
+.prcard .corner{position:absolute;top:0;right:0;width:90px;height:90px;background:linear-gradient(225deg,rgba(255,61,61,.18),transparent 60%)}
+.tagpre{font-family:'Archivo';font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#fff;background:var(--red);border-radius:6px;padding:6px 12px;align-self:flex-start}
+.prfig{flex:1;display:flex;align-items:center;justify-content:center;padding:24px 0}
+.prfig svg{width:112px;height:112px;stroke:var(--red2);transition:transform .35s}
+.prcard:hover .prfig svg{transform:translateY(-6px) rotate(-3deg)}
+.prcard h3{font-family:'Archivo';font-weight:800;font-size:19px;text-transform:uppercase;letter-spacing:-.01em;margin-bottom:8px}
+.prcard p{font-size:13px;color:var(--mut);margin-bottom:18px}
+.prlink{font-family:'Archivo';font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--red2);display:inline-flex;align-items:center;gap:8px}
+.prlink svg{width:15px;height:15px;stroke:currentColor;transition:transform .2s}
+.prcard:hover .prlink svg{transform:translateX(5px)}
+
+/* PROCESS */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:860px){.steps{grid-template-columns:1fr}}
+.step{border:1px solid var(--line);border-radius:14px;padding:36px 30px;background:var(--bg2);position:relative;overflow:hidden;transition:border-color .25s,transform .25s;cursor:default}
+.step:hover{border-color:rgba(255,61,61,.5);transform:translateY(-4px)}
+.step .big{position:absolute;top:-18px;right:6px;font-family:'Archivo';font-weight:900;font-size:120px;letter-spacing:-.05em;color:rgba(242,244,248,.06);line-height:1}
+.step .n{font-family:'Archivo';font-weight:900;font-size:14px;color:#fff;background:var(--red);width:44px;height:44px;border-radius:9px;display:flex;align-items:center;justify-content:center}
+.step h3{font-family:'Archivo';font-weight:800;font-size:20px;text-transform:uppercase;letter-spacing:-.01em;margin:20px 0 8px;position:relative}
+.step p{font-size:13.5px;color:var(--mut);position:relative}
+
+/* TRUST */
+.trust{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+@media(max-width:960px){.trust{grid-template-columns:1fr}}
+.tstage{position:relative;aspect-ratio:4/5;border-radius:16px;border:1px solid var(--line);overflow:hidden;background:
+  linear-gradient(155deg,#131b3d 0%,#0a0b0f 60%)}
+.tstage .flash{position:absolute;top:-20%;left:30%;width:40%;height:70%;background:radial-gradient(50% 50% at 50% 50%,rgba(255,255,255,.14),transparent 70%);transform:skewX(-12deg)}
+.tstage .item{position:absolute;left:50%;top:47%;transform:translate(-50%,-50%) rotate(-9deg);width:30%;aspect-ratio:1/2.55;border-radius:14px;background:linear-gradient(160deg,#2a3157,#10121f);border:1px solid rgba(255,61,61,.4);box-shadow:0 36px 80px rgba(0,0,0,.6)}
+.tstage .item::after{content:'SIGNED';position:absolute;bottom:18px;left:0;right:0;text-align:center;font-family:'Archivo';font-weight:900;color:var(--red2);font-size:12px;letter-spacing:.22em}
+.tstage .sealtag{position:absolute;top:18px;right:18px;display:flex;align-items:center;gap:9px;border-radius:8px;padding:10px 15px;font-family:'Archivo';font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:rgba(10,11,15,.75);border:1px solid rgba(255,61,61,.45);backdrop-filter:blur(8px)}
+.tstage .sealtag .dot{width:16px;height:16px;border-radius:50%;background:conic-gradient(var(--red),#ffb02e,var(--blue),var(--red))}
+.tstage .stamp{position:absolute;left:18px;bottom:18px;font-family:'Archivo';font-weight:900;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--blue);border-radius:8px;padding:9px 14px}
+.tfeat{display:flex;gap:18px;padding:22px;border:1px solid var(--line);border-radius:14px;margin-bottom:14px;background:var(--bg2);transition:border-color .25s;cursor:default}
+.tfeat:hover{border-color:rgba(255,61,61,.5)}
+.tfeat .ic{width:46px;height:46px;flex:none;border-radius:10px;background:linear-gradient(135deg,rgba(255,61,61,.2),rgba(30,91,255,.16));border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+.tfeat .ic svg{width:20px;height:20px;stroke:var(--red2)}
+.tfeat h3{font-family:'Archivo';font-weight:800;font-size:17px;text-transform:uppercase;letter-spacing:0;margin-bottom:4px}
+.tfeat p{font-size:13px;color:var(--mut)}
+
+/* CTA */
+.cta{padding:0;position:relative;overflow:hidden}
+.cta .in{position:relative;padding:130px 32px;text-align:center;background:linear-gradient(155deg,#14204d,var(--blue) 60%,#c22626 145%)}
+.cta .noise{position:absolute;inset:0;opacity:.12;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E")}
+.cta h2{font-family:'Archivo';font-weight:900;font-size:clamp(40px,6vw,84px);letter-spacing:-.04em;line-height:.94;text-transform:uppercase;position:relative}
+.cta p{color:rgba(255,255,255,.75);margin:18px 0 34px;position:relative;font-weight:600}
+.cta .b1{background:#fff;color:#0a0b0f;position:relative}
+.cta .b1:hover{background:#ffe9e9}
+
+/* FOOTER */
+footer{padding:70px 0 36px;background:var(--bg)}
+.fgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px;margin-bottom:54px}
+@media(max-width:860px){.fgrid{grid-template-columns:1fr 1fr}}
+.fgrid h4{font-family:'Archivo';font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-bottom:18px}
+.fgrid a{display:block;font-size:13.5px;color:var(--mut);margin-bottom:11px;transition:color .2s;cursor:pointer}
+.fgrid a:hover{color:var(--red2)}
+.fgrid .desc{font-size:13.5px;color:var(--mut);max-width:260px;margin-top:14px}
+.fbot{display:flex;align-items:center;justify-content:space-between;gap:20px;border-top:1px solid var(--line);padding-top:28px;font-size:12px;color:var(--faint);flex-wrap:wrap}
+.socs{display:flex;gap:12px}
+.socs a{width:38px;height:38px;border:1px solid var(--line);border-radius:10px;display:flex;align-items:center;justify-content:center;transition:border-color .2s;cursor:pointer}
+.socs a:hover{border-color:var(--red)}
+.socs svg{width:15px;height:15px;fill:var(--mut)}
+</style>
+</head>
+<body>
+
+<nav aria-label="Main">
+  <a class="logo" href="#top">FAN<span>GRAM</span></a>
+  <div class="nl"><a href="#players">Players</a><a href="#products">Drops</a><a href="#process">How it works</a><a href="#authenticity">Verified</a></div>
+  <a class="ncta" href="#products">Claim your Fan #</a>
+</nav>
+
+<header class="hero" id="top">
+  <div class="slash" aria-hidden="true"></div><div class="slash2" aria-hidden="true"></div>
+  <div class="hsil" aria-hidden="true"></div><div class="hfade" aria-hidden="true"></div>
+  <div class="wrap hero-in">
+    <span class="kick rev">Real fans, on the record</span>
+    <h1 class="rev">Own the<br><span>moment.</span></h1>
+    <p class="sub rev">Authentic signed cricket memorabilia from India's top players. Numbered drops, verified seals, at your door in 30 days.</p>
+    <div class="btns rev">
+      <a class="b1" href="#products">Select your signed item</a>
+      <a class="b2" href="#players">Meet the players
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" width="15" height="15"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </div>
+  <div class="hstats">
+    <div class="wrap in" style="display:flex">
+      <div class="hstat"><div class="n">10<em>+</em></div><div class="l">Top players</div></div>
+      <div class="hstat"><div class="n">500</div><div class="l">Pieces per drop</div></div>
+      <div class="hstat"><div class="n">30<em> days</em></div><div class="l">To your door</div></div>
+      <div class="hstat"><div class="n">100<em>%</em></div><div class="l">Verified authentic</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="tick" aria-hidden="true">
+  <div class="tick-track">
+    <span><i></i>Kohli</span><span><i></i>Sharma</span><span><i></i>Bumrah</span><span><i></i>Jadeja</span><span><i></i>Rahul</span><span><i></i>Pandya</span><span><i></i>Gill</span><span><i></i>Pant</span><span><i></i>Yadav</span><span><i></i>Siraj</span>
+    <span><i></i>Kohli</span><span><i></i>Sharma</span><span><i></i>Bumrah</span><span><i></i>Jadeja</span><span><i></i>Rahul</span><span><i></i>Pandya</span><span><i></i>Gill</span><span><i></i>Pant</span><span><i></i>Yadav</span><span><i></i>Siraj</span>
+  </div>
+</div>
+
+<section id="players">
+  <div class="wrap">
+    <div class="shead rev">
+      <div><span class="kick">01 / The squad</span><h2>Meet the <span>players.</span></h2></div>
+      <p>Connect with India's top cricketers through direct messages. Pick your player, make it personal.</p>
+    </div>
+    <div class="pgrid" id="pgrid"></div>
+  </div>
+</section>
+
+<section class="prod" id="products">
+  <div class="diag" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="shead rev">
+      <div><span class="kick">02 / The drops</span><h2>Available for <span>pre-order.</span></h2></div>
+      <p>Four exclusive signed collectibles. Numbered runs. When they're gone, they're gone.</p>
+    </div>
+    <div class="prgrid" id="prgrid"></div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="wrap">
+    <div class="shead rev">
+      <div><span class="kick">03 / The play</span><h2>Simple. Secure. <span>Official.</span></h2></div>
+      <p>How pre-orders work, in three quick steps.</p>
+    </div>
+    <div class="steps rev">
+      <div class="step"><div class="big">1</div><div class="n">01</div><h3>Choose your item</h3><p>Jerseys, match balls, bats, framed shots, every piece a numbered, limited drop.</p></div>
+      <div class="step"><div class="big">2</div><div class="n">02</div><h3>Select your player</h3><p>Hand-signed by the player you pick, at an official filmed signing session.</p></div>
+      <div class="step"><div class="big">3</div><div class="n">03</div><h3>Delivered to your door</h3><p>Sealed, tracked and at your door within 30 days. Game on.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="prod" id="authenticity">
+  <div class="wrap">
+    <div class="trust">
+      <div class="tstage rev" aria-label="A signed bat with verified seal and piece number">
+        <div class="flash" aria-hidden="true"></div>
+        <div class="item"></div>
+        <div class="sealtag"><span class="dot"></span>Verified</div>
+        <div class="stamp">Piece #047 / 500</div>
+      </div>
+      <div>
+        <span class="kick rev">04 / No fakes. Ever.</span>
+        <h2 class="disp rev" style="font-size:clamp(32px,4.4vw,54px);line-height:.96;margin:14px 0 16px">Authenticity you can <span style="color:var(--red)">trust.</span></h2>
+        <p class="rev" style="color:var(--mut);font-size:15px;margin-bottom:22px">Every signing filmed. Every item sealed and numbered. In a market full of fakes, we built the platform where proof is the product.</p>
+        <div class="tfeat rev">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 2l7 4v6c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-4z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <div><h3>Official coordination</h3><p>Direct player signing sessions, with the players and their teams, never third-hand.</p></div>
+        </div>
+        <div class="tfeat rev">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 8l-9-5-9 5v8l9 5 9-5V8z"/><path d="M3.3 8.3L12 13l8.7-4.7M12 13v9"/></svg></div>
+          <div><h3>Secure packaging</h3><p>Museum-quality protection. Your piece arrives exactly as it left his hands.</p></div>
+        </div>
+        <div class="tfeat rev">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 5-5.5"/></svg></div>
+          <div><h3>Verified delivery</h3><p>Tamper-proof holographic seals plus a numbered certificate with every drop.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="in">
+    <div class="noise" aria-hidden="true"></div>
+    <h2 class="rev">Start your<br>collection today.</h2>
+    <p class="rev">Premium cricket memorabilia. Limited drops. Don't watch from the stands.</p>
+    <a class="b1 rev" href="#products" style="display:inline-flex">Select your signed item</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <a class="logo" href="#top" style="font-size:22px">FAN<span>GRAM</span></a>
+        <p class="desc">Official signed cricket memorabilia from India's top players. Verified. Numbered. Delivered.</p>
+      </div>
+      <div><h4>Shop</h4><a>Autograph</a><a>Jersey</a><a>Bat</a><a>Ball</a></div>
+      <div><h4>Information</h4><a>Refund Policy</a><a>Returns</a><a>Accessibility</a><a>Terms &amp; Conditions</a><a>Privacy Policy</a></div>
+      <div><h4>Contact</h4><a href="mailto:hello@fangram.com">hello@fangram.com</a>
+        <div class="socs" style="margin-top:16px">
+          <a aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9-.1-1.3-.1-1.6-.1-4.8s0-3.6.1-4.8C2.4 4 4 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2zm0 3.6a6.2 6.2 0 100 12.4 6.2 6.2 0 000-12.4zm0 10.2a4 4 0 110-8 4 4 0 010 8zm6.4-10.4a1.44 1.44 0 11-2.9 0 1.44 1.44 0 012.9 0z"/></svg></a>
+          <a aria-label="X"><svg viewBox="0 0 24 24"><path d="M18.9 1.2h3.7l-8.1 9.3L24 22.8h-7.5l-5.9-7.7-6.7 7.7H.2l8.7-9.9L0 1.2h7.7l5.3 7 6-7z"/></svg></a>
+          <a aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 00-2.1-2.2C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 00.5 6.2 31.6 31.6 0 000 12a31.6 31.6 0 00.5 5.8 3 3 0 002.1 2.2c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.2A31.6 31.6 0 0024 12a31.6 31.6 0 00-.5-5.8zM9.6 15.6V8.4L15.8 12l-6.2 3.6z"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="fbot"><span>© 2026 FanGram. All rights reserved.</span><span class="disp" style="font-size:12px;color:var(--red2)">Be a real one.</span></div>
+  </div>
+</footer>
+
+<script>
+const players=[["Virat Kohli","Batsman",18],["Rohit Sharma","Batsman",45],["Jasprit Bumrah","Fast bowler",93],["Ravindra Jadeja","All-rounder",8],["KL Rahul","Batsman · WK",1],["Hardik Pandya","All-rounder",33],["Shubman Gill","Batsman",77],["Rishabh Pant","Batsman · WK",17],["Suryakumar Yadav","Batsman",63],["Mohammed Siraj","Fast bowler",73]];
+const tints=[[224,60],[218,55],[228,50],[214,58],[232,52],[220,56],[210,60],[226,54],[216,52],[230,56]];
+document.getElementById('pgrid').innerHTML=players.map((p,i)=>{
+  const[h,s]=tints[i%tints.length];
+  return `<article class="pcard rev" style="transition-delay:${i*35}ms">
+    <div class="fill" style="background:
+      radial-gradient(64% 46% at 50% 30%,hsla(${h},${s}%,72%,.5),rgba(10,11,15,0) 72%),
+      linear-gradient(160deg,hsl(${h},${s}%,17%),hsl(${h},${s-14}%,7%))"></div>
+    <div class="jno" aria-hidden="true">${p[2]}</div>
+    <div class="dm">DM open</div>
+    <div class="meta"><div class="nm">${p[0]}</div><div class="rl">${p[1]}</div></div>
+  </article>`}).join('');
+
+const icons={
+jersey:`<svg viewBox="0 0 48 48" fill="none" stroke-width="1.6"><path d="M17 8l-9 5 4 7 3-2v18h18V18l3 2 4-7-9-5c-1.5 2.4-4 4-7 4s-5.5-1.6-7-4z"/><path d="M20 30h8" opacity=".55"/><path d="M28 34c1.4-1.2 3.2-1 4 .2" opacity=".8"/></svg>`,
+ball:`<svg viewBox="0 0 48 48" fill="none" stroke-width="1.6"><circle cx="24" cy="24" r="15"/><path d="M14 13.5c4 3.5 4 17.5 0 21M34 13.5c-4 3.5-4 17.5 0 21" opacity=".7"/><path d="M20 22l3 3 5-5.5" opacity=".85"/></svg>`,
+bat:`<svg viewBox="0 0 48 48" fill="none" stroke-width="1.6"><path d="M20 6h8v22c0 4-1.4 6-4 6s-4-2-4-6V6z"/><path d="M22 34v7h4v-7" opacity=".8"/><path d="M23 16c1-.8 2.4-.6 3 .3" opacity=".8"/></svg>`,
+frame:`<svg viewBox="0 0 48 48" fill="none" stroke-width="1.6"><rect x="8" y="6" width="32" height="36" rx="2"/><rect x="13" y="11" width="22" height="22" rx="1" opacity=".6"/><path d="M17 38c2-1.4 4.4-1.2 6 .2" opacity=".8"/></svg>`};
+const prods=[["Official Team Jersey","Hand-signed by your choice of player, on the number.","jersey"],["Signed Match Ball","Premium red leather with an authenticated silver signature.","ball"],["Willow Grade Bat","Full-size professional grade bat, signed on the blade.","bat"],["Signed Photo Frame","High-res action shot in a premium museum-grade frame.","frame"]];
+document.getElementById('prgrid').innerHTML=prods.map((p,i)=>`
+  <article class="prcard rev" style="transition-delay:${i*55}ms">
+    <div class="corner" aria-hidden="true"></div>
+    <span class="tagpre">Pre-order</span>
+    <div class="prfig">${icons[p[2]]}</div>
+    <h3>${p[0]}</h3><p>${p[1]}</p>
+    <span class="prlink">View item <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+  </article>`).join('');
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.1});
+document.querySelectorAll('.rev').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
