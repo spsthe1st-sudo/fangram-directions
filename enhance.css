@@ -24,3 +24,29 @@ html.cursor-on, html.cursor-on *{cursor:none !important}
 @media (prefers-reduced-motion:reduce){html.cursor-on,html.cursor-on *{cursor:auto !important}.cur-dot,.cur-ring{display:none}.b1::after,.ncta::after,.cta1::after,.bcta::after{display:none}}
 @media (pointer:coarse){.cur-dot,.cur-ring{display:none}}
 
+
+/* ============ Cycles 3–10 ============ */
+/* C4 split-text */
+.wd{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.12em;margin-bottom:-.12em}
+.wdi{display:inline-block;transform:translateY(115%);transition:transform .72s cubic-bezier(.2,.8,.2,1)}
+.wdi.in{transform:translateY(0)}
+/* C3 hero glow + animated grain */
+.hero,.top{position:relative}
+.heroglow{position:absolute;inset:0;pointer-events:none;z-index:0;mix-blend-mode:screen;background:radial-gradient(300px 300px at var(--gx,60%) var(--gy,40%),rgba(201,162,95,.15),transparent 62%);transition:background .18s ease-out}
+.grain{animation:grainshift 7s steps(6) infinite}
+@keyframes grainshift{0%,100%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}60%{transform:translate(-2%,-1%)}80%{transform:translate(1%,2%)}}
+/* C5 card hover glow */
+.pcard:hover,.vcard:hover,.wcard:hover,.tcard:hover,.step:hover,.rcard:hover,.ocard:hover,.bcard:hover{box-shadow:0 26px 64px -26px rgba(201,162,95,.42)}
+/* C7 focus states + press */
+a:focus-visible,button:focus-visible,.ncta:focus-visible,.b1:focus-visible,.b2:focus-visible,.cta1:focus-visible,.bcta:focus-visible{outline:2px solid #c9a25f;outline-offset:3px;border-radius:6px}
+.b1:active,.ncta:active,.cta1:active,.bcta:active,.b2:active{transform:scale(.97)!important}
+/* C8 subtle depth vignette */
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;background:radial-gradient(130% 100% at 50% 0%,transparent 76%,rgba(0,0,0,.28))}
+/* C10 intro curtain */
+.fgload{position:fixed;inset:0;z-index:2000;background:#0a0a0c;display:flex;align-items:center;justify-content:center;transition:transform .8s cubic-bezier(.76,0,.24,1)}
+.fgload.out{transform:translateY(-101%)}
+.fgl-word{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(42px,8vw,92px);letter-spacing:-.02em;color:#f4f2ee;opacity:0;animation:fglin .8s cubic-bezier(.2,.8,.2,1) .12s forwards}
+.fgl-word span{color:#c9a25f}
+@keyframes fglin{from{opacity:0;transform:translateY(18px);filter:blur(7px)}to{opacity:1;transform:none;filter:none}}
+@media (prefers-reduced-motion:reduce){.wdi{transform:none}.heroglow,.grain{animation:none;background:none}.fgload{display:none}body::after{display:none}}
+@media (pointer:coarse){.heroglow{display:none}}

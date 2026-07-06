@@ -75,3 +75,56 @@
   addEventListener('mouseleave', function(){ dot.style.opacity = 0; ring.style.opacity = 0; });
   addEventListener('mouseenter', function(){ dot.style.opacity = 1; ring.style.opacity = 1; });
 })();
+
+/* ============ Cycles 3–10 ============ */
+(function(){
+  var RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var FINE = matchMedia('(pointer:fine)').matches;
+
+  /* Cycle 4: split-text heading reveals (word-by-word, preserves <em>/<br>) */
+  document.querySelectorAll('h1, .shead h2, .sign-copy h2, .pers h2, .brand h2').forEach(function(h){
+    if (h.dataset.split) return; h.dataset.split = 1; h.classList.remove('rev');
+    var walker = document.createTreeWalker(h, NodeFilter.SHOW_TEXT, null), texts = [];
+    while (walker.nextNode()) texts.push(walker.currentNode);
+    texts.forEach(function(tn){
+      var frag = document.createDocumentFragment();
+      tn.nodeValue.split(/(\s+)/).forEach(function(w){
+        if (w.trim()===''){ frag.appendChild(document.createTextNode(w)); return; }
+        var o=document.createElement('span'); o.className='wd';
+        var i=document.createElement('span'); i.className='wdi'; i.textContent=w;
+        o.appendChild(i); frag.appendChild(o);
+      });
+      if (tn.parentNode) tn.parentNode.replaceChild(frag, tn);
+    });
+    var inners = h.querySelectorAll('.wdi');
+    if (RM){ inners.forEach(function(i){ i.style.transform='none'; }); return; }
+    var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){
+      inners.forEach(function(i,idx){ i.style.transitionDelay=(idx*30)+'ms'; i.classList.add('in'); });
+      io.unobserve(e.target); } }); }, {threshold:.25});
+    io.observe(h);
+  });
+
+  if (RM) return;
+
+  /* Cycle 3: hero mouse-reactive glow */
+  var hero = document.querySelector('.hero, .top');
+  if (hero && FINE){
+    hero.style.position = hero.style.position || 'relative';
+    var glow = document.createElement('div'); glow.className='heroglow'; hero.appendChild(glow);
+    hero.addEventListener('mousemove', function(e){
+      var r = hero.getBoundingClientRect();
+      glow.style.setProperty('--gx', ((e.clientX-r.left)/r.width*100).toFixed(1)+'%');
+      glow.style.setProperty('--gy', ((e.clientY-r.top)/r.height*100).toFixed(1)+'%');
+    });
+  }
+
+  /* Cycle 10: one-time brand intro curtain */
+  if (!sessionStorage.getItem('fg_seen')){
+    sessionStorage.setItem('fg_seen','1');
+    var load=document.createElement('div'); load.className='fgload';
+    load.innerHTML='<div class="fgl-word">FAN<span>GRAM</span></div>';
+    document.body.appendChild(load); document.body.style.overflow='hidden';
+    setTimeout(function(){ load.classList.add('out'); document.body.style.overflow=''; }, 1300);
+    setTimeout(function(){ if(load.parentNode) load.remove(); }, 2200);
+  }
+})();
