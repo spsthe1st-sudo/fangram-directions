@@ -1,0 +1,8 @@
+/* FanGram — shared interaction & motion layer (improvement loop) */
+.scrollprog{position:fixed;top:0;left:0;height:2px;width:100%;background:linear-gradient(90deg,#c9a25f,#e8cf9a);transform:scaleX(0);transform-origin:0 50%;z-index:999;transition:transform .12s linear;box-shadow:0 0 12px rgba(201,162,95,.55);pointer-events:none}
+.pcard,.vcard,.ocard,.wcard,.tcard,.prcard,.step,.rcard,.bcard,.card{transition:transform .28s cubic-bezier(.2,.7,.2,1),border-color .28s,box-shadow .28s,background .28s;will-change:transform;transform-style:preserve-3d}
+.b1,.b2,.ncta,.cta1,.bcta,.cta{will-change:transform;transition:transform .25s cubic-bezier(.2,.8,.2,1),background .2s,filter .2s,border-color .2s}
+/* shine sweep that rides the tilt on premium cards */
+.tiltable{position:relative}
+.tiltshine{position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(180px 180px at var(--mx,50%) var(--my,50%),rgba(232,207,154,.16),transparent 60%);z-index:3}
+@media (prefers-reduced-motion:reduce){.scrollprog{display:none}}
