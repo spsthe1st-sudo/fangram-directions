@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FanGram — Personal Videos · Jasprit Bumrah</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0c;--bg2:#101014;--ink:#f4f2ee;--mut:#a8a49c;--faint:#6b675f;--gold:#c9a25f;--gold2:#e8cf9a;--green:#3ddc97;--line:rgba(244,242,238,.1);--line2:rgba(201,162,95,.35)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:var(--gold);color:#0a0a0c}
+.serif{font-family:'Fraunces',serif}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+.kick{font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--gold)}
+.rev{opacity:0;transform:translateY(24px);transition:opacity .8s cubic-bezier(.2,.6,.2,1),transform .8s cubic-bezier(.2,.6,.2,1)}
+.rev.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rev{opacity:1;transform:none;transition:none}}
+
+nav{position:fixed;top:16px;left:22px;right:22px;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:13px 26px;border:1px solid var(--line);border-radius:999px;background:rgba(10,10,12,.72);backdrop-filter:blur(14px)}
+.logo{font-weight:800;font-size:18px;letter-spacing:.02em}.logo span{color:var(--gold)}
+.nl{display:flex;gap:30px;font-size:13px;font-weight:500;color:var(--mut)}
+.nl a{transition:color .2s;cursor:pointer}.nl a:hover{color:var(--ink)}.nl a.on{color:var(--gold)}
+.ncta{font-size:13px;font-weight:700;color:#0a0a0c;background:var(--ink);padding:11px 22px;border-radius:999px;min-height:44px;display:inline-flex;align-items:center;transition:background .2s}.ncta:hover{background:var(--gold2)}
+@media(max-width:900px){.nl{display:none}}
+
+/* HERO / TALENT */
+.top{padding:120px 0 30px}
+.crumb{font-size:12px;color:var(--faint);margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.crumb a{color:var(--mut)}.crumb b{color:var(--ink);font-weight:600}
+.stage{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,430px);gap:40px;align-items:start}
+.stage>*{min-width:0}
+@media(max-width:900px){.stage{grid-template-columns:1fr;gap:26px}}
+.talent{display:flex;gap:20px;align-items:center;margin-bottom:22px}
+.tphoto{width:96px;height:96px;border-radius:50%;object-fit:cover;object-position:center 12%;border:2px solid var(--line2);filter:grayscale(.15)}
+.tname{font-family:'Fraunces',serif;font-weight:500;font-size:34px;letter-spacing:-.02em;display:flex;align-items:center;gap:10px}
+.vbadge{width:20px;height:20px;border-radius:50%;background:var(--green);display:inline-flex;align-items:center;justify-content:center;font-size:11px;color:#062;font-weight:900}
+.trole{font-size:14px;color:var(--mut);margin-top:2px}
+.tmeta{display:flex;gap:18px;margin-top:10px;font-size:13px;color:var(--mut);flex-wrap:wrap}
+.tmeta b{color:var(--ink)}.tmeta .star{color:var(--gold)}
+.fanfav{display:inline-flex;align-items:center;gap:8px;font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);border:1px solid var(--line2);border-radius:999px;padding:6px 14px;margin-bottom:18px}
+
+/* sample reel */
+.reel{display:flex;gap:12px;overflow-x:auto;padding-bottom:10px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.reel::-webkit-scrollbar{height:6px}.reel::-webkit-scrollbar-thumb{background:var(--line2);border-radius:9px}
+.vcard{position:relative;flex:0 0 150px;aspect-ratio:9/14;border-radius:14px;overflow:hidden;border:1px solid var(--line);cursor:pointer;scroll-snap-align:start;transition:border-color .25s}
+.vcard:hover{border-color:var(--line2)}
+.vcard img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(.25) brightness(.7)}
+.vcard .tint{position:absolute;inset:0}
+.vcard .play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;background:rgba(10,10,12,.55);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;transition:transform .25s}
+.vcard:hover .play{transform:translate(-50%,-50%) scale(1.1)}
+.vcard .lbl{position:absolute;left:0;right:0;bottom:0;padding:12px;background:linear-gradient(0deg,rgba(6,6,8,.9),transparent);font-size:12.5px;font-weight:700;z-index:2}
+
+/* booking panel */
+.book{border:1px solid var(--line2);border-radius:18px;padding:24px;background:linear-gradient(180deg,rgba(201,162,95,.06),rgba(10,10,12,0));position:sticky;top:96px}
+.scarce{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:#ff8a5c;margin-bottom:16px}
+.prow{display:flex;gap:26px;padding-bottom:18px;margin-bottom:18px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.prow .l{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:3px}
+.prow .v{font-size:15px;font-weight:700}.prow .v.g{color:var(--gold)}
+.tier{display:flex;align-items:center;justify-content:space-between;gap:14px;border:1px solid var(--line);border-radius:13px;padding:15px 17px;margin-bottom:11px;cursor:pointer;transition:border-color .25s,background .25s}
+.tier:hover{border-color:var(--line2);background:rgba(201,162,95,.05)}
+.tier.feat{border-color:var(--line2);background:rgba(201,162,95,.07)}
+.tier .tt{font-size:15px;font-weight:700;display:flex;align-items:center;gap:9px}
+.tier .ts{font-size:12px;color:var(--mut);margin-top:2px}
+.tier .tp{font-size:15px;font-weight:800;white-space:nowrap}
+.tier .tp small{display:block;font-size:10px;color:var(--faint);font-weight:600;text-align:right}
+.tier .badge{font-size:8.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#0a0a0c;background:var(--gold);border-radius:5px;padding:3px 7px}
+.cta1{display:block;text-align:center;margin-top:8px;background:linear-gradient(90deg,var(--gold),var(--gold2));color:#0a0a0c;font-weight:800;font-size:14px;padding:16px;border-radius:12px;cursor:pointer;transition:filter .2s}.cta1:hover{filter:brightness(1.06)}
+.guar{text-align:center;font-size:11px;color:var(--faint);margin-top:12px}
+
+/* generic section */
+section{padding:70px 0;position:relative}
+.shead{margin-bottom:34px}
+.shead h2{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(28px,3.6vw,44px);letter-spacing:-.02em;line-height:1.08;margin-top:12px}
+.shead h2 em{font-style:italic;color:var(--gold)}
+.shead p{color:var(--mut);font-size:15px;max-width:560px;margin-top:10px}
+
+/* occasions */
+.occ{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+@media(max-width:1000px){.occ{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:620px){.occ{grid-template-columns:repeat(2,1fr)}}
+.ocard{border:1px solid var(--line);border-radius:14px;padding:18px 16px;cursor:pointer;transition:border-color .25s,transform .25s,background .25s;background:var(--bg2)}
+.ocard:hover{border-color:var(--line2);transform:translateY(-4px);background:rgba(201,162,95,.05)}
+.ocard .ic{font-size:22px;margin-bottom:10px}
+.ocard .t{font-size:13.5px;font-weight:700}
+.ocard .s{font-size:11px;color:var(--faint);margin-top:2px}
+
+/* personalize */
+.pers{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center;border:1px solid var(--line);border-radius:18px;padding:30px;background:var(--bg2)}
+@media(max-width:820px){.pers{grid-template-columns:1fr;gap:22px}}
+.field{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);align-items:center}
+.field:last-child{border-bottom:none}
+.field .n{width:26px;height:26px;border-radius:8px;background:rgba(201,162,95,.12);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex:none}
+.field .t{font-size:14px}.field .t b{color:var(--ink)}.field .t span{color:var(--mut)}
+.langs{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.chip{font-size:12px;font-weight:600;border:1px solid var(--line2);border-radius:999px;padding:8px 15px;color:var(--ink);cursor:pointer;transition:background .2s}
+.chip:hover{background:rgba(201,162,95,.1)}.chip.on{background:var(--gold);color:#0a0a0c;border-color:var(--gold);font-weight:700}
+.perscard{position:relative;aspect-ratio:4/5;border-radius:16px;overflow:hidden;border:1px solid var(--line2)}
+.perscard img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 14%;filter:grayscale(.2) brightness(.75)}
+.perscard .tint{position:absolute;inset:0;background:linear-gradient(160deg,rgba(201,162,95,.35),transparent 55%),linear-gradient(0deg,rgba(6,6,8,.9),transparent 50%);mix-blend-mode:normal}
+.perscard .cap{position:absolute;left:0;right:0;bottom:0;padding:22px}
+.perscard .cap .q{font-family:'Fraunces',serif;font-style:italic;font-size:19px;line-height:1.3}
+.perscard .cap .q b{color:var(--gold2);font-style:normal}
+
+/* why */
+.why{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:900px){.why{grid-template-columns:1fr}}
+.wcard{border:1px solid var(--line);border-radius:15px;padding:24px;background:var(--bg2)}
+.wcard h3{font-family:'Fraunces',serif;font-weight:500;font-size:20px;margin-bottom:8px}
+.wcard h3 em{font-style:italic;color:var(--gold)}
+.wcard p{font-size:13.5px;color:var(--mut)}
+
+/* brands */
+.brand{border:1px solid var(--line2);border-radius:20px;padding:38px;background:linear-gradient(120deg,rgba(201,162,95,.08),rgba(10,10,12,0))}
+.bgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:22px 0}
+@media(max-width:820px){.bgrid{grid-template-columns:repeat(2,1fr)}}
+.bcard{border:1px solid var(--line);border-radius:12px;padding:16px;background:rgba(10,10,12,.4)}
+.bcard .t{font-size:13.5px;font-weight:700;margin-bottom:3px}.bcard .s{font-size:11.5px;color:var(--mut)}
+.bcta{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:#0a0a0c;font-weight:700;font-size:14px;padding:15px 30px;border-radius:999px;cursor:pointer;transition:background .2s}.bcta:hover{background:var(--gold2)}
+
+/* reviews */
+.revs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:900px){.revs{grid-template-columns:1fr}}
+.rcard{border:1px solid var(--line);border-radius:15px;padding:22px;background:var(--bg2)}
+.rcard .stars{color:var(--gold);font-size:13px;letter-spacing:2px;margin-bottom:10px}
+.rcard .q{font-size:14px;line-height:1.55}
+.rcard .by{font-size:12px;color:var(--faint);margin-top:12px}
+
+/* trust strip */
+.trust{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+@media(max-width:820px){.trust{grid-template-columns:1fr 1fr}}
+.tcell{padding:22px;border-right:1px solid var(--line);display:flex;gap:12px;align-items:center}
+.tcell:nth-child(4n){border-right:none}
+.tcell svg{width:22px;height:22px;stroke:var(--gold);flex:none}
+.tcell .t{font-size:13px;font-weight:700}.tcell .s{font-size:11px;color:var(--mut)}
+
+footer{border-top:1px solid var(--line);padding:50px 0 30px;background:var(--bg2);margin-top:40px}
+.fbot{display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:12px;color:var(--faint);flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="icons-elevated.html">FAN<span>GRAM</span></a>
+  <div class="nl"><a href="icons-elevated.html#players">Players</a><a class="on">Personal Videos</a><a href="direct-line.html">The Direct Line</a><a href="icons-elevated.html#authenticity">Authenticity</a></div>
+  <a class="ncta">Claim your Fan #</a>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <div class="crumb rev"><a>Cricket</a> / <a>India</a> / <a>Fast bowlers</a> / <b>Jasprit Bumrah</b></div>
+    <div class="stage">
+      <div>
+        <span class="fanfav rev">✦ Fan favourite</span>
+        <div class="talent rev">
+          <img class="tphoto" src="assets/players/bumrah.jpg" alt="Jasprit Bumrah">
+          <div>
+            <div class="tname">Jasprit Bumrah <span class="vbadge">✓</span></div>
+            <div class="trole">Fast bowler · India</div>
+            <div class="tmeta"><span class="star">★ <b>4.9</b> (327 videos)</span><span>Delivered in <b>3 days</b></span><span><b>2.1M</b> fans</span></div>
+          </div>
+        </div>
+        <p class="rev" style="color:var(--mut);font-size:15px;margin:6px 0 22px;max-width:520px">A personal video from Bumrah himself. He'll say their name, wish them for the moment that matters, in the language they love. The kind of gift the whole family screenshots.</p>
+        <div class="reel rev" id="reel"></div>
+      </div>
+
+      <aside class="book rev">
+        <div class="scarce">🔥 Only 5 personal videos left this week</div>
+        <div class="prow">
+          <div><div class="l">From</div><div class="v g">₹14,999</div></div>
+          <div><div class="l">Delivery</div><div class="v">3 days</div></div>
+          <div><div class="l">Rating</div><div class="v">★ 4.9 · 327</div></div>
+        </div>
+        <div class="tier feat">
+          <div><div class="tt">Personal video <span class="badge">Popular</span></div><div class="ts">For a birthday, festival, or just because</div></div>
+          <div class="tp">₹14,999<small>+</small></div>
+        </div>
+        <div class="tier">
+          <div><div class="tt">Live video call ⚡</div><div class="ts">5 minutes, face to face, actually live</div></div>
+          <div class="tp">₹49,999<small>15-min slots</small></div>
+        </div>
+        <div class="tier">
+          <div><div class="tt">For your brand</div><div class="ts">Shoutouts, festival wishes, appearances</div></div>
+          <div class="tp">₹4,99,000<small>+ · get a quote</small></div>
+        </div>
+        <a class="cta1">Book Bumrah →</a>
+        <div class="guar">Verified talent · Money-back if it's not really him</div>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="shead rev"><span class="kick">Built for our moments</span><h2>Pick the <em>occasion.</em></h2><p>Not a generic clip. Choose the moment, and Bumrah speaks to it, the way it's celebrated here.</p></div>
+    <div class="occ" id="occ"></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="pers rev">
+      <div>
+        <span class="kick">The fantasy, made real</span>
+        <h2 class="serif" style="font-weight:400;font-size:clamp(26px,3.4vw,40px);letter-spacing:-.02em;line-height:1.1;margin:12px 0 18px">He'll actually say <em style="color:var(--gold)">their name.</em></h2>
+        <div class="field"><span class="n">1</span><span class="t"><b>Who it's for</b> <span>· their name, and yours</span></span></div>
+        <div class="field"><span class="n">2</span><span class="t"><b>Their city &amp; team</b> <span>· Mumbai, a CSK diehard</span></span></div>
+        <div class="field"><span class="n">3</span><span class="t"><b>One detail</b> <span>· just cleared their boards, turning 60</span></span></div>
+        <div class="field"><span class="n">4</span><span class="t"><b>The language</b> <span>· pick below</span></span></div>
+        <div class="langs">
+          <span class="chip on">Hindi</span><span class="chip">English</span><span class="chip">Hinglish</span><span class="chip">Gujarati</span><span class="chip">+ your language</span>
+        </div>
+      </div>
+      <div class="perscard">
+        <img src="assets/players/bumrah.jpg" alt="">
+        <div class="tint"></div>
+        <div class="cap"><div class="q">"Arre <b>Rohan</b>, happy birthday bhai! Heard you're a real one…"</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="shead rev"><span class="kick">Why a FanGram video</span><h2>The gift no one else <em>can give.</em></h2></div>
+    <div class="why">
+      <div class="wcard rev"><h3>The moment they <em>realise it's really him</em></h3><p>That face when a legend they've watched for years says their name. You can't buy that anywhere else.</p></div>
+      <div class="wcard rev"><h3>Made for <em>our occasions</em></h3><p>Birthdays and anniversaries, Diwali and Raksha Bandhan, board-exam wishes, a shaadi toast. The moments that matter here.</p></div>
+      <div class="wcard rev"><h3>In <em>their language</em></h3><p>Hindi, Hinglish, or their mother tongue. It hits completely differently when it's not in English.</p></div>
+      <div class="wcard rev"><h3>The group chat <em>goes wild</em></h3><p>The most forwarded, most screenshotted gift you'll ever give. Everyone asks where you got it.</p></div>
+      <div class="wcard rev"><h3>Verified &amp; <em>genuinely him</em></h3><p>Every video is from the real player, or your money back. No lookalikes, no AI, no doubt.</p></div>
+      <div class="wcard rev"><h3>Fast, and <em>a member perk</em></h3><p>Delivered in 3 days. Your Fan-number members get priority slots and a better price.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="brand rev">
+      <span class="kick">For brands &amp; businesses</span>
+      <h2 class="serif" style="font-weight:400;font-size:clamp(26px,3.4vw,40px);letter-spacing:-.02em;line-height:1.1;margin:12px 0 6px">Put an Indian icon in <em style="color:var(--gold)">your corner.</em></h2>
+      <p style="color:var(--mut);font-size:15px;max-width:620px">From a product launch shoutout to a Diwali wish for your entire customer base, cricket is the fastest way into an Indian heart. Premium, verified, and handled end to end.</p>
+      <div class="bgrid">
+        <div class="bcard"><div class="t">Product shoutout</div><div class="s">Launch or endorse, in his words</div></div>
+        <div class="bcard"><div class="t">Festival greetings</div><div class="s">Diwali &amp; more, to your whole list</div></div>
+        <div class="bcard"><div class="t">Event appearance</div><div class="s">A walk-on, a toss, a keynote</div></div>
+        <div class="bcard"><div class="t">Brand ambassador</div><div class="s">Longer-term, exclusive deals</div></div>
+      </div>
+      <a class="bcta">Request a brand quote <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="shead rev"><span class="kick">What fans say</span><h2>327 videos. <em>4.9 stars.</em></h2></div>
+    <div class="revs">
+      <div class="rcard rev"><div class="stars">★★★★★</div><div class="q">"Got one for my dad's 60th, he actually teared up. He's watched Bumrah bowl for years. Best gift I've ever given."</div><div class="by">Rohan M. · Pune</div></div>
+      <div class="rcard rev"><div class="stars">★★★★★</div><div class="q">"Diwali wish for our whole team from Bumrah. The office lost it. Booking a match-day one next."</div><div class="by">People lead · a Bengaluru fintech</div></div>
+      <div class="rcard rev"><div class="stars">★★★★★</div><div class="q">"He wished my son all the best for his board exams, in Hindi, said his name and school. Priceless."</div><div class="by">Meera S. · Delhi</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="trust rev">
+      <div class="tcell"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 2l7 4v6c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-4z"/><path d="M9 12l2 2 4-4"/></svg><div><div class="t">Verified talent</div><div class="s">Genuinely him, always</div></div></div>
+      <div class="tcell"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><div class="t">3-day delivery</div><div class="s">Fast, or a refund</div></div></div>
+      <div class="tcell"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg><div><div class="t">Real recordings</div><div class="s">No AI, no lookalikes</div></div></div>
+      <div class="tcell"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M20 6L9 17l-5-5"/></svg><div><div class="t">Money-back</div><div class="s">If it's not right</div></div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fbot"><span>© 2026 FanGram · Personal videos from India's cricketers</span><span class="serif" style="font-style:italic;color:var(--gold)">He's closer than you think.</span></div>
+  </div>
+</footer>
+
+<script>
+const samples=[["Intro video","rgba(201,162,95,.28)"],["Birthday","rgba(255,61,110,.24)"],["Diwali wish","rgba(255,176,46,.28)"],["Match-day hype","rgba(61,220,151,.22)"],["Pep talk","rgba(139,92,255,.24)"],["Roast a friend","rgba(255,120,60,.24)"],["Anniversary","rgba(201,162,95,.3)"]];
+document.getElementById('reel').innerHTML=samples.map(s=>`
+  <div class="vcard"><img src="assets/players/bumrah.jpg" alt="">
+    <div class="tint" style="background:linear-gradient(160deg,${s[1]},transparent 60%)"></div>
+    <div class="play"><svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></div>
+    <div class="lbl">${s[0]}</div></div>`).join('');
+const occ=[["🎂","Birthday","name + age"],["💍","Anniversary","a toast"],["🪔","Diwali / Festival","for the family"],["📚","Exam best wishes","board-exam pep"],["🏏","Match-day hype","before the big one"],["🎉","Congratulations","new job, wedding"],["🔥","Roast a friend","all in good fun"],["💌","Proposal help","break the ice"],["💪","Pep talk","a push to keep going"],["🩹","Get well soon","a lift when it's needed"],["👶","New baby","welcome the little one"],["🙏","Just a thank you","for someone special"]];
+document.getElementById('occ').innerHTML=occ.map(o=>`<div class="ocard"><div class="ic">${o[0]}</div><div class="t">${o[1]}</div><div class="s">${o[2]}</div></div>`).join('');
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.rev').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
