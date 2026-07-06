@@ -53,4 +53,4 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;back
 
 /* post-review fixes */
 .cur-dot{transition:opacity .3s}
-@media(max-width:560px){.tname{display:block}.tname .vbadge{display:inline-flex;vertical-align:middle;margin-left:6px}}
+@media(max-width:560px){.tname{font-size:25px}.talent{gap:14px}.tphoto{width:74px;height:74px}}
