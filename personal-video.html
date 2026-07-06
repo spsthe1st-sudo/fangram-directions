@@ -286,8 +286,9 @@ footer{border-top:1px solid var(--line);padding:50px 0 30px;background:var(--bg2
 
 <script>
 const samples=[["Intro video","rgba(201,162,95,.28)"],["Birthday","rgba(255,61,110,.24)"],["Diwali wish","rgba(255,176,46,.28)"],["Match-day hype","rgba(61,220,151,.22)"],["Pep talk","rgba(139,92,255,.24)"],["Roast a friend","rgba(255,120,60,.24)"],["Anniversary","rgba(201,162,95,.3)"]];
-document.getElementById('reel').innerHTML=samples.map(s=>`
-  <div class="vcard"><img src="assets/players/bumrah.jpg" alt="">
+const rpos=['center 8%','center 22%','58% 12%','44% 16%','center 26%','62% 10%','48% 19%'];
+document.getElementById('reel').innerHTML=samples.map((s,i)=>`
+  <div class="vcard"><img src="assets/players/bumrah.jpg" alt="" style="object-position:${rpos[i%rpos.length]};transform:scale(${1.05+(i%3)*0.06})">
     <div class="tint" style="background:linear-gradient(160deg,${s[1]},transparent 60%)"></div>
     <div class="play"><svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></div>
     <div class="lbl">${s[0]}</div></div>`).join('');
