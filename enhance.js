@@ -58,4 +58,20 @@
     });
     m.addEventListener('mouseleave', function(){ m.style.transform = ''; });
   });
+
+  /* custom cursor: gold dot + lagging ring that grows on interactive elements */
+  var dot = document.createElement('div'); dot.className = 'cur-dot';
+  var ring = document.createElement('div'); ring.className = 'cur-ring';
+  document.body.appendChild(dot); document.body.appendChild(ring);
+  document.documentElement.classList.add('cursor-on');
+  var mx = innerWidth/2, my = innerHeight/2, rx = mx, ry = my;
+  addEventListener('mousemove', function(e){ mx = e.clientX; my = e.clientY; dot.style.transform = 'translate(' + mx + 'px,' + my + 'px)'; }, {passive:true});
+  (function loop(){ rx += (mx-rx)*0.2; ry += (my-ry)*0.2; ring.style.transform = 'translate(' + rx.toFixed(1) + 'px,' + ry.toFixed(1) + 'px)'; requestAnimationFrame(loop); })();
+  var hov = 'a,button,.pcard,.vcard,.ocard,.wcard,.tcard,.prcard,.step,.rcard,.bcard,.card,.ncta,.b1,.b2,.cta1,.bcta,.chip,.tier,.share,.prlink,.dm';
+  document.querySelectorAll(hov).forEach(function(el){
+    el.addEventListener('mouseenter', function(){ ring.classList.add('big'); });
+    el.addEventListener('mouseleave', function(){ ring.classList.remove('big'); });
+  });
+  addEventListener('mouseleave', function(){ dot.style.opacity = 0; ring.style.opacity = 0; });
+  addEventListener('mouseenter', function(){ dot.style.opacity = 1; ring.style.opacity = 1; });
 })();
