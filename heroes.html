@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FanGram — Where Fans Connect with Their Heroes</title>
+<!-- Direction 05 · "Heroes" — Divya's Website Design Language brief, executed.
+     Emotion first: the feel of "get closer to the people you admire" before any
+     feature. Purple = premium access & achievement (podium, not jersey).
+     Coral = the heartbeat. Gold appears ONLY when something is won. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@500,700,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --purple:#5A38F5; --purple-deep:#3B1FC4; --purple-ink:#241263;
+    --coral:#FF6B6B; --gold:#F5C542;
+    --charcoal:#1E1E24; --offwhite:#FAF9F6; --grey:#D9D9E3;
+    --sans:'Satoshi','Inter',system-ui,sans-serif; --ui:'Inter',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--offwhite);color:var(--charcoal);font-family:var(--ui);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:var(--sans);line-height:1.05}
+  img{max-width:100%;display:block}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 clamp(20px,5vw,64px)}
+  .eyebrow{font:600 12px/1 var(--ui);letter-spacing:.22em;text-transform:uppercase;color:var(--purple)}
+  .btn{display:inline-flex;align-items:center;gap:10px;font:600 15px var(--ui);padding:16px 30px;border-radius:14px;border:0;cursor:pointer;text-decoration:none;transition:transform .25s,box-shadow .25s}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-primary{background:var(--purple);color:#fff;box-shadow:0 10px 30px rgba(90,56,245,.28)}
+  .btn-primary:hover{box-shadow:0 16px 40px rgba(90,56,245,.36)}
+  .btn-ghost{background:transparent;color:var(--charcoal);border:1.5px solid var(--grey)}
+  .btn-ghost:hover{border-color:var(--purple);color:var(--purple)}
+
+  /* nav */
+  nav{position:fixed;inset:0 0 auto;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:18px clamp(20px,4vw,48px);background:rgba(250,249,246,.82);backdrop-filter:blur(14px);border-bottom:1px solid rgba(30,30,36,.06)}
+  .fg{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--charcoal)}
+  .fg-mark{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,var(--purple),var(--purple-deep));display:grid;place-items:center;color:#fff;font:900 15px var(--sans);letter-spacing:-.06em;box-shadow:0 6px 16px rgba(90,56,245,.3)}
+  .fg-name{font:700 19px var(--sans)}
+  .fg-name em{font-style:normal;color:var(--purple)}
+  .nav-links{display:flex;gap:26px;align-items:center;font:500 14.5px var(--ui)}
+  .nav-links a{color:#4c4c56;text-decoration:none}
+  .nav-links a:hover{color:var(--purple)}
+  .nav-links .btn{padding:11px 20px;border-radius:11px}
+  @media(max-width:760px){.nav-links a:not(.btn){display:none}}
+
+  /* hero — the podium feeling */
+  .hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;background:
+    radial-gradient(1100px 700px at 78% 18%,rgba(90,56,245,.16),transparent 60%),
+    radial-gradient(800px 520px at 12% 90%,rgba(255,107,107,.10),transparent 55%),
+    var(--offwhite)}
+  .hero .wrap{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(28px,5vw,72px);align-items:center;padding-top:110px;padding-bottom:60px}
+  @media(max-width:900px){.hero .wrap{grid-template-columns:1fr}}
+  .hero h1{font-weight:900;font-size:clamp(44px,6.4vw,72px);letter-spacing:-.025em;margin:20px 0 22px}
+  .hero h1 .amp{color:var(--purple)}
+  .hero p.lede{font-size:clamp(17px,1.6vw,20px);color:#4c4c56;max-width:34rem;margin-bottom:32px}
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+  .pulse{display:inline-flex;align-items:center;gap:9px;font:600 13px var(--ui);color:#6b6b76;margin-top:34px}
+  .pulse i{width:9px;height:9px;border-radius:50%;background:var(--coral);animation:beat 1.6s ease-in-out infinite}
+  @keyframes beat{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.7);opacity:.55}}
+  @media(prefers-reduced-motion:reduce){.pulse i{animation:none}}
+  .hero-visual{position:relative;height:clamp(420px,58vh,620px)}
+  .hv-card{position:absolute;border-radius:24px;overflow:hidden;box-shadow:0 30px 70px rgba(36,18,99,.25)}
+  .hv-card img{width:100%;height:100%;object-fit:cover}
+  .hv-card::after{content:'';position:absolute;inset:0;background:linear-gradient(200deg,rgba(90,56,245,.22),rgba(36,18,99,.5) 85%)}
+  .hv-main{inset:0 8% 10% 0}
+  .hv-chip{position:absolute;z-index:2;background:rgba(250,249,246,.94);backdrop-filter:blur(10px);border-radius:16px;padding:13px 16px;box-shadow:0 14px 34px rgba(30,30,36,.16);font:600 13.5px var(--ui)}
+  .hv-chip small{display:block;font:500 11.5px var(--ui);color:#6b6b76;margin-top:2px}
+  .hv-c1{right:0;top:14%}
+  .hv-c2{left:-4%;bottom:22%}
+  .hv-c1 b{color:var(--purple)} .hv-c2 b{color:var(--coral)}
+
+  /* the three aspirations — her Brand Essence triad, color-mapped */
+  .sec{padding:clamp(72px,11vh,130px) 0}
+  .sec-head{max-width:720px;margin-bottom:clamp(36px,5vh,56px)}
+  .sec-head h2{font-weight:700;font-size:clamp(32px,4vw,48px);letter-spacing:-.02em;margin:16px 0 14px}
+  .sec-head p{color:#4c4c56;font-size:18px}
+  .triad{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  @media(max-width:900px){.triad{grid-template-columns:1fr}}
+  .tri{border-radius:22px;padding:34px 30px;background:#fff;border:1px solid rgba(30,30,36,.07);box-shadow:0 8px 30px rgba(30,30,36,.05);transition:transform .3s}
+  .tri:hover{transform:translateY(-5px)}
+  .tri .dot{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-size:19px;margin-bottom:20px;color:#fff}
+  .tri h3{font-weight:700;font-size:clamp(22px,2.2vw,28px);margin-bottom:10px}
+  .tri p{color:#4c4c56;font-size:15.5px}
+  .tri-talent .dot{background:var(--purple)}
+  .tri-fan .dot{background:var(--coral)}
+  .tri-connect .dot{background:linear-gradient(135deg,var(--purple),var(--coral))}
+  .tri b{font-weight:600}
+  .tri-talent b{color:var(--purple)} .tri-fan b{color:var(--coral)}
+
+  /* experiences — Cameo accessibility */
+  .xp{background:linear-gradient(180deg,#fff, var(--offwhite))}
+  .xps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  @media(max-width:1000px){.xps{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.xps{grid-template-columns:1fr}}
+  .xp-card{border-radius:20px;background:#fff;border:1px solid rgba(30,30,36,.08);padding:26px 24px;display:flex;flex-direction:column;gap:9px;transition:transform .3s,border-color .3s}
+  .xp-card:hover{transform:translateY(-4px);border-color:rgba(90,56,245,.4)}
+  .xp-card .ic{font-size:24px}
+  .xp-card h3{font-weight:700;font-size:20px}
+  .xp-card p{color:#4c4c56;font-size:14.5px;flex:1}
+  .xp-card .price{font:700 15px var(--sans);color:var(--purple)}
+
+  /* talent rail */
+  .rail{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  @media(max-width:1000px){.rail{grid-template-columns:repeat(2,1fr)}}
+  .tcard{position:relative;border-radius:22px;overflow:hidden;aspect-ratio:3/4;box-shadow:0 16px 44px rgba(36,18,99,.18);transition:transform .3s}
+  .tcard:hover{transform:translateY(-6px)}
+  .tcard img{width:100%;height:100%;object-fit:cover}
+  .tcard::after{content:'';position:absolute;inset:0;background:linear-gradient(190deg,transparent 40%,rgba(36,18,99,.82))}
+  .tinfo{position:absolute;z-index:2;left:18px;right:18px;bottom:16px;color:#fff}
+  .tinfo h3{font-weight:700;font-size:21px}
+  .tinfo p{font:500 12.5px var(--ui);color:rgba(255,255,255,.85)}
+  .tinfo .from{margin-top:8px;display:inline-block;background:rgba(250,249,246,.16);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.28);padding:6px 12px;border-radius:100px;font:600 12.5px var(--ui)}
+
+  /* the triptych — corporate positioning */
+  .trip{background:var(--charcoal);color:var(--offwhite)}
+  .trip .sec-head h2{color:#fff}
+  .trip .sec-head p{color:rgba(250,249,246,.72)}
+  .trip3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  @media(max-width:900px){.trip3{grid-template-columns:1fr}}
+  .trip-p{border-radius:22px;padding:34px 30px;background:rgba(250,249,246,.045);border:1px solid rgba(250,249,246,.1)}
+  .trip-p .eyebrow{color:var(--coral)}
+  .trip-p h3{font-weight:700;font-size:24px;color:#fff;margin:14px 0 10px}
+  .trip-p p{color:rgba(250,249,246,.72);font-size:15px}
+
+  /* the gold moment — victory only */
+  .win{position:relative;overflow:hidden;background:
+    radial-gradient(900px 500px at 50% 0%,rgba(245,197,66,.14),transparent 60%),
+    linear-gradient(180deg,var(--purple-ink),var(--purple-deep))}
+  .win .wrap{text-align:center;padding-top:clamp(80px,12vh,140px);padding-bottom:clamp(80px,12vh,140px)}
+  .win .eyebrow{color:var(--gold)}
+  .win h2{color:#fff;font-weight:900;font-size:clamp(34px,4.6vw,56px);letter-spacing:-.02em;max-width:22ch;margin:18px auto 18px}
+  .win h2 em{font-style:normal;color:var(--gold)}
+  .win p{color:rgba(250,249,246,.78);max-width:52ch;margin:0 auto 34px}
+  .win .btn-primary{background:var(--gold);color:var(--charcoal);box-shadow:0 12px 34px rgba(245,197,66,.3)}
+
+  footer{padding:44px 0 54px;color:#6b6b76;font:500 13.5px var(--ui)}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+
+  /* reveal */
+  .rv{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
+  .rv.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="fg" href="index.html" title="Back to directions">
+    <span class="fg-mark">FG</span>
+    <span class="fg-name">Fan<em>Gram</em></span>
+  </a>
+  <div class="nav-links">
+    <a href="#experiences">Experiences</a>
+    <a href="#talent">Talent</a>
+    <a href="#three-sides">For talent &amp; brands</a>
+    <a class="btn btn-primary" href="#talent">Find your hero</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow rv">The home of real fandom</p>
+      <h1 class="rv">Where fans connect with their <span class="amp">heroes</span>.</h1>
+      <p class="lede rv">A personal video with your name in it. A message that really reaches him. A seat in his world. Get closer to the people you admire.</p>
+      <div class="hero-ctas rv">
+        <a class="btn btn-primary" href="#talent">Find your hero</a>
+        <a class="btn btn-ghost" href="#three-sides">I'm talent</a>
+      </div>
+      <p class="pulse rv"><i></i> 1,214 moments delivered this week</p>
+    </div>
+    <div class="hero-visual rv">
+      <div class="hv-card hv-main"><img src="assets/players/bumrah.jpg" alt="A fast bowler mid-celebration"></div>
+      <div class="hv-chip hv-c1"><b>Personal video</b> booked<small>for Rohan · a birthday · ₹2,499</small></div>
+      <div class="hv-chip hv-c2"><b>♥</b> "Dad cried. Worth every rupee."<small>Aarav, verified order</small></div>
+    </div>
+  </div>
+</header>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow">One simple human truth</p>
+      <h2>Everyone is aspiring toward something.</h2>
+      <p>FanGram lives where three aspirations meet — and turns admiration into connection, and influence into opportunity.</p>
+    </div>
+    <div class="triad">
+      <div class="tri tri-fan rv">
+        <div class="dot">♥</div>
+        <h3>Fans aspire</h3>
+        <p>to get closer to the people who inspire them. <b>Fan passion</b> is the heartbeat of everything here — admiration, loyalty, emotional investment.</p>
+      </div>
+      <div class="tri tri-talent rv">
+        <div class="dot">▲</div>
+        <h3>Talent aspires</h3>
+        <p>to build a legacy beyond the craft. <b>Achievement</b> deserves a stage after the stadium — excellence, dedication, and a business of one's own.</p>
+      </div>
+      <div class="tri tri-connect rv">
+        <div class="dot">∞</div>
+        <h3>And in between</h3>
+        <p><b>Connection.</b> Meaningful access, real engagement, belonging. Not a marketplace, not a social network — an ecosystem where both sides win.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec xp" id="experiences">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow">Experiences that bring you closer</p>
+      <h2>Four ways in.</h2>
+    </div>
+    <div class="xps">
+      <div class="xp-card rv"><span class="ic">🎥</span><h3>Personal video</h3><p>Your hero, on camera, saying your name — for a birthday, a debut, a pep talk before the final.</p><span class="price">from ₹1,499</span></div>
+      <div class="xp-card rv"><span class="ic">💬</span><h3>Direct message</h3><p>Write to him. A real reply, in his words, inside his window — or your money back.</p><span class="price">from ₹899</span></div>
+      <div class="xp-card rv"><span class="ic">🏏</span><h3>Signed memorabilia</h3><p>Signed on camera, sealed, numbered, shipped with the film of the signing.</p><span class="price">from ₹6,999</span></div>
+      <div class="xp-card rv"><span class="ic">🏟️</span><h3>Membership</h3><p>A standing seat in his world: exclusives, member rates, early drops, your place on his wall.</p><span class="price">from ₹149/mo</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="talent">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow">The lineup</p>
+      <h2>Launching with cricket. Built for every stage.</h2>
+      <p>Athletes first — then entertainers, musicians, creators, performers, speakers. The ecosystem scales to wherever admiration lives.</p>
+    </div>
+    <div class="rail">
+      <a class="tcard rv" href="#"><img src="assets/players/bumrah.jpg" alt=""><div class="tinfo"><h3>The Spearhead</h3><p>Fast bowler · India</p><span class="from">from ₹2,499</span></div></a>
+      <a class="tcard rv" href="#"><img src="assets/players/gill.jpg" alt=""><div class="tinfo"><h3>The Prince</h3><p>Top order · India</p><span class="from">from ₹1,999</span></div></a>
+      <a class="tcard rv" href="#"><img src="assets/players/pant.jpg" alt=""><div class="tinfo"><h3>The Entertainer</h3><p>Keeper-bat · India</p><span class="from">from ₹1,799</span></div></a>
+      <a class="tcard rv" href="#"><img src="assets/players/siraj.jpg" alt=""><div class="tinfo"><h3>The Heart</h3><p>Fast bowler · India</p><span class="from">from ₹1,499</span></div></a>
+    </div>
+  </div>
+</section>
+
+<section class="sec trip" id="three-sides">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow" style="color:var(--coral)">Three sides, one ecosystem</p>
+      <h2>Built for Talent. Loved by Fans. Trusted by Brands.</h2>
+    </div>
+    <div class="trip3">
+      <div class="trip-p rv"><p class="eyebrow">Built for talent</p><h3>Your influence, your business</h3><p>Requests in a queue you clear in minutes, earnings that pay out on Fridays, and a fanbase that finally has an address.</p></div>
+      <div class="trip-p rv"><p class="eyebrow">Loved by fans</p><h3>Closer than a follow</h3><p>Real moments — made for you, addressed to you, kept by you. Admiration, answered.</p></div>
+      <div class="trip-p rv"><p class="eyebrow">Trusted by brands</p><h3>Authentic communities</h3><p>Access to fandoms that actually care, through the people they care about. No spray, no pray.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="win">
+  <div class="wrap">
+    <p class="eyebrow rv">The podium moment</p>
+    <h2 class="rv">Admiration becomes connection. Aspiration becomes <em>opportunity</em>.</h2>
+    <p class="rv">Gold shows up here for a reason: it is the color of something won. A moment you keep is that kind of thing.</p>
+    <a class="btn btn-primary rv" href="#talent">Make someone's year</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>FanGram — Where fans connect with their heroes.</span>
+    <span>Direction 05 · "Heroes" · from the Website Design Language brief (Divya) · Satoshi + Inter · imagery per assets/players/credits.json</span>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((es) => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target) } }), { threshold: 0.12 })
+  document.querySelectorAll('.rv').forEach(el => io.observe(el))
+</script>
+</body>
+</html>
