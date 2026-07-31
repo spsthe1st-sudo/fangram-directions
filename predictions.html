@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FanGram — Predictions: the daily front door</title>
+<!-- Concept 06 · "The Question" — Udit's predictions brainstorm made visible.
+     One swipeable prediction card, the reputation layer, and the moment where
+     a prediction becomes commerce. Play-for-points only, never money.
+     Rendered in the Heroes (brand-brief) system: purple podium, coral heartbeat,
+     gold only when something is won. -->
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@500,700,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --purple:#5A38F5; --purple-deep:#3B1FC4; --purple-ink:#241263;
+    --coral:#FF6B6B; --gold:#F5C542; --charcoal:#1E1E24; --offwhite:#FAF9F6; --grey:#D9D9E3;
+    --sans:'Satoshi','Inter',system-ui,sans-serif; --ui:'Inter',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--offwhite);color:var(--charcoal);font-family:var(--ui);line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:clamp(28px,5vh,64px) clamp(20px,5vw,64px) 90px}
+  .eyebrow{font:600 12px/1 var(--ui);letter-spacing:.22em;text-transform:uppercase;color:var(--purple)}
+  h1{font:900 clamp(34px,4.6vw,56px)/1.05 var(--sans);letter-spacing:-.02em;margin:16px 0 12px}
+  .lede{font-size:18px;color:#4c4c56;max-width:60ch}
+  a.back{font:600 13px var(--ui);color:#6b6b76;text-decoration:none}
+  a.back:hover{color:var(--purple)}
+
+  .stage{display:grid;grid-template-columns:minmax(0,1fr) 360px minmax(0,1fr);gap:clamp(20px,3.5vw,44px);align-items:start;margin-top:clamp(30px,5vh,54px)}
+  @media(max-width:1020px){.stage{grid-template-columns:1fr;justify-items:center}.note{max-width:520px}}
+  .note{padding-top:26px}
+  .note h3{font:700 21px var(--sans);margin-bottom:8px}
+  .note p{font-size:14.5px;color:#4c4c56;margin-bottom:16px;max-width:34ch}
+  .note .k{color:var(--purple);font-weight:600}
+  .note .kc{color:var(--coral);font-weight:600}
+  .note .kg{color:#b8901f;font-weight:600}
+
+  /* phone */
+  .phone{width:360px;max-width:92vw;border-radius:34px;background:#fff;border:1px solid rgba(30,30,36,.1);box-shadow:0 34px 90px rgba(36,18,99,.22);overflow:hidden}
+  .p-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px 10px}
+  .fg-mark{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,var(--purple),var(--purple-deep));display:grid;place-items:center;color:#fff;font:900 13px var(--sans)}
+  .p-chips{display:flex;gap:6px}
+  .chip{font:600 11px var(--ui);padding:6px 10px;border-radius:100px;background:#F1EEFE;color:var(--purple)}
+  .chip.streak{background:#FFF6E0;color:#8a6a12}
+
+  .p-q{padding:6px 18px 0}
+  .p-qmeta{display:flex;gap:8px;align-items:center;font:600 11px var(--ui);color:#8a8a94;text-transform:uppercase;letter-spacing:.08em}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--coral);animation:beat 1.6s infinite}
+  @keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.6);opacity:.6}}
+  .p-question{font:700 26px/1.15 var(--sans);margin:10px 0 4px}
+  .p-sub{font:500 12.5px var(--ui);color:#8a8a94}
+
+  .p-card{margin:14px 14px 0;border-radius:22px;overflow:hidden;position:relative;aspect-ratio:4/3;background:var(--purple-ink)}
+  .p-card img{width:100%;height:100%;object-fit:cover;opacity:.85}
+  .p-card::after{content:'';position:absolute;inset:0;background:linear-gradient(195deg,rgba(90,56,245,.25),rgba(36,18,99,.75))}
+  .p-live{position:absolute;z-index:2;top:12px;left:12px;background:rgba(250,249,246,.92);border-radius:100px;padding:6px 12px;font:700 11px var(--ui);color:var(--coral)}
+  .p-social{position:absolute;z-index:2;bottom:12px;left:12px;right:12px;color:#fff;font:500 12.5px var(--ui)}
+  .p-social b{font-weight:700}
+
+  .p-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px}
+  .vote{border:0;border-radius:16px;padding:16px 10px;font:700 15px var(--sans);cursor:pointer;transition:transform .2s}
+  .vote:hover{transform:translateY(-2px)}
+  .vote.yes{background:var(--purple);color:#fff}
+  .vote.no{background:#F1F0F4;color:var(--charcoal)}
+  .p-consensus{padding:0 18px 8px;font:500 12px var(--ui);color:#8a8a94;display:flex;justify-content:space-between}
+  .bar{height:7px;border-radius:100px;background:#F1F0F4;margin:0 18px 12px;overflow:hidden;display:flex}
+  .bar i{background:var(--purple);width:68%}
+  .bar em{background:var(--coral);width:32%}
+
+  /* the commerce moment */
+  .p-after{margin:0 14px 14px;border-radius:18px;border:1.5px dashed var(--grey);padding:14px;display:flex;gap:12px;align-items:center}
+  .p-after img{width:54px;height:54px;border-radius:12px;object-fit:cover}
+  .p-after .t{flex:1}
+  .p-after .t b{font:700 13.5px var(--sans);display:block}
+  .p-after .t span{font:500 11.5px var(--ui);color:#8a8a94}
+  .p-after .go{border:0;background:var(--coral);color:#fff;font:700 12px var(--ui);border-radius:12px;padding:10px 14px;cursor:pointer;white-space:nowrap}
+
+  .p-foot{display:flex;justify-content:space-around;padding:10px 0 16px;border-top:1px solid #F1F0F4;font:600 11px var(--ui);color:#8a8a94}
+  .p-foot b{color:var(--purple)}
+
+  .rules{margin-top:clamp(40px,7vh,64px);display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:860px){.rules{grid-template-columns:1fr}}
+  .rule{background:#fff;border:1px solid rgba(30,30,36,.08);border-radius:18px;padding:22px}
+  .rule h4{font:700 17px var(--sans);margin-bottom:6px}
+  .rule p{font-size:13.5px;color:#4c4c56}
+  .rule .no{color:var(--coral);font-weight:700}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="index.html">← All directions</a>
+  <p class="eyebrow" style="margin-top:18px">Concept 06 · The daily front door</p>
+  <h1>What do you think happens next?</h1>
+  <p class="lede">Udit's predictions layer, made visible. Free to play, scored in reputation, social by default — and every answer quietly becomes a shopping signal. Rendered in the brand-brief system.</p>
+
+  <div class="stage">
+    <div class="note">
+      <h3>Why this screen matters</h3>
+      <p><span class="k">Attention:</span> a fan opens the app for the question, not the store. Fifteen swipeable cards a day, tuned by every past answer.</p>
+      <p><span class="kc">The heartbeat:</span> live consensus and friends' picks make every card a debate, not a poll.</p>
+      <p><span class="kg">Gold rule:</span> gold appears only on won streaks and podium finishes. Never money. PROGA-safe by design.</p>
+      <h3 style="margin-top:22px">The commerce turn</h3>
+      <p>The moment after an answer is the highest-emotion moment in the app — that's when the relic, the video, the seat appears. Predictions are intent data no other platform in India has.</p>
+    </div>
+
+    <div class="phone">
+      <div class="p-head">
+        <span class="fg-mark">FG</span>
+        <div class="p-chips">
+          <span class="chip">Fan IQ 1,240</span>
+          <span class="chip streak">🔥 6-day streak</span>
+        </div>
+      </div>
+      <div class="p-q">
+        <p class="p-qmeta"><span class="dot"></span> Tonight · IND vs AUS · 3rd T20</p>
+        <p class="p-question">Does Valmik take 3+ wickets tonight?</p>
+        <p class="p-sub">Card 4 of 15 · closes at the toss</p>
+      </div>
+      <div class="p-card">
+        <img src="assets/players/bumrah.jpg" alt="">
+        <span class="p-live">● 21,304 predicting</span>
+        <p class="p-social"><b>Rahul</b> and 3 friends say yes · <b>68%</b> of Mumbai agrees</p>
+      </div>
+      <div class="p-actions">
+        <button class="vote yes">Yes — 3+ wickets</button>
+        <button class="vote no">Not tonight</button>
+      </div>
+      <p class="p-consensus"><span>Crowd: 68% yes</span><span>Your record on Valmik: 7/9</span></p>
+      <div class="bar"><i></i><em></em></div>
+      <div class="p-after">
+        <img src="assets/players/bumrah.jpg" alt="">
+        <div class="t">
+          <b>Backing him? Make it real.</b>
+          <span>Signed match ball · edition of 500 · ₹8,999</span>
+        </div>
+        <button class="go">See it</button>
+      </div>
+      <div class="p-foot">
+        <span>▲ <b>Predict</b></span><span>◈ Lineup</span><span>♥ My record</span><span>◎ Seats</span>
+      </div>
+    </div>
+
+    <div class="note">
+      <h3>The reputation ladder</h3>
+      <p>"Top 2% of T20 predictors." "9 blockbusters called." Reputation is the asset — public, rankable, and attached to the Wall of OGs we already built.</p>
+      <h3 style="margin-top:22px">Sponsored, natively</h3>
+      <p>"Does LeBron drop 30 tonight? — presented by Nike." A brand pays for the question, never for the answer. Clean revenue with zero talent effort.</p>
+      <h3 style="margin-top:22px">Sequencing</h3>
+      <p>Stage 1 ships Sept 1: talent commerce. This screen is Stage 2 — the daily habit that feeds it. Nothing here delays launch.</p>
+    </div>
+  </div>
+
+  <div class="rules">
+    <div class="rule"><h4>Play for points, <span class="no">never money</span></h4><p>No entry fees, no cash out, non-cash rewards only. PROGA took real-money prediction apps off the board in May — the engagement space is empty and legal. We stay on the right side of that line, always.</p></div>
+    <div class="rule"><h4>Zero talent effort</h4><p>The cricket calendar writes the questions. Talent never has to post, record, or reply for this layer to work — it runs on the sport itself, which was the original low-touch promise.</p></div>
+    <div class="rule"><h4>Every answer is a signal</h4><p>Predictions tell us what a fan cares about at the moment they care most. That powers the feed, the shop, and eventually the brand marketplace — intent data Instagram doesn't have.</p></div>
+  </div>
+</div>
+</body>
+</html>
