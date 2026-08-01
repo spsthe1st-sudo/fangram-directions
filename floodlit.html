@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FanGram — Direction 08 · Floodlit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night:#0A0F0B;
+    --night-2:#0D1510;
+    --panel:#0F1812;
+    --grass:#2E7D4F;
+    --grass-bright:#3FA46A;
+    --white:#F4F7F3;
+    --dim:rgba(244,247,243,.62);
+    --faint:rgba(244,247,243,.38);
+    --hair:rgba(244,247,243,.09);
+    --hair-2:rgba(244,247,243,.16);
+    --beam:rgba(235,255,242,.10);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+  body{
+    background:var(--night);
+    color:var(--white);
+    font-family:'Inter',sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--grass);color:var(--white)}
+
+  .display{
+    font-family:'Anton',sans-serif;
+    font-weight:400;
+    text-transform:uppercase;
+    letter-spacing:.015em;
+  }
+
+  /* ————— atmosphere: floodlights + grain ————— */
+  .sky{
+    position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(58% 42% at 50% -6%, rgba(240,255,246,.14), transparent 70%),
+      radial-gradient(34% 30% at 12% -4%, rgba(235,255,242,.09), transparent 70%),
+      radial-gradient(34% 30% at 88% -4%, rgba(235,255,242,.09), transparent 70%),
+      linear-gradient(180deg, #0C130E 0%, var(--night) 46%, #070B08 100%);
+  }
+  .beam{
+    position:fixed;top:-12vh;width:34vw;height:95vh;z-index:0;pointer-events:none;
+    background:linear-gradient(180deg, var(--beam), transparent 78%);
+    filter:blur(34px);
+  }
+  .beam-l{left:2vw;transform:rotate(14deg);transform-origin:top left}
+  .beam-r{right:2vw;transform:rotate(-14deg);transform-origin:top right}
+  .grain{
+    position:fixed;inset:-50%;z-index:60;pointer-events:none;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.9'/%3E%3C/svg%3E");
+  }
+
+  .wrap{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:0 clamp(20px,4.5vw,56px)}
+
+  /* ————— lamp array glyph ————— */
+  .lamps{display:inline-grid;grid-template-columns:repeat(4,4px);gap:4px;vertical-align:middle}
+  .lamps i{width:4px;height:4px;border-radius:50%;background:var(--white);box-shadow:0 0 6px rgba(244,247,243,.9),0 0 14px rgba(63,164,106,.5)}
+
+  /* ————— nav ————— */
+  nav{
+    position:relative;z-index:5;
+    display:flex;justify-content:space-between;align-items:center;
+    max-width:1200px;margin:0 auto;
+    padding:26px clamp(20px,4.5vw,56px);
+  }
+  .wordmark{
+    font-family:'Anton',sans-serif;font-size:1.35rem;letter-spacing:.09em;
+    text-transform:uppercase;color:var(--white);text-decoration:none;
+    display:flex;align-items:center;gap:12px;
+  }
+  .wordmark .lamps{transform:translateY(-1px)}
+  .back{
+    font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--dim);text-decoration:none;border-bottom:1px solid transparent;
+    padding-bottom:2px;transition:color .25s,border-color .25s;
+  }
+  .back:hover{color:var(--white);border-color:var(--grass-bright)}
+
+  /* ————— hero ————— */
+  .hero{
+    position:relative;z-index:1;
+    min-height:calc(100svh - 90px);
+    display:flex;flex-direction:column;justify-content:center;
+    padding-top:6vh;padding-bottom:10vh;
+  }
+  .eyebrow{
+    display:flex;align-items:center;gap:14px;
+    font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;color:var(--grass-bright);
+    margin-bottom:3.2rem;
+  }
+  .live-dot{width:7px;height:7px;border-radius:50%;background:var(--grass-bright);box-shadow:0 0 10px var(--grass-bright);animation:pulse 2.6s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+  @media (prefers-reduced-motion: reduce){.live-dot{animation:none}}
+  h1{
+    font-size:clamp(3.4rem, 10.5vw, 9rem);
+    line-height:.94;
+    text-shadow:0 40px 80px rgba(0,0,0,.75);
+  }
+  h1 .stroke{
+    color:transparent;
+    -webkit-text-stroke:1.5px rgba(244,247,243,.85);
+  }
+  h1 .green{color:var(--grass-bright)}
+  .hero-sub{
+    margin-top:3.4rem;max-width:34ch;
+    font-size:1.05rem;color:var(--dim);font-weight:400;
+  }
+  .hero-sub strong{color:var(--white);font-weight:500}
+  .hero-foot{
+    margin-top:auto;padding-top:8vh;
+    display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;
+    font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);
+  }
+  .scroll-cue{display:flex;flex-direction:column;align-items:center;gap:12px}
+  .scroll-cue .line{width:1px;height:52px;background:linear-gradient(180deg,var(--grass-bright),transparent)}
+
+  /* ————— sections ————— */
+  section{position:relative;z-index:1;padding:clamp(5rem,10vh,8.5rem) 0}
+  .sec-label{
+    display:flex;align-items:center;gap:16px;
+    font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--grass-bright);
+    margin-bottom:3.4rem;
+  }
+  .sec-label::after{content:"";flex:1;height:1px;background:var(--hair)}
+  .sec-label .num{color:var(--faint)}
+
+  /* ————— talent ————— */
+  .talent-grid{display:grid;grid-template-columns:5fr 7fr;gap:clamp(2rem,5vw,4.5rem);align-items:end}
+  .portrait{
+    position:relative;border:1px solid var(--hair-2);
+    background:linear-gradient(180deg,#16311F 0%, #0A100B 100%);
+    aspect-ratio:3/4;overflow:hidden;
+  }
+  .portrait img{
+    width:100%;height:100%;object-fit:cover;object-position:top center;display:block;
+    filter:grayscale(1) contrast(1.18) brightness(.88);
+    mix-blend-mode:luminosity;
+  }
+  .portrait::after{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:
+      radial-gradient(70% 42% at 50% -8%, rgba(240,255,246,.30), transparent 68%),
+      linear-gradient(180deg, transparent 55%, rgba(7,11,8,.82) 100%);
+  }
+  .portrait figcaption{
+    position:absolute;left:18px;bottom:16px;z-index:2;
+    font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);
+  }
+  .talent-info .role{
+    font-size:.75rem;letter-spacing:.26em;text-transform:uppercase;color:var(--grass-bright);margin-bottom:1.1rem;
+  }
+  .talent-name{font-size:clamp(3rem,7vw,5.6rem);line-height:.95;text-shadow:0 30px 60px rgba(0,0,0,.7)}
+  .talent-bio{margin-top:1.8rem;max-width:44ch;color:var(--dim);font-size:.98rem}
+  .talent-bio em{color:var(--white);font-style:normal;font-weight:500}
+
+  .trust{
+    margin-top:2.8rem;
+    display:grid;grid-template-columns:repeat(3,1fr);
+    border:1px solid var(--hair-2);
+  }
+  .trust div{
+    padding:1.15rem 1.3rem;
+    border-right:1px solid var(--hair);
+  }
+  .trust div:last-child{border-right:none}
+  .trust b{
+    display:block;font-family:'Anton',sans-serif;font-weight:400;
+    font-size:1.7rem;letter-spacing:.02em;line-height:1.15;
+    font-variant-numeric:tabular-nums;
+  }
+  .trust span{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+
+  /* ————— fixture board ————— */
+  .board{
+    margin-top:clamp(3rem,6vh,4.5rem);
+    border:1px solid var(--hair-2);
+    background:linear-gradient(180deg, var(--panel), #0B120D);
+    box-shadow:0 40px 90px rgba(0,0,0,.55);
+  }
+  .board-head{
+    display:flex;justify-content:space-between;align-items:center;gap:1.5rem;
+    padding:1.1rem 1.6rem;border-bottom:1px solid var(--hair-2);
+    font-size:.7rem;letter-spacing:.26em;text-transform:uppercase;color:var(--dim);
+  }
+  .board-head .lamps{margin:0 1rem}
+  .fixture{
+    display:grid;
+    grid-template-columns:64px 1fr auto auto;
+    align-items:center;gap:clamp(1rem,3vw,2.5rem);
+    padding:1.6rem 1.6rem;
+    border-bottom:1px solid var(--hair);
+    position:relative;
+    transition:background .3s;
+  }
+  .fixture:last-child{border-bottom:none}
+  .fixture::before{
+    content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+    background:var(--grass-bright);transform:scaleY(0);transition:transform .3s;
+  }
+  .fixture:hover{background:rgba(63,164,106,.05)}
+  .fixture:hover::before{transform:scaleY(1)}
+  .fx-num{
+    font-family:'Anton',sans-serif;font-size:1.5rem;color:var(--faint);
+    font-variant-numeric:tabular-nums;letter-spacing:.04em;
+  }
+  .fx-name{
+    font-family:'Anton',sans-serif;text-transform:uppercase;
+    font-size:clamp(1.25rem,2.4vw,1.7rem);letter-spacing:.03em;line-height:1.15;
+  }
+  .fx-desc{font-size:.85rem;color:var(--dim);margin-top:.35rem;max-width:52ch}
+  .fx-desc .gtee{color:var(--grass-bright)}
+  .fx-price{text-align:right;white-space:nowrap}
+  .fx-price b{
+    display:block;font-family:'Anton',sans-serif;font-weight:400;
+    font-size:1.35rem;letter-spacing:.03em;font-variant-numeric:tabular-nums;
+  }
+  .fx-price span{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+  .fx-price .fixed-tag{color:var(--grass-bright)}
+  .cta{
+    font-family:'Inter',sans-serif;font-weight:600;
+    font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--white);background:transparent;
+    border:1px solid var(--hair-2);border-radius:999px;
+    padding:.75rem 1.6rem;cursor:pointer;white-space:nowrap;
+    transition:background .25s,border-color .25s,box-shadow .25s;
+  }
+  .cta:hover{background:var(--grass);border-color:var(--grass);box-shadow:0 0 30px rgba(46,125,79,.45)}
+  .cta-solid{background:var(--grass);border-color:var(--grass)}
+  .cta-solid:hover{background:var(--grass-bright);border-color:var(--grass-bright);box-shadow:0 0 40px rgba(63,164,106,.55)}
+
+  /* ————— team sheet (order moment) ————— */
+  .order-wrap{display:grid;grid-template-columns:5fr 7fr;gap:clamp(2.5rem,5vw,5rem);align-items:start}
+  .order-copy h2{font-size:clamp(2.4rem,5vw,4rem);line-height:.98;text-shadow:0 30px 60px rgba(0,0,0,.7)}
+  .order-copy p{margin-top:1.6rem;color:var(--dim);max-width:38ch;font-size:.95rem}
+  .order-copy .gtee-line{margin-top:2.2rem;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--grass-bright)}
+
+  .sheet{
+    border:1px solid var(--hair-2);
+    background:linear-gradient(180deg,#111A13, #0C120D);
+    box-shadow:0 50px 110px rgba(0,0,0,.6);
+    position:relative;
+  }
+  .sheet::before{ /* floodlight falling on the sheet */
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(80% 46% at 50% -10%, rgba(240,255,246,.10), transparent 70%);
+  }
+  .sheet-head{
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem;
+    padding:1.5rem 1.8rem 1.2rem;border-bottom:1px solid var(--hair-2);
+  }
+  .sheet-head .t{font-family:'Anton',sans-serif;font-size:1.5rem;letter-spacing:.05em;text-transform:uppercase}
+  .sheet-head .n{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);font-variant-numeric:tabular-nums}
+  .sheet-row{
+    display:flex;justify-content:space-between;gap:1rem;
+    padding:.8rem 1.8rem;border-bottom:1px solid var(--hair);
+    font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);
+  }
+  .sheet-row b{color:var(--white);font-weight:500}
+  .sheet-body{padding:1.8rem;position:relative}
+  .field{margin-bottom:1.7rem}
+  .field label,.field .flabel{
+    display:block;font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--faint);margin-bottom:.7rem;
+  }
+  .chips{display:flex;flex-wrap:wrap;gap:.6rem}
+  .chips input{position:absolute;opacity:0;pointer-events:none}
+  .chips label{
+    display:inline-block;margin:0;
+    font-size:.78rem;letter-spacing:.08em;color:var(--dim);
+    border:1px solid var(--hair-2);border-radius:999px;
+    padding:.55rem 1.1rem;cursor:pointer;
+    transition:all .25s;text-transform:none;
+  }
+  .chips label:hover{border-color:var(--grass-bright);color:var(--white)}
+  .chips input:checked + label{
+    background:var(--grass);border-color:var(--grass);color:var(--white);
+    box-shadow:0 0 24px rgba(46,125,79,.4);
+  }
+  .field input[type="text"],.field textarea{
+    width:100%;background:transparent;border:none;
+    border-bottom:1px solid var(--hair-2);
+    color:var(--white);font-family:'Inter',sans-serif;font-size:1rem;
+    padding:.55rem 0;outline:none;resize:none;
+    transition:border-color .25s;
+  }
+  .field input[type="text"]:focus,.field textarea:focus{border-color:var(--grass-bright)}
+  .field input::placeholder,.field textarea::placeholder{color:rgba(244,247,243,.28)}
+  .char-row{display:flex;justify-content:flex-end;margin-top:.4rem;font-size:.68rem;letter-spacing:.14em;color:var(--faint);font-variant-numeric:tabular-nums}
+  .sheet-foot{
+    display:flex;justify-content:space-between;align-items:center;gap:1.5rem;
+    padding:1.4rem 1.8rem;border-top:1px solid var(--hair-2);flex-wrap:wrap;
+  }
+  .sheet-foot .price b{font-family:'Anton',sans-serif;font-weight:400;font-size:1.6rem;letter-spacing:.03em}
+  .sheet-foot .price span{display:block;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--grass-bright)}
+
+  /* ————— stadium screen (the moment it lands) ————— */
+  .screen-stage{display:flex;flex-direction:column;align-items:center}
+  .screen{
+    width:min(760px,100%);aspect-ratio:16/9;position:relative;
+    background:linear-gradient(180deg,#101B13,#080D09);
+    border:1px solid rgba(63,164,106,.35);
+    box-shadow:
+      0 0 0 1px rgba(7,11,8,.9),
+      0 0 60px rgba(63,164,106,.22),
+      0 0 140px rgba(63,164,106,.14),
+      0 60px 120px rgba(0,0,0,.7);
+    display:flex;flex-direction:column;justify-content:space-between;
+    overflow:hidden;
+  }
+  .screen::before{ /* scanlines */
+    content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+    background:repeating-linear-gradient(180deg, rgba(244,247,243,.03) 0 1px, transparent 1px 4px);
+  }
+  .screen::after{ /* top light */
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(70% 40% at 50% -8%, rgba(240,255,246,.12), transparent 70%);
+  }
+  .screen-top{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:1rem 1.4rem;font-size:.66rem;letter-spacing:.26em;text-transform:uppercase;color:var(--dim);
+  }
+  .screen-top .del{color:var(--grass-bright);display:flex;align-items:center;gap:8px}
+  .play{
+    align-self:center;width:76px;height:76px;border-radius:50%;
+    border:1px solid rgba(244,247,243,.5);background:rgba(7,11,8,.4);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+    transition:all .3s;position:relative;z-index:2;
+  }
+  .play::after{
+    content:"";display:block;margin-left:5px;
+    border-left:18px solid var(--white);border-top:11px solid transparent;border-bottom:11px solid transparent;
+  }
+  .play:hover{border-color:var(--grass-bright);box-shadow:0 0 40px rgba(63,164,106,.5);transform:scale(1.05)}
+  @media (prefers-reduced-motion: reduce){.play:hover{transform:none}}
+  .screen-bottom{
+    display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;
+    padding:1.2rem 1.4rem;position:relative;z-index:2;
+  }
+  .screen-bottom .for{font-family:'Anton',sans-serif;font-size:clamp(1.5rem,4vw,2.4rem);letter-spacing:.04em;text-transform:uppercase;line-height:1}
+  .screen-bottom .meta{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-top:.5rem}
+  .share{
+    font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--white);
+    text-decoration:none;border-bottom:1px solid var(--grass-bright);padding-bottom:3px;
+    white-space:nowrap;transition:color .25s;
+  }
+  .share:hover{color:var(--grass-bright)}
+  .reflection{
+    width:min(760px,100%);height:70px;margin-top:2px;
+    background:linear-gradient(180deg, rgba(63,164,106,.12), transparent 80%);
+    filter:blur(14px);transform:scaleY(-1);opacity:.7;
+  }
+  .screen-cap{margin-top:2rem;font-size:.86rem;color:var(--dim);text-align:center;max-width:44ch}
+
+  /* ————— guarantees band ————— */
+  .gtees{
+    border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);
+    display:grid;grid-template-columns:repeat(3,1fr);
+  }
+  .gtees div{
+    padding:2.2rem 1.5rem;text-align:center;
+    border-right:1px solid var(--hair);
+    font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);
+  }
+  .gtees div:last-child{border-right:none}
+  .gtees b{display:block;color:var(--white);font-weight:500;margin-bottom:.4rem}
+
+  /* ————— footer ————— */
+  footer{
+    position:relative;z-index:1;
+    padding:3.5rem 0 3rem;
+    display:flex;justify-content:space-between;align-items:center;gap:1.5rem;flex-wrap:wrap;
+    font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);
+  }
+  footer .fmark{font-family:'Anton',sans-serif;font-size:.95rem;letter-spacing:.09em;color:var(--dim)}
+
+  /* ————— reveal ————— */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.2,.6,.2,1),transform .9s cubic-bezier(.2,.6,.2,1)}
+  .reveal.on{opacity:1;transform:none}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+  }
+
+  /* ————— responsive ————— */
+  @media (max-width: 960px){
+    .talent-grid,.order-wrap{grid-template-columns:1fr}
+    .portrait{max-width:480px}
+    .beam{display:none}
+  }
+  @media (max-width: 720px){
+    .fixture{grid-template-columns:44px 1fr;grid-template-rows:auto auto;row-gap:1.1rem}
+    .fx-price{grid-column:2;text-align:left;justify-self:start}
+    .fixture .cta{grid-column:2;justify-self:start}
+    .trust{grid-template-columns:1fr}
+    .trust div{border-right:none;border-bottom:1px solid var(--hair)}
+    .trust div:last-child{border-bottom:none}
+    .gtees{grid-template-columns:1fr}
+    .gtees div{border-right:none;border-bottom:1px solid var(--hair)}
+    .gtees div:last-child{border-bottom:none}
+    .hero-foot{flex-direction:column;align-items:flex-start;gap:2.5rem}
+    .board-head{flex-wrap:wrap;gap:.6rem}
+  }
+</style>
+</head>
+<body>
+
+<div class="sky"></div>
+<div class="beam beam-l"></div>
+<div class="beam beam-r"></div>
+<div class="grain"></div>
+
+<nav>
+  <a class="wordmark" href="#top">
+    <span class="lamps" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+    FanGram
+  </a>
+  <a class="back" href="index.html">&larr; All directions</a>
+</nav>
+
+<div class="wrap" id="top">
+
+  <!-- ————— HERO ————— -->
+  <header class="hero">
+    <p class="eyebrow reveal"><span class="live-dot" aria-hidden="true"></span> Talent &middot; fans &middot; brands &mdash; under one set of lights</p>
+    <h1 class="display reveal">
+      The lights<br>
+      come on.<br>
+      <span class="stroke">The distance</span><br>
+      <span class="green">disappears.</span>
+    </h1>
+    <p class="hero-sub reveal">Where fans connect with the talent they admire &mdash; <strong>under the same lights.</strong> Every video filmed per order, never AI. Every reply real, or your money back.</p>
+    <p class="eyebrow reveal" style="margin-top:2.8rem;margin-bottom:0;flex-wrap:wrap;gap:8px 14px">Launching with cricket, built for every stage<span style="color:var(--dim);letter-spacing:.18em">Music &middot; Film &middot; Creators &middot; Athletes &middot; Performers</span></p>
+    <div class="hero-foot reveal">
+      <span>Built for talent &middot; loved by fans &middot; trusted by brands</span>
+      <span class="scroll-cue"><span>Meet tonight&rsquo;s talent</span><span class="line"></span></span>
+      <span>Direction 08 &middot; Floodlit</span>
+    </div>
+  </header>
+
+  <!-- ————— TALENT PAGE ————— -->
+  <section id="talent">
+    <p class="sec-label reveal"><span class="num">01</span> The talent page</p>
+
+    <div class="talent-grid">
+      <figure class="portrait reveal">
+        <img src="assets/players/bumrah.jpg" alt="Valmik Rao, fast bowler, under stadium floodlights">
+        <figcaption>V. Rao &middot; night-graded &middot; press, matchday</figcaption>
+      </figure>
+
+      <div class="talent-info reveal">
+        <p class="role">FanGram launch talent &middot; cricket, our first vertical</p>
+        <h2 class="talent-name display">Valmik<br>Rao</h2>
+        <p class="talent-bio">148 at the death. The stadium goes quiet at the top of his run-up &mdash; that hush is his signature. <em>Between fixtures, he films for you.</em></p>
+        <div class="trust">
+          <div><b>4.9</b><span>Average rating</span></div>
+          <div><b>3,410</b><span>Delivered</span></div>
+          <div><b>1 day</b><span>Replies in</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- fixture board = offerings -->
+    <div class="board reveal" role="table" aria-label="Valmik Rao's offerings">
+      <div class="board-head">
+        <span>Tonight&rsquo;s card</span>
+        <span class="lamps" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+        <span>Five ways in</span>
+      </div>
+
+      <div class="fixture">
+        <span class="fx-num">01</span>
+        <div>
+          <p class="fx-name">Personal video</p>
+          <p class="fx-desc">Your occasion, his voice, one take under the lights. <span class="gtee">Filmed per order, never AI.</span></p>
+        </div>
+        <div class="fx-price"><b>&#8377;2,499</b><span class="fixed-tag">Fixed &middot; never &ldquo;from&rdquo;</span></div>
+        <button class="cta cta-solid" onclick="document.getElementById('order').scrollIntoView({behavior:'smooth'})">Book</button>
+      </div>
+
+      <div class="fixture">
+        <span class="fx-num">02</span>
+        <div>
+          <p class="fx-name">Brand video</p>
+          <p class="fx-desc">For brands: sponsored moments, licensed brand video, endorsements &mdash; access to authentic fan communities. Companies talk to us first.</p>
+        </div>
+        <div class="fx-price"><b>&mdash;</b><span>Price on conversation</span></div>
+        <button class="cta">Contact us</button>
+      </div>
+
+      <div class="fixture">
+        <span class="fx-num">03</span>
+        <div>
+          <p class="fx-name">Direct message</p>
+          <p class="fx-desc">A question in, a real answer back. <span class="gtee">Real reply or your money back.</span></p>
+        </div>
+        <div class="fx-price"><b>&#8377;1,199</b><span>Per message</span></div>
+        <button class="cta">Write</button>
+      </div>
+
+      <div class="fixture">
+        <span class="fx-num">04</span>
+        <div>
+          <p class="fx-name">Signed merchandise</p>
+          <p class="fx-desc">Match shirts, bats, the ball from that over. <span class="gtee">Signed on camera, sealed, numbered.</span></p>
+        </div>
+        <div class="fx-price"><b>&#8377;12,999</b><span>From</span></div>
+        <button class="cta">Shop</button>
+      </div>
+
+      <div class="fixture">
+        <span class="fx-num">05</span>
+        <div>
+          <p class="fx-name">A seat in his world</p>
+          <p class="fx-desc">Behind the boundary rope: training clips, match notes, first calls on drops.</p>
+        </div>
+        <div class="fx-price"><b>&#8377;149<span style="font-size:.8em">/mo</span></b><span>From</span></div>
+        <button class="cta">Join</button>
+      </div>
+    </div>
+
+    <p class="reveal" style="margin-top:1.5rem;font-size:.84rem;color:var(--dim);max-width:62ch"><strong style="color:var(--white);font-weight:500">For brands</strong> &mdash; reach authentic fan communities, license sponsored moments and brand video, and partner with the talent your audience already trusts.</p>
+  </section>
+
+  <!-- ————— ORDER MOMENT: team sheet ————— -->
+  <section id="order">
+    <p class="sec-label reveal"><span class="num">02</span> The order moment</p>
+
+    <div class="order-wrap">
+      <div class="order-copy reveal">
+        <h2 class="display">You&rsquo;re on<br>the team<br>sheet now.</h2>
+        <p>Booking a personal video from Valmik works like being named in the XI. Fill in the sheet, and somewhere between fixtures he reads your name out loud &mdash; to a camera, for you.</p>
+        <p class="gtee-line">Filmed per order, never AI</p>
+      </div>
+
+      <form class="sheet reveal" id="teamsheet">
+        <div class="sheet-head">
+          <span class="t">Team sheet</span>
+          <span class="n">Delivery N&ordm; 3,411</span>
+        </div>
+        <div class="sheet-row"><span>Player</span><b>Valmik Rao &middot; Fast bowler</b></div>
+        <div class="sheet-row"><span>Bowling for</span><b>You decide below</b></div>
+
+        <div class="sheet-body">
+          <div class="field">
+            <span class="flabel">The occasion</span>
+            <div class="chips">
+              <input type="radio" name="occ" id="occ1" checked><label for="occ1">A birthday</label>
+              <input type="radio" name="occ" id="occ2"><label for="occ2">A wedding</label>
+              <input type="radio" name="occ" id="occ3"><label for="occ3">An exam cleared</label>
+              <input type="radio" name="occ" id="occ4"><label for="occ4">A tough week</label>
+              <input type="radio" name="occ" id="occ5"><label for="occ5">Just because</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="forwhom">For whom</label>
+            <input type="text" id="forwhom" placeholder="Rohan, my little brother &mdash; he bowls too">
+          </div>
+
+          <div class="field" style="margin-bottom:.4rem">
+            <label for="msg">What should he know</label>
+            <textarea id="msg" rows="3" maxlength="250" placeholder="He hasn&rsquo;t missed one of your overs in three years. Tell him the yorker takes ten thousand quiet mornings."></textarea>
+            <div class="char-row"><span id="count">0</span>&nbsp;/ 250</div>
+          </div>
+        </div>
+
+        <div class="sheet-foot">
+          <div class="price"><b>&#8377;2,499</b><span>Fixed price &middot; filmed per order</span></div>
+          <button class="cta cta-solid" type="submit" id="bookbtn">Book</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ————— THE MOMENT IT LANDS ————— -->
+  <section id="lands">
+    <p class="sec-label reveal"><span class="num">03</span> The moment it lands</p>
+
+    <div class="screen-stage reveal">
+      <div class="screen" role="figure" aria-label="Delivered personal video from Valmik Rao">
+        <div class="screen-top">
+          <span>FanGram &middot; personal video</span>
+          <span class="del"><span class="live-dot" aria-hidden="true"></span> Delivered</span>
+        </div>
+        <button class="play" aria-label="Play video"></button>
+        <div class="screen-bottom">
+          <div>
+            <p class="for">For Rohan</p>
+            <p class="meta">A birthday &middot; 0:42 &middot; from Valmik Rao</p>
+          </div>
+          <a class="share" href="#lands">Share the link</a>
+        </div>
+      </div>
+      <div class="reflection" aria-hidden="true"></div>
+      <p class="screen-cap">It arrives like your name going up on the big screen. Forty-two seconds, one take, filmed for one person in the whole stadium.</p>
+    </div>
+  </section>
+
+  <!-- ————— guarantees ————— -->
+  <div class="gtees reveal">
+    <div><b>Filmed per order</b>Never AI</div>
+    <div><b>Real reply</b>Or your money back</div>
+    <div><b>Signed on camera</b>Sealed, numbered</div>
+  </div>
+
+  <footer>
+    <span class="fmark">FanGram</span>
+    <span>Direction 08 &middot; Floodlit &middot; FanGram design exploration</span>
+    <span>FanGram &mdash; talent, fans, brands.</span>
+  </footer>
+
+</div>
+
+<script>
+  (function(){
+    // character counter
+    var msg = document.getElementById('msg'), count = document.getElementById('count');
+    if (msg && count) msg.addEventListener('input', function(){ count.textContent = msg.value.length; });
+
+    // team sheet submit — quiet confirmation
+    var form = document.getElementById('teamsheet'), btn = document.getElementById('bookbtn');
+    if (form && btn) form.addEventListener('submit', function(e){
+      e.preventDefault();
+      btn.textContent = 'Booked · Nº 3,411';
+      btn.disabled = true;
+      btn.style.opacity = '.85';
+    });
+
+    // reveal on scroll
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var els = document.querySelectorAll('.reveal');
+    if (reduced || !('IntersectionObserver' in window)) {
+      els.forEach(function(el){ el.classList.add('on'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting) { en.target.classList.add('on'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.12 });
+    els.forEach(function(el){ io.observe(el); });
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Direction 09 · The Ticket — FanGram</title>
+<script>document.documentElement.classList.add('js')</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --kraft:#E9DFC8;
+  --kraft-2:#DFD2B4;
+  --paper:#F4EDDA;
+  --paper-2:#EFE6CE;
+  --ink:#1B2A4A;
+  --ink-deep:#12203C;
+  --coral:#DE4A2C;
+  --coral-deep:#C23A20;
+  --green:#5C6E4E;
+  --mustard:#BC8B25;
+  --line:rgba(27,42,74,.30);
+  --line-soft:rgba(27,42,74,.16);
+  --sans:'Archivo',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,'SF Mono',monospace;
+  --shadow: drop-shadow(0 14px 22px rgba(18,32,60,.16)) drop-shadow(0 3px 6px rgba(18,32,60,.12));
+}
+
+/* ============ BASE ============ */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+html,body{overflow-x:hidden}
+body{
+  font-family:var(--sans);
+  background:var(--kraft);
+  color:var(--ink);
+  font-size:16px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%}
+button{font:inherit;cursor:pointer;background:none;border:none;color:inherit}
+a{color:inherit}
+::selection{background:var(--coral);color:var(--paper)}
+
+/* paper grain over everything */
+.grain{
+  position:fixed;inset:0;z-index:2000;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='240'%20height='240'%3E%3Cfilter%20id='n'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.8'%20numOctaves='2'%20stitchTiles='stitch'/%3E%3CfeColorMatrix%20type='saturate'%20values='0'/%3E%3C/filter%3E%3Crect%20width='240'%20height='240'%20filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:.07;
+  mix-blend-mode:multiply;
+}
+
+.wrap{max-width:1100px;margin:0 auto;padding:0 clamp(1rem,4vw,2rem)}
+
+/* ============ UTILITIES ============ */
+.cond{font-family:var(--sans);font-stretch:66%;font-weight:700;text-transform:uppercase;letter-spacing:.24em}
+.mono{font-family:var(--mono)}
+.vt{writing-mode:vertical-rl;transform:rotate(180deg)}
+
+/* ticket base */
+.tkt{background:var(--paper);color:var(--ink);position:relative}
+.tkt-shadow{filter:var(--shadow);position:relative}
+
+/* scalloped perforation — both vertical edges */
+.perf-x{
+  -webkit-mask-image:
+    radial-gradient(circle at 6px 10px, transparent 6px, #000 6.4px),
+    radial-gradient(circle at 6px 10px, transparent 6px, #000 6.4px),
+    linear-gradient(#000,#000);
+  -webkit-mask-size:12px 20px, 12px 20px, calc(100% - 12px) 100%;
+  -webkit-mask-position:-6px 0, calc(100% + 6px) 0, 6px 0;
+  -webkit-mask-repeat:repeat-y, repeat-y, no-repeat;
+  mask-image:
+    radial-gradient(circle at 6px 10px, transparent 6px, #000 6.4px),
+    radial-gradient(circle at 6px 10px, transparent 6px, #000 6.4px),
+    linear-gradient(#000,#000);
+  mask-size:12px 20px, 12px 20px, calc(100% - 12px) 100%;
+  mask-position:-6px 0, calc(100% + 6px) 0, 6px 0;
+  mask-repeat:repeat-y, repeat-y, no-repeat;
+}
+/* left edge only */
+.perf-l{
+  -webkit-mask-image:
+    radial-gradient(circle at 6px 10px, transparent 6px, #000 6.4px),
+    linear-gradient(#000,#000);
+  -webkit-mask-size:12px 20px, calc(100% - 6px) 100%;
+  -webkit-mask-position:-6px 0, 6px 0;
+  -webkit-mask-repeat:repeat-y, no-repeat;
+  mask-image:
+    radial-gradient(circle at 6px 10px, transparent 6px, #000 6.4px),
+    linear-gradient(#000,#000);
+  mask-size:12px 20px, calc(100% - 6px) 100%;
+  mask-position:-6px 0, 6px 0;
+  mask-repeat:repeat-y, no-repeat;
+}
+/* top + bottom edges (ticket-roll strips) */
+.perf-y{
+  -webkit-mask-image:
+    radial-gradient(circle at 8px 5px, transparent 5px, #000 5.4px),
+    radial-gradient(circle at 8px 5px, transparent 5px, #000 5.4px),
+    linear-gradient(#000,#000);
+  -webkit-mask-size:16px 10px, 16px 10px, 100% calc(100% - 10px);
+  -webkit-mask-position:0 -5px, 0 calc(100% + 5px), 0 5px;
+  -webkit-mask-repeat:repeat-x, repeat-x, no-repeat;
+  mask-image:
+    radial-gradient(circle at 8px 5px, transparent 5px, #000 5.4px),
+    radial-gradient(circle at 8px 5px, transparent 5px, #000 5.4px),
+    linear-gradient(#000,#000);
+  mask-size:16px 10px, 16px 10px, 100% calc(100% - 10px);
+  mask-position:0 -5px, 0 calc(100% + 5px), 0 5px;
+  mask-repeat:repeat-x, repeat-x, no-repeat;
+}
+
+/* tear line between stub and body */
+.tear{position:relative;border-left:2px dashed var(--line);align-self:stretch}
+.tear::before,.tear::after{
+  content:"";position:absolute;left:-8px;width:14px;height:14px;border-radius:50%;background:var(--kraft);
+}
+.tear::before{top:-7px}
+.tear::after{bottom:-7px}
+
+/* barcodes */
+.barcode{
+  background:repeating-linear-gradient(90deg,
+    currentColor 0 2px, transparent 2px 5px,
+    currentColor 5px 6px, transparent 6px 8px,
+    currentColor 8px 12px, transparent 12px 13px,
+    currentColor 13px 15px, transparent 15px 19px);
+}
+.barcode-v{
+  background:repeating-linear-gradient(0deg,
+    currentColor 0 2px, transparent 2px 5px,
+    currentColor 5px 6px, transparent 6px 8px,
+    currentColor 8px 12px, transparent 12px 13px,
+    currentColor 13px 15px, transparent 15px 19px);
+}
+
+/* rubber stamp */
+.stamp{
+  display:inline-block;
+  font-stretch:72%;font-weight:900;text-transform:uppercase;
+  letter-spacing:.16em;line-height:1;
+  color:var(--coral);
+  border:3px solid var(--coral);
+  border-radius:6px;
+  padding:.34em .65em .3em;
+  mix-blend-mode:multiply;
+  -webkit-mask-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='300'%20height='300'%3E%3Cfilter%20id='r'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.55'%20numOctaves='3'%20stitchTiles='stitch'/%3E%3CfeColorMatrix%20type='matrix'%20values='0%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200.9%200.9%200.9%200%20-0.45'/%3E%3C/filter%3E%3Crect%20width='300'%20height='300'%20filter='url(%23r)'/%3E%3C/svg%3E");
+  -webkit-mask-size:170px 170px;
+  mask-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='300'%20height='300'%3E%3Cfilter%20id='r'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.55'%20numOctaves='3'%20stitchTiles='stitch'/%3E%3CfeColorMatrix%20type='matrix'%20values='0%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200.9%200.9%200.9%200%20-0.45'/%3E%3C/filter%3E%3Crect%20width='300'%20height='300'%20filter='url(%23r)'/%3E%3C/svg%3E");
+  mask-size:170px 170px;
+}
+
+/* duotone photo: navy shadows, kraft highlights */
+.duo{position:relative;background:var(--ink);overflow:hidden}
+.duo img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.1) brightness(1.02);mix-blend-mode:screen}
+.duo::after{content:"";position:absolute;inset:0;background:var(--kraft);mix-blend-mode:multiply;pointer-events:none}
+
+/* buttons: printed stub tabs */
+.btn{
+  position:relative;display:inline-block;
+  font-stretch:72%;font-weight:800;text-transform:uppercase;
+  letter-spacing:.22em;font-size:.72rem;line-height:1;
+  color:var(--paper);background:var(--ink);
+  padding:.95em 1.6em .9em;
+  transition:background .18s ease, transform .18s ease;
+}
+.btn::after{content:"";position:absolute;inset:4px;border:1px dashed rgba(244,237,218,.55);pointer-events:none}
+.btn:hover{background:var(--coral);transform:translateY(-1px)}
+.btn:active{transform:translateY(1px)}
+.btn-ghost{background:transparent;color:var(--paper);box-shadow:inset 0 0 0 2px var(--paper)}
+.btn-ghost::after{border-color:transparent}
+.btn-ghost:hover{background:var(--coral);box-shadow:inset 0 0 0 2px var(--coral)}
+.btn-coral{background:var(--coral)}
+.btn-coral:hover{background:var(--coral-deep)}
+:focus-visible{outline:2px solid var(--coral);outline-offset:2px}
+
+/* reveal */
+.js .rv{
+  opacity:0;
+  transform:rotate(var(--rot,0deg)) translateY(16px) scale(var(--sc0,1));
+  transition:opacity .7s ease var(--d,0s), transform .7s cubic-bezier(.22,.9,.26,1) var(--d,0s);
+}
+.js .rv.in{opacity:1;transform:rotate(var(--rot,0deg)) translateY(0) scale(1)}
+.rot{transform:rotate(var(--rot,0deg))}
+
+/* ============ NAV ============ */
+.nav{
+  position:sticky;top:0;z-index:100;background:var(--kraft);
+  border-bottom:3px double var(--ink);
+}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-top:.9rem;padding-bottom:.9rem}
+.mark{
+  display:inline-flex;align-items:center;gap:.7rem;
+  border:2px solid var(--ink);padding:.42em .85em .38em;
+  text-decoration:none;
+}
+.mark .hole{width:9px;height:9px;border-radius:50%;background:var(--kraft);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.mark .word{font-stretch:118%;font-weight:900;font-size:1.05rem;letter-spacing:.06em;text-transform:uppercase;line-height:1}
+.mark .sub{font-family:var(--mono);font-size:.5rem;letter-spacing:.32em;text-transform:uppercase;opacity:.6;display:block;margin-top:.18em}
+.navR{display:flex;align-items:center;gap:1.1rem}
+.dirchip{font-family:var(--mono);font-size:.62rem;letter-spacing:.18em;border:1.5px solid var(--line);padding:.4em .7em;border-radius:3px;opacity:.75}
+.backlink{
+  font-stretch:72%;font-weight:700;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
+  text-decoration:none;border-bottom:2px solid transparent;padding-bottom:.15em;
+  transition:border-color .18s ease,color .18s ease;
+}
+.backlink:hover{color:var(--coral);border-color:var(--coral)}
+
+/* ============ HERO ============ */
+.hero{position:relative;padding:clamp(3rem,7vw,5.5rem) 0 clamp(2.5rem,5vw,4rem);overflow:hidden}
+.ghost{
+  position:absolute;top:-.4em;left:50%;transform:translateX(-50%) rotate(-2deg);
+  font-stretch:125%;font-weight:900;white-space:nowrap;
+  font-size:clamp(6rem,21vw,15rem);letter-spacing:.02em;
+  color:transparent;-webkit-text-stroke:2px rgba(27,42,74,.09);
+  user-select:none;pointer-events:none;
+}
+.hero-tkt{display:grid;grid-template-columns:118px 2px 1fr;--rot:-.6deg}
+.hero-stub{
+  background:var(--coral);color:var(--paper);
+  display:flex;flex-direction:column;align-items:center;justify-content:space-between;
+  padding:1.4rem .6rem;gap:1rem;
+}
+.hero-stub .vt{font-stretch:72%;font-weight:800;font-size:.72rem;letter-spacing:.34em;text-transform:uppercase}
+.hero-stub .serial{font-family:var(--mono);font-size:.62rem;letter-spacing:.2em}
+.hero-stub .bc{width:26px;height:88px;opacity:.9}
+.hero-body{padding:clamp(1.6rem,4vw,2.8rem) clamp(1.4rem,4vw,3rem)}
+.eyebrow{font-stretch:66%;font-weight:700;font-size:.72rem;letter-spacing:.34em;text-transform:uppercase;color:var(--coral);margin-bottom:1.1rem}
+h1{
+  font-stretch:122%;font-weight:900;text-transform:uppercase;
+  font-size:clamp(1.9rem,5.4vw,4rem);line-height:.98;letter-spacing:.005em;
+  margin-bottom:1.2rem;
+}
+h1 em{font-style:normal;color:var(--coral)}
+.hero-sub{max-width:44ch;font-size:clamp(.95rem,1.4vw,1.08rem);color:rgba(27,42,74,.82);margin-bottom:1.8rem}
+.meta-row{
+  display:flex;flex-wrap:wrap;border-top:1.5px solid var(--line);border-bottom:1.5px solid var(--line);
+}
+.meta-row .m{
+  flex:1;min-width:110px;padding:.7rem 1rem .6rem;border-right:1.5px solid var(--line-soft);
+}
+.meta-row .m:last-child{border-right:none}
+.meta-row .k{font-family:var(--mono);font-size:.55rem;letter-spacing:.28em;text-transform:uppercase;opacity:.55;display:block}
+.meta-row .v{font-stretch:80%;font-weight:800;font-size:1rem;letter-spacing:.1em;text-transform:uppercase}
+.hero-stamp{
+  position:absolute;top:-1.3rem;right:clamp(.2rem,3vw,2.2rem);
+  font-size:clamp(1.1rem,2.6vw,1.7rem);--rot:-9deg;--sc0:1.35;z-index:3;
+}
+.conditions{
+  margin-top:1.8rem;text-align:center;
+  font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(27,42,74,.62);
+}
+.conditions b{color:var(--ink);font-weight:600}
+
+/* ============ TICKET-ROLL DIVIDER ============ */
+.roll{overflow:hidden;background:var(--paper-2);margin:clamp(1.5rem,4vw,3rem) 0}
+.rollIn{display:flex;width:max-content;padding:.72rem 0}
+.rollIn span{
+  font-stretch:70%;font-weight:800;font-size:.7rem;letter-spacing:.42em;text-transform:uppercase;
+  color:rgba(27,42,74,.55);white-space:nowrap;padding-right:.42em;
+}
+@keyframes rollmove{to{transform:translateX(-50%)}}
+.rollAnim{animation:rollmove 60s linear infinite}
+
+/* ============ SIGNAGE ============ */
+.sign{background:var(--ink);color:var(--paper)}
+.sign .wrap{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;padding-top:.85rem;padding-bottom:.8rem}
+.signL{font-family:var(--mono);font-size:.62rem;letter-spacing:.3em;color:var(--coral);white-space:nowrap}
+.signM{font-stretch:80%;font-weight:800;font-size:clamp(.8rem,1.8vw,1rem);letter-spacing:.3em;text-transform:uppercase;text-align:center}
+.signR{font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;opacity:.55;white-space:nowrap;text-transform:uppercase}
+
+/* ============ TALENT ============ */
+.talent{padding:clamp(2.5rem,6vw,4.5rem) 0 clamp(3rem,6vw,5rem)}
+.tGrid{display:grid;grid-template-columns:330px 1fr;gap:clamp(1.6rem,4vw,3.2rem);align-items:start}
+.passSticky{position:sticky;top:96px}
+
+/* lanyard pass */
+.pass{--rot:-1.1deg;padding:0 0 1.1rem;background:var(--paper)}
+.pass .slot{
+  width:44px;height:9px;border-radius:5px;background:var(--kraft);
+  box-shadow:inset 0 1px 2px rgba(18,32,60,.35);
+  margin:.9rem auto .7rem;
+}
+.pass .photo{margin:0 1.1rem;aspect-ratio:4/4.4}
+.pass .pName{
+  font-stretch:118%;font-weight:900;text-transform:uppercase;font-size:1.7rem;line-height:1;
+  padding:1rem 1.2rem .15rem;
+}
+.pass .pRole{font-family:var(--mono);font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:rgba(27,42,74,.65);padding:0 1.25rem .9rem}
+.pass .pRow{
+  display:flex;align-items:center;justify-content:space-between;
+  margin:0 1.2rem;padding:.65rem 0;border-top:1.5px dashed var(--line-soft);
+}
+.pass .pRow .serial{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em}
+.pass .pStamp{font-size:.66rem;border-width:2px;--rot:-4deg;transform:rotate(-4deg)}
+.pass .bc{height:34px;margin:.75rem 1.2rem 0}
+.pass .pFoot{
+  margin:.8rem 1.2rem 0;padding-top:.6rem;border-top:1.5px solid var(--line-soft);
+  font-family:var(--mono);font-size:.54rem;letter-spacing:.26em;text-transform:uppercase;opacity:.5;
+  display:flex;justify-content:space-between;
+}
+
+/* trust counters */
+.counters{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-top:1.1rem}
+.ctr{
+  background:linear-gradient(180deg,#223255 0 49.6%, var(--ink-deep) 50.4% 100%);
+  color:var(--paper);text-align:center;border-radius:7px;
+  padding:.85rem .4rem .7rem;
+  box-shadow:inset 0 1px 0 rgba(244,237,218,.14), 0 2px 5px rgba(18,32,60,.25);
+}
+.ctr .num{font-family:var(--mono);font-weight:600;font-size:1.28rem;letter-spacing:.02em;line-height:1.1}
+.ctr .num .st{color:#E8B94A;font-size:.9em}
+.ctr .lbl{font-stretch:70%;font-weight:700;font-size:.5rem;letter-spacing:.24em;text-transform:uppercase;opacity:.6;margin-top:.3rem}
+
+/* box office */
+.lead{font-size:clamp(1.02rem,1.6vw,1.15rem);max-width:52ch;color:rgba(27,42,74,.85);margin-bottom:1.6rem}
+.lead b{color:var(--ink)}
+.boHead{display:flex;align-items:baseline;gap:1rem;margin-bottom:1.4rem;border-bottom:3px double var(--ink);padding-bottom:.55rem}
+.boHead h2{font-stretch:122%;font-weight:900;text-transform:uppercase;font-size:clamp(1.5rem,3vw,2.1rem);line-height:1}
+.boHead .boSub{font-family:var(--mono);font-size:.62rem;letter-spacing:.26em;text-transform:uppercase;opacity:.55}
+
+.offer{margin-bottom:1.15rem}
+.offer-tkt{display:grid;grid-template-columns:86px 2px 1fr 218px;align-items:stretch}
+.oStub{
+  display:flex;flex-direction:column;align-items:center;justify-content:space-between;
+  padding:.9rem .4rem;gap:.6rem;color:var(--paper);
+}
+.oStub .vt{font-stretch:72%;font-weight:800;font-size:.62rem;letter-spacing:.3em;text-transform:uppercase}
+.oStub .oSerial{font-family:var(--mono);font-size:.56rem;letter-spacing:.14em;opacity:.85}
+.tone-coral .oStub{background:var(--coral)}
+.tone-navy .oStub{background:var(--ink)}
+.tone-mustard .oStub{background:var(--mustard)}
+.tone-green .oStub{background:var(--green)}
+.oBody{padding:1.05rem 1.3rem 1rem;display:flex;flex-direction:column;justify-content:center}
+.oKicker{font-family:var(--mono);font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(27,42,74,.55);margin-bottom:.4rem}
+.oBody h3{font-stretch:112%;font-weight:900;text-transform:uppercase;font-size:clamp(1.05rem,2vw,1.3rem);line-height:1.05;margin-bottom:.35rem}
+.oDesc{font-size:.86rem;color:rgba(27,42,74,.75);max-width:46ch}
+.oBuy{
+  border-left:1.5px solid var(--line-soft);
+  display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:.5rem;
+  padding:1rem 1.25rem;text-align:right;background:rgba(27,42,74,.035);
+}
+.oPrice{font-stretch:105%;font-weight:900;font-size:1.5rem;line-height:1;letter-spacing:-.01em}
+.oPrice .pfx{display:block;font-stretch:70%;font-weight:700;font-size:.55rem;letter-spacing:.3em;color:rgba(27,42,74,.55);margin-bottom:.3em}
+.oNote{font-family:var(--mono);font-size:.54rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(27,42,74,.55)}
+
+/* laminated ALL-ACCESS row */
+.lam{border-radius:13px;background:var(--ink);color:var(--paper);overflow:hidden}
+.lam::after{
+  content:"";position:absolute;inset:0;pointer-events:none;border-radius:13px;
+  background:linear-gradient(115deg,transparent 42%,rgba(255,255,255,.13) 47%,rgba(255,255,255,.05) 52%,transparent 57%);
+}
+.lam{box-shadow:inset 0 0 0 1.5px rgba(244,237,218,.25)}
+.lam .oStub{position:relative}
+.lam .oStub .vt{color:#F0A28E}
+.lam .lamSlot{width:8px;height:30px;border-radius:4px;background:var(--kraft);box-shadow:inset 1px 0 2px rgba(18,32,60,.4)}
+.lam .lamTear{border-left:1.5px solid rgba(244,237,218,.22);align-self:stretch}
+.lam .oKicker{color:rgba(244,237,218,.55)}
+.lam .oDesc{color:rgba(244,237,218,.75)}
+.lam .oBuy{border-left-color:rgba(244,237,218,.18);background:rgba(244,237,218,.05)}
+.lam .oNote{color:rgba(244,237,218,.55)}
+.byArr{
+  font-stretch:72%;font-weight:900;text-transform:uppercase;font-size:.94rem;letter-spacing:.14em;
+  color:#F0A28E;border:2px solid #F0A28E;border-radius:5px;padding:.32em .6em .28em;
+  transform:rotate(-3deg);
+}
+.lamNote{font-family:var(--mono);font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,237,218,.4);margin-top:.15rem}
+
+/* mini stubs */
+.miniHead{font-family:var(--mono);font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;opacity:.55;margin:2.2rem 0 .8rem}
+.minis{display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem}
+.mini{--rot:.4deg;background:var(--paper);display:flex;align-items:center;gap:.7rem;padding:.6rem .7rem}
+.mini:nth-child(2n){--rot:-.5deg}
+.mini .mThumb{width:46px;height:46px;flex:none}
+.mini .mName{font-stretch:100%;font-weight:800;font-size:.8rem;text-transform:uppercase;line-height:1.1}
+.mini .mRole{font-family:var(--mono);font-size:.52rem;letter-spacing:.14em;text-transform:uppercase;opacity:.55;margin-top:.15rem}
+
+/* ============ TURNSTILE / SEASON TICKET ============ */
+.turnstile{padding:clamp(2.5rem,6vw,4.5rem) 0 clamp(3rem,6vw,5rem)}
+.tsGrid{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(1.8rem,4.5vw,3.5rem);align-items:center}
+.secH{font-stretch:122%;font-weight:900;text-transform:uppercase;font-size:clamp(1.7rem,3.6vw,2.6rem);line-height:1;margin-bottom:1rem}
+.secH em{font-style:normal;color:var(--coral)}
+.secP{color:rgba(27,42,74,.82);max-width:46ch;margin-bottom:1rem}
+.secFine{font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(27,42,74,.55)}
+
+.season{--rot:.7deg;background:var(--paper)}
+.sHead{
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--green);color:var(--paper);padding:.75rem 1.4rem .7rem;
+}
+.sHead .t{font-stretch:80%;font-weight:900;font-size:1rem;letter-spacing:.3em;text-transform:uppercase}
+.sHead .f{font-family:var(--mono);font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;opacity:.8}
+.sMain{display:flex;justify-content:space-between;gap:1rem;padding:1.2rem 1.4rem .9rem;flex-wrap:wrap}
+.sField{padding:.2rem 0}
+.sField .k{font-family:var(--mono);font-size:.52rem;letter-spacing:.26em;text-transform:uppercase;opacity:.5;display:block;margin-bottom:.2em}
+.sField .v{font-stretch:90%;font-weight:800;font-size:.95rem;text-transform:uppercase;letter-spacing:.05em;border-bottom:1.5px dotted var(--line);padding-bottom:.15em}
+.sPrice{text-align:right}
+.sPrice .amt{font-stretch:110%;font-weight:900;font-size:2.5rem;line-height:1;letter-spacing:-.02em}
+.sPrice .amt span{font-size:.45em;font-stretch:80%;letter-spacing:.08em}
+.sPrice .per{font-family:var(--mono);font-size:.54rem;letter-spacing:.22em;text-transform:uppercase;opacity:.55;margin-top:.25rem}
+.tiers{display:flex;gap:.5rem;padding:0 1.4rem .4rem;flex-wrap:wrap}
+.tier{
+  font-family:var(--mono);font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;
+  border:1.5px solid var(--line-soft);border-radius:3px;padding:.45em .7em;color:rgba(27,42,74,.6);
+}
+.tier.sel{border:2px solid var(--coral);color:var(--coral);font-weight:600;position:relative}
+.tier.sel::after{content:" ✓"}
+.sTerms{margin:1rem 1.4rem;border:1.5px solid var(--line-soft);padding:.9rem 1rem .8rem;background:rgba(92,110,78,.06)}
+.sTerms .tt{font-family:var(--mono);font-size:.56rem;letter-spacing:.26em;text-transform:uppercase;color:var(--green);margin-bottom:.6rem;font-weight:600}
+.sTerms ol{list-style:none}
+.sTerms li{
+  display:flex;gap:.7rem;font-family:var(--mono);font-size:.66rem;line-height:1.6;
+  color:rgba(27,42,74,.78);padding:.28rem 0;
+}
+.sTerms li+li{border-top:1px dashed var(--line-soft)}
+.sTerms li .n{color:var(--green);font-weight:600;flex:none}
+.sAction{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;padding:.2rem 1.4rem 1.1rem}
+.sNote{font-family:var(--mono);font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(27,42,74,.55)}
+.sBase{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  border-top:2px dashed var(--line-soft);margin:0 1.4rem;padding:.8rem 0 1rem;
+}
+.sBase .bc{height:30px;flex:1;max-width:220px}
+.sBase .serial{font-family:var(--mono);font-size:.6rem;letter-spacing:.18em}
+.sStamp{position:absolute;top:-1rem;right:-.7rem;font-size:1rem;--rot:8deg;--sc0:1.35;z-index:3}
+
+/* ============ LANDS ============ */
+.lands{padding:clamp(2.5rem,6vw,4.5rem) 0 clamp(3.5rem,7vw,6rem)}
+.ldGrid{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(1.8rem,4.5vw,3.5rem);align-items:center}
+
+.attended{
+  --rot:-1deg;background:var(--paper);
+  clip-path:polygon(0 0,100% 0,99.2% 4%,98.1% 9%,99.6% 14%,97.9% 20%,99.2% 26%,97.8% 33%,99.5% 39%,98.2% 46%,99.4% 52%,97.9% 59%,99.6% 65%,98% 72%,99.3% 78%,97.7% 85%,99.5% 91%,98.3% 96%,99% 100%,0 100%);
+}
+.aTop{display:grid;grid-template-columns:150px 1fr;gap:1.2rem;padding:1.3rem 1.7rem 1.2rem 1.4rem}
+.aFrame{aspect-ratio:3/3.6;position:relative}
+.aPlay{
+  position:absolute;inset:0;margin:auto;width:44px;height:44px;border-radius:50%;
+  background:var(--paper);display:grid;place-items:center;z-index:2;
+  box-shadow:0 3px 9px rgba(18,32,60,.35);
+}
+.aPlay::after{content:"";width:0;height:0;border-left:13px solid var(--coral);border-top:8px solid transparent;border-bottom:8px solid transparent;margin-left:3px}
+.aTime{
+  position:absolute;left:.5rem;bottom:.5rem;z-index:2;
+  font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;
+  background:var(--ink);color:var(--paper);padding:.25em .5em;
+}
+.aKicker{font-family:var(--mono);font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(27,42,74,.55);margin-bottom:.7rem}
+.aRow{display:flex;gap:.8rem;align-items:baseline;padding:.4rem 0;border-bottom:1.5px dotted var(--line-soft)}
+.aRow .k{font-family:var(--mono);font-size:.54rem;letter-spacing:.26em;text-transform:uppercase;opacity:.5;flex:none;width:82px}
+.aRow .v{font-stretch:95%;font-weight:800;font-size:.95rem;text-transform:uppercase;letter-spacing:.04em}
+.aFine{font-family:var(--mono);font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(27,42,74,.5);margin-top:.8rem;line-height:1.7}
+.aShare{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;width:100%;
+  border-top:2px dashed var(--line);padding:.85rem 1.7rem .9rem 1.4rem;
+  text-align:left;transition:transform .5s cubic-bezier(.22,.9,.26,1), background .18s ease;
+  transform-origin:0 100%;
+}
+.aShare:hover{background:rgba(222,74,44,.07)}
+.aShare .sTxt{font-stretch:72%;font-weight:800;font-size:.7rem;letter-spacing:.26em;text-transform:uppercase;color:var(--coral)}
+.aShare .sUrl{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;color:rgba(27,42,74,.6)}
+.aShare.tornOff{transform:rotate(1.6deg) translateY(7px)}
+.aStamp{position:absolute;top:.6rem;right:1.6rem;font-size:1.45rem;--rot:-12deg;--sc0:1.4;z-index:3}
+
+/* ============ FOOTER ============ */
+footer{background:var(--ink);color:var(--paper);padding:2.6rem 0 2.8rem}
+.ftTop{display:flex;align-items:baseline;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;margin-bottom:1.4rem}
+.ftMark{font-stretch:122%;font-weight:900;font-size:1.5rem;letter-spacing:.04em;text-transform:uppercase}
+.ftWords{font-family:var(--mono);font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(244,237,218,.45)}
+.ftRule{border:none;border-top:1.5px dashed rgba(244,237,218,.25);margin-bottom:1.3rem}
+.ftBottom{display:flex;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,237,218,.6)}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:920px){
+  .tGrid{grid-template-columns:1fr}
+  .passSticky{position:static;max-width:420px;margin:0 auto 2rem}
+  .tsGrid,.ldGrid{grid-template-columns:1fr}
+  .minis{grid-template-columns:repeat(2,1fr)}
+  .offer-tkt{grid-template-columns:70px 2px 1fr}
+  .oBuy{
+    grid-column:1 / -1;flex-direction:row;align-items:center;justify-content:space-between;
+    border-left:none;border-top:2px dashed var(--line-soft);text-align:left;
+  }
+  .oPrice .pfx{display:inline;margin-right:.5em}
+  .signR{display:none}
+}
+@media (max-width:640px){
+  .hero-tkt{grid-template-columns:1fr}
+  .hero-stub{flex-direction:row;padding:.7rem 1.2rem}
+  .hero-stub .vt{writing-mode:horizontal-tb;transform:none}
+  .hero-stub .bc{width:70px;height:22px;background:repeating-linear-gradient(90deg,currentColor 0 2px,transparent 2px 5px,currentColor 5px 6px,transparent 6px 8px,currentColor 8px 12px,transparent 12px 13px,currentColor 13px 15px,transparent 15px 19px)}
+  .hero-tkt > .tear{border-left:none;border-top:2px dashed var(--line);align-self:auto}
+  .hero-tkt > .tear::before{top:-8px;left:-7px}
+  .hero-tkt > .tear::after{bottom:auto;top:-8px;left:auto;right:-7px}
+  .hero-stamp{top:-1rem;right:.4rem}
+  .aTop{grid-template-columns:1fr;padding:1.2rem 1.2rem 1rem}
+  .aFrame{max-width:220px}
+  .aShare{flex-direction:column;align-items:flex-start;gap:.3rem;padding:.85rem 1.2rem}
+  .sMain{flex-direction:column}
+  .sPrice{text-align:left}
+  .nav .dirchip{display:none}
+  .minis{grid-template-columns:1fr 1fr}
+}
+
+/* ============ REDUCED MOTION ============ */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .js .rv{opacity:1 !important;transform:rotate(var(--rot,0deg)) !important;transition:none !important}
+  .rollAnim{animation:none}
+  .btn,.aShare{transition:none}
+  .aShare.tornOff{transform:none}
+}
+
+/* ============ REPOSITIONING (copy layer — reuses existing tokens) ============ */
+.eyebrow-three{color:var(--ink);letter-spacing:.42em}
+.eyebrow-three b{color:var(--coral)}
+.heroCorp{margin-top:1.1rem;font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(27,42,74,.62)}
+.heroCorp b{color:var(--coral);font-weight:600}
+.boarding{padding:clamp(2.2rem,5.5vw,4rem) 0}
+.cats{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.4rem}
+.sides{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-top:1.9rem}
+@media (max-width:760px){.sides{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="wrap">
+    <a class="mark" href="#top" aria-label="FanGram home">
+      <span class="hole" aria-hidden="true"></span>
+      <span>
+        <span class="word">FanGram</span>
+        <span class="sub">Admit One</span>
+      </span>
+    </a>
+    <nav class="navR">
+      <span class="dirchip">DIR № 09 — THE TICKET</span>
+      <a class="backlink" href="index.html">← All directions</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="ghost" aria-hidden="true">ADMIT ONE</div>
+  <div class="wrap">
+    <div class="tkt-shadow rv" style="--rot:-.6deg">
+      <div class="tkt perf-x hero-tkt">
+        <div class="hero-stub">
+          <span class="vt">FanGram · Est. 2026</span>
+          <span class="bc barcode-v" aria-hidden="true"></span>
+          <span class="serial vt">№ 000001</span>
+        </div>
+        <div class="tear" aria-hidden="true"></div>
+        <div class="hero-body">
+          <p class="eyebrow eyebrow-three">Talent <b>·</b> Fans <b>·</b> Brands</p>
+          <h1>Where fans connect with the <em>talent they admire.</em></h1>
+          <p class="hero-sub">The home of real fandom — a ticket hall for the people you look up to. Personal videos, real replies, signed proof: every order filmed per fan, torn once at the gate, kept forever. Cricket is our opening night; the gates keep opening.</p>
+          <div class="meta-row">
+            <div class="m"><span class="k">Gate</span><span class="v">Fandom</span></div>
+            <div class="m"><span class="k">Row</span><span class="v">09</span></div>
+            <div class="m"><span class="k">Seat</span><span class="v">Yours</span></div>
+            <div class="m"><span class="k">Season</span><span class="v">2026</span></div>
+          </div>
+          <p class="heroCorp">Built for <b>Talent</b> · Loved by <b>Fans</b> · Trusted by <b>Brands</b></p>
+        </div>
+      </div>
+      <div class="stamp hero-stamp rv" style="--rot:-9deg;--sc0:1.35;--d:.4s">Admit One</div>
+    </div>
+    <p class="conditions rv" style="--d:.25s">Conditions of entry, printed on every ticket — <b>filmed per order, never AI</b> · <b>real reply or your money back</b> · refund-backed, never gambling, never fake</p>
+  </div>
+</section>
+
+<!-- ============ GATE 0 · NOW BOARDING — THREE SIDES + LAUNCH VERTICALS ============ -->
+<div class="sign">
+  <div class="wrap">
+    <span class="signL">GATE 0</span>
+    <span class="signM">Now Boarding</span>
+    <span class="signR">Talent · Fans · Brands</span>
+  </div>
+</div>
+
+<section class="boarding">
+  <div class="wrap">
+    <p class="eyebrow rv">Not a cricket app — a talent platform</p>
+    <h2 class="secH rv" style="--d:.03s">Launching with cricket.<br>Built for <em>every stage.</em></h2>
+    <p class="secP rv" style="--d:.06s">FanGram turns admiration into connection for three sides at once — the <b>talent</b> you look up to, the <b>fans</b> who show up, and the <b>brands</b> who want in on real fandom. Cricket is our opening fixture; the same ticket works wherever admiration lives.</p>
+
+    <div class="cats rv" style="--d:.09s" role="list" aria-label="Verticals — launching with cricket">
+      <span class="tier sel" role="listitem">Cricket</span>
+      <span class="tier" role="listitem">Music</span>
+      <span class="tier" role="listitem">Film</span>
+      <span class="tier" role="listitem">Creators</span>
+      <span class="tier" role="listitem">Athletes</span>
+      <span class="tier" role="listitem">Performers</span>
+    </div>
+
+    <div class="sides">
+      <div class="tkt-shadow rv" style="--rot:-.4deg;--d:.05s"><div class="tkt perf-x"><div class="oBody">
+        <p class="eyebrow" style="margin-bottom:.5rem">Built for Talent</p>
+        <h3>A stage after the stage.</h3>
+        <p class="oDesc">Requests you clear in minutes, earnings that pay out, and a fanbase that finally has an address — whatever your craft.</p>
+      </div></div></div>
+      <div class="tkt-shadow rv" style="--rot:.4deg;--d:.1s"><div class="tkt perf-x"><div class="oBody">
+        <p class="eyebrow" style="margin-bottom:.5rem">Loved by Fans</p>
+        <h3>Closer than a follow.</h3>
+        <p class="oDesc">A real moment — made for you, addressed to you, kept by you. For every fan of every hero.</p>
+      </div></div></div>
+      <div class="tkt-shadow rv" style="--rot:-.4deg;--d:.15s"><div class="tkt perf-x"><div class="oBody">
+        <p class="eyebrow" style="margin-bottom:.5rem">Trusted by Brands</p>
+        <h3>Into authentic communities.</h3>
+        <p class="oDesc">Sponsored moments and licensed brand video — brands reaching fandoms that actually care, through the people they care about.</p>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- roll divider -->
+<div class="roll perf-y" aria-hidden="true">
+  <div class="rollIn rollAnim">
+    <span>Access ✦ Belonging ✦ Keepsake ✦ Admit One ✦ Access ✦ Belonging ✦ Keepsake ✦ Admit One ✦ Access ✦ Belonging ✦ Keepsake ✦ Admit One ✦&nbsp;</span>
+    <span>Access ✦ Belonging ✦ Keepsake ✦ Admit One ✦ Access ✦ Belonging ✦ Keepsake ✦ Admit One ✦ Access ✦ Belonging ✦ Keepsake ✦ Admit One ✦&nbsp;</span>
+  </div>
+</div>
+
+<!-- ============ GATE 1 · TALENT PAGE ============ -->
+<div class="sign">
+  <div class="wrap">
+    <span class="signL">GATE 1</span>
+    <span class="signM">The Talent Page</span>
+    <span class="signR">Valmik Rao · Fast Bowler</span>
+  </div>
+</div>
+
+<section class="talent">
+  <div class="wrap tGrid">
+
+    <!-- lanyard pass -->
+    <aside class="passCol">
+      <div class="passSticky">
+        <div class="tkt-shadow rv" style="--rot:-1.1deg">
+          <div class="tkt pass">
+            <div class="slot" aria-hidden="true"></div>
+            <div class="photo duo"><img src="assets/players/bumrah.jpg" alt="Valmik Rao, fast bowler, mid-delivery"></div>
+            <h2 class="pName">Valmik Rao</h2>
+            <p class="pRole">Fast bowler · Right-arm express</p>
+            <div class="pRow">
+              <span class="serial">PASS № VR-0007</span>
+              <span class="stamp pStamp">Verified</span>
+            </div>
+            <div class="bc barcode" aria-hidden="true"></div>
+            <p class="pFoot"><span>FanGram Talent Pass</span><span>Season 2026</span></p>
+          </div>
+        </div>
+        <div class="counters rv" style="--d:.15s">
+          <div class="ctr"><div class="num">4.9<span class="st">★</span></div><div class="lbl">Gate rating</div></div>
+          <div class="ctr"><div class="num">3,410</div><div class="lbl">Torn &amp; delivered</div></div>
+          <div class="ctr"><div class="num">1 day</div><div class="lbl">Typical reply</div></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- box office -->
+    <div class="boxCol">
+      <p class="lead rv">Every hero keeps a gate. Valmik keeps five — <b>five ways into his world</b>, each one printed, priced, and refund-backed.</p>
+      <div class="boHead rv" style="--d:.05s">
+        <h2>Box Office</h2>
+        <span class="boSub">Window open · five stubs</span>
+      </div>
+
+      <!-- 1 · personal video -->
+      <article class="offer tkt-shadow rv" style="--rot:-.3deg;--d:.05s">
+        <div class="tkt perf-x offer-tkt tone-coral">
+          <div class="oStub"><span class="vt">Admit One</span><span class="oSerial vt">PV-0821</span></div>
+          <div class="tear" aria-hidden="true"></div>
+          <div class="oBody">
+            <p class="oKicker">Personal video · Filmed per order, never AI</p>
+            <h3>He says your name.</h3>
+            <p class="oDesc">Your occasion, your inside joke, his voice — recorded for exactly one person.</p>
+          </div>
+          <div class="oBuy">
+            <div class="oPrice">₹2,499</div>
+            <div class="oNote">Fixed price — never “from”</div>
+            <button class="btn" type="button">Book</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2 · brand video (laminated all-access) -->
+      <article class="offer tkt-shadow rv" style="--rot:.4deg;--d:.1s">
+        <div class="tkt offer-tkt lam">
+          <div class="oStub"><span class="lamSlot" aria-hidden="true"></span><span class="vt">All Access</span><span class="oSerial vt">BR-0001</span></div>
+          <div class="lamTear" aria-hidden="true"></div>
+          <div class="oBody">
+            <p class="oKicker">Brand video · For brands · Laminated — does not tear</p>
+            <h3>Your brand, his voice.</h3>
+            <p class="oDesc">Sponsored moments, campaign films and licensed brand video — brands reaching authentic fan communities through the talent they trust. Arranged directly with our team.</p>
+          </div>
+          <div class="oBuy">
+            <span class="byArr">By Arrangement</span>
+            <span class="lamNote">Companies talk to us first</span>
+            <button class="btn btn-ghost" type="button">Contact us</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3 · direct message -->
+      <article class="offer tkt-shadow rv" style="--rot:-.4deg;--d:.15s">
+        <div class="tkt perf-x offer-tkt tone-navy">
+          <div class="oStub"><span class="vt">One Reply</span><span class="oSerial vt">DM-1199</span></div>
+          <div class="tear" aria-hidden="true"></div>
+          <div class="oBody">
+            <p class="oKicker">Direct message · Real reply or your money back</p>
+            <h3>Write to him. He writes back.</h3>
+            <p class="oDesc">A message window straight to Valmik — answered by him, no one else.</p>
+          </div>
+          <div class="oBuy">
+            <div class="oPrice">₹1,199</div>
+            <div class="oNote">Per message</div>
+            <button class="btn" type="button">Write</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4 · signed merchandise -->
+      <article class="offer tkt-shadow rv" style="--rot:.3deg;--d:.2s">
+        <div class="tkt perf-x offer-tkt tone-mustard">
+          <div class="oStub"><span class="vt">Sealed</span><span class="oSerial vt">SM-0047</span></div>
+          <div class="tear" aria-hidden="true"></div>
+          <div class="oBody">
+            <p class="oKicker">Signed merchandise · Signed on camera, sealed, numbered</p>
+            <h3>Ink you can watch dry.</h3>
+            <p class="oDesc">Jerseys, bats, gloves — every signing filmed, every piece numbered.</p>
+          </div>
+          <div class="oBuy">
+            <div class="oPrice"><span class="pfx">From</span>₹12,999</div>
+            <div class="oNote">Numbered editions</div>
+            <button class="btn" type="button">Shop</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 5 · a seat in his world -->
+      <article class="offer tkt-shadow rv" style="--rot:-.3deg;--d:.25s">
+        <div class="tkt perf-x offer-tkt tone-green">
+          <div class="oStub"><span class="vt">Season</span><span class="oSerial vt">ST-0149</span></div>
+          <div class="tear" aria-hidden="true"></div>
+          <div class="oBody">
+            <p class="oKicker">A seat in his world · The season ticket</p>
+            <h3>A seat in his world.</h3>
+            <p class="oDesc">The inner circle — monthly videos, first call on drops, his world from the good seats.</p>
+          </div>
+          <div class="oBuy">
+            <div class="oPrice"><span class="pfx">From</span>₹149<span style="font-size:.5em;font-stretch:80%">/mo</span></div>
+            <div class="oNote">Renews monthly · cancel anytime</div>
+            <button class="btn" type="button">Join</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- mini stubs -->
+      <p class="miniHead rv">Also at the window — 2,400+ talent passes and counting</p>
+      <div class="minis">
+        <div class="tkt-shadow rv" style="--d:.05s"><div class="tkt perf-x mini"><div class="mThumb duo"><img src="assets/players/kohli.jpg" alt="Arjun Vale"></div><div><div class="mName">Arjun Vale</div><div class="mRole">Batter · № 18</div></div></div></div>
+        <div class="tkt-shadow rv" style="--d:.1s"><div class="tkt perf-x mini"><div class="mThumb duo"><img src="assets/players/gill.jpg" alt="Dev Sagar"></div><div><div class="mName">Dev Sagar</div><div class="mRole">Opener · № 77</div></div></div></div>
+        <div class="tkt-shadow rv" style="--d:.15s"><div class="tkt perf-x mini"><div class="mThumb duo"><img src="assets/players/pant.jpg" alt="Kiaan Vora"></div><div><div class="mName">Kiaan Vora</div><div class="mRole">Keeper · № 17</div></div></div></div>
+        <div class="tkt-shadow rv" style="--d:.2s"><div class="tkt perf-x mini"><div class="mThumb duo"><img src="assets/players/siraj.jpg" alt="Zayn Mirza"></div><div><div class="mName">Zayn Mirza</div><div class="mRole">Quick · № 73</div></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GATE 2 · THE SEAT ============ -->
+<div class="sign">
+  <div class="wrap">
+    <span class="signL">GATE 2</span>
+    <span class="signM">The Turnstile</span>
+    <span class="signR">Order moment · The Seat</span>
+  </div>
+</div>
+
+<section class="turnstile">
+  <div class="wrap tsGrid">
+    <div class="rv">
+      <h2 class="secH">The seat<br>you <em>keep.</em></h2>
+      <p class="secP">A subscription checkout kills the feeling. A season ticket keeps it: approve the mandate once in your own UPI app, and your seat renews itself — reminded the day before, cancelled in two taps, whenever you like.</p>
+      <p class="secFine">No card on file · No dark patterns · The turnstile spins both ways</p>
+    </div>
+
+    <div class="tkt-shadow rv" style="--rot:.7deg;--d:.1s">
+      <div class="tkt perf-x season">
+        <header class="sHead">
+          <span class="t">Season Ticket</span>
+          <span class="f">FanGram · 2026</span>
+        </header>
+        <div class="sMain">
+          <div>
+            <div class="sField"><span class="k">Holder</span><span class="v">Rohan M.</span></div>
+            <div class="sField" style="margin-top:.6rem"><span class="k">Stand</span><span class="v">Valmik Rao’s World</span></div>
+          </div>
+          <div class="sPrice">
+            <div class="amt">₹499<span>/mo</span></div>
+            <div class="per">Pavilion tier · renews monthly</div>
+          </div>
+        </div>
+        <div class="tiers" role="list" aria-label="Season tiers">
+          <span class="tier" role="listitem">Gallery ₹149</span>
+          <span class="tier sel" role="listitem">Pavilion ₹499</span>
+          <span class="tier" role="listitem">Dressing Room ₹999</span>
+        </div>
+        <div class="sTerms">
+          <p class="tt">Season terms — the only fine print</p>
+          <ol>
+            <li><span class="n">01</span><span>This ticket renews itself. ₹499 is collected monthly through a UPI AutoPay mandate you approve once, in your own UPI app.</span></li>
+            <li><span class="n">02</span><span>Renews on the 4th of every month. We remind you the day before — no surprises at the gate.</span></li>
+            <li><span class="n">03</span><span>Cancel anytime, in two taps. Walk out whenever you like and keep everything already delivered.</span></li>
+          </ol>
+        </div>
+        <div class="sAction">
+          <button class="btn btn-coral" type="button">Approve mandate in your UPI app</button>
+          <span class="sNote">One approval · ₹499/mo · cancel anytime</span>
+        </div>
+        <div class="sBase">
+          <span class="serial">SSN-2026-0499</span>
+          <span class="bc barcode" aria-hidden="true"></span>
+        </div>
+      </div>
+      <div class="stamp sStamp rv" style="--rot:8deg;--sc0:1.35;--d:.5s">Seat Kept</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GATE 3 · IT LANDS ============ -->
+<div class="sign">
+  <div class="wrap">
+    <span class="signL">GATE 3</span>
+    <span class="signM">The Moment It Lands</span>
+    <span class="signR">Delivered · Keep the stub</span>
+  </div>
+</div>
+
+<section class="lands">
+  <div class="wrap ldGrid">
+    <div class="rv">
+      <h2 class="secH">It lands. You keep<br>the <em>stub.</em></h2>
+      <p class="secP">Forty-two seconds of him, made for one person only. Every delivered FanGram is stamped ATTENDED and filed in your stubs forever — with one edge left to tear.</p>
+      <p class="secFine">Filmed per order, never AI · Yours to keep, yours to share</p>
+    </div>
+
+    <div class="tkt-shadow rv" style="--rot:-1deg;--d:.1s">
+      <div class="tkt perf-l attended">
+        <div class="aTop">
+          <div class="aFrame duo">
+            <img src="assets/players/bumrah.jpg" alt="Still from Valmik Rao’s delivered birthday video">
+            <span class="aPlay" aria-hidden="true"></span>
+            <span class="aTime">0:42</span>
+          </div>
+          <div>
+            <p class="aKicker">Personal video · Delivered</p>
+            <div class="aRow"><span class="k">For</span><span class="v">Rohan</span></div>
+            <div class="aRow"><span class="k">Occasion</span><span class="v">A birthday</span></div>
+            <div class="aRow"><span class="k">Runtime</span><span class="v">0:42</span></div>
+            <p class="aFine">Filmed per order, never AI.<br>Filed in your stubs forever.</p>
+          </div>
+        </div>
+        <button class="aShare" id="shareStrip" type="button" aria-pressed="false">
+          <span class="sTxt" id="shareTxt">✂ Tear here — share the link ↗</span>
+          <span class="sUrl">fangram.in/s/rohan-0042</span>
+        </button>
+      </div>
+      <div class="stamp aStamp rv" style="--rot:-12deg;--sc0:1.4;--d:.45s">Attended</div>
+    </div>
+  </div>
+</section>
+
+<!-- roll divider -->
+<div class="roll perf-y" aria-hidden="true">
+  <div class="rollIn rollAnim">
+    <span>Real ✦ Proof ✦ Witnessed ✦ Signed ✦ Real ✦ Proof ✦ Witnessed ✦ Signed ✦ Real ✦ Proof ✦ Witnessed ✦ Signed ✦ Real ✦ Proof ✦ Witnessed ✦ Signed ✦&nbsp;</span>
+    <span>Real ✦ Proof ✦ Witnessed ✦ Signed ✦ Real ✦ Proof ✦ Witnessed ✦ Signed ✦ Real ✦ Proof ✦ Witnessed ✦ Signed ✦ Real ✦ Proof ✦ Witnessed ✦ Signed ✦&nbsp;</span>
+  </div>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="ftTop">
+      <span class="ftMark">FanGram — <span style="color:var(--coral)">talent, fans, brands.</span></span>
+      <span class="ftWords">Access · Belonging · Keepsake</span>
+    </div>
+    <hr class="ftRule">
+    <div class="ftBottom">
+      <span>Direction 09 · The Ticket · FanGram design exploration</span>
+      <span>Filmed per order, never AI · Refund-backed · Never gambling, never fake</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var els = document.querySelectorAll('.rv');
+  if (!rm && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {threshold:.12, rootMargin:'0px 0px -40px 0px'});
+    els.forEach(function(el){ io.observe(el); });
+  } else {
+    els.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  var strip = document.getElementById('shareStrip');
+  var txt = document.getElementById('shareTxt');
+  if (strip && txt) {
+    var torn = false;
+    strip.addEventListener('click', function(){
+      torn = !torn;
+      strip.classList.toggle('tornOff', torn);
+      strip.setAttribute('aria-pressed', String(torn));
+      txt.textContent = torn ? '✓ Torn — link copied, paste it somewhere loud' : '✂ Tear here — share the link ↗';
+    });
+  }
+})();
+</script>
+
+</body>
+</html>

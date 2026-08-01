@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FanGram — Direction 07 · The Archive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F5F1E6;
+    --paper-deep:#EEE8D8;
+    --paper-shade:#E7E0CC;
+    --ink:#1C1812;
+    --ink-60:rgba(28,24,18,.62);
+    --ink-40:rgba(28,24,18,.42);
+    --rule:rgba(28,24,18,.30);
+    --rule-soft:rgba(28,24,18,.16);
+    --red:#B3271E;
+    --serif:'Source Serif 4',Georgia,serif;
+    --mono:'IBM Plex Mono','Courier New',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--serif);
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    position:relative;
+  }
+  /* archival paper grain */
+  body::after{
+    content:"";position:fixed;inset:0;z-index:60;pointer-events:none;
+    opacity:.05;mix-blend-mode:multiply;
+    background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="2" stitchTiles="stitch"/></filter><rect width="180" height="180" filter="url(%23n)"/></svg>');
+  }
+  /* plate frame around the whole page */
+  .frame{position:fixed;inset:12px;border:1px solid var(--rule);pointer-events:none;z-index:55}
+  .frame::after{content:"";position:absolute;inset:3px;border:1px solid var(--rule-soft)}
+  @media (max-width:640px){.frame{inset:7px}.frame::after{inset:2px}}
+
+  ::selection{background:var(--red);color:var(--paper)}
+  a{color:inherit}
+  img{max-width:100%;display:block}
+
+  .wrap{max-width:1060px;margin:0 auto;padding:0 44px}
+  @media (max-width:640px){.wrap{padding:0 24px}}
+
+  /* ---------- type utilities ---------- */
+  .mono{font-family:var(--mono)}
+  .meta{
+    font-family:var(--mono);font-size:11px;font-weight:500;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--ink-60);
+  }
+  .meta-red{color:var(--red)}
+  .plate-no{
+    font-family:var(--mono);font-size:10px;font-weight:500;
+    letter-spacing:.14em;color:var(--ink-40);
+  }
+  .rule{border:none;border-top:1px solid var(--rule);margin:0}
+  .rule-double{border:none;border-top:1px solid var(--ink);position:relative;margin:0}
+  .rule-double::after{content:"";position:absolute;left:0;right:0;top:3px;border-top:1px solid var(--rule)}
+
+  /* ---------- stamps ---------- */
+  .stamp{
+    display:inline-block;
+    font-family:var(--mono);font-size:11px;font-weight:600;
+    letter-spacing:.22em;text-transform:uppercase;line-height:1.35;
+    color:var(--red);
+    border:2px solid var(--red);
+    outline:1px solid var(--red);outline-offset:2.5px;
+    padding:.55em .95em .5em;
+    border-radius:2px;
+    transform:rotate(-6.5deg);
+    mix-blend-mode:multiply;
+    opacity:.88;
+    text-align:center;
+    -webkit-mask-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140"><filter id="g"><feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0.62"/></filter><rect width="140" height="140" filter="url(%23g)"/></svg>');
+    mask-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140"><filter id="g"><feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0.62"/></filter><rect width="140" height="140" filter="url(%23g)"/></svg>');
+  }
+  .stamp small{display:block;font-size:8.5px;font-weight:500;letter-spacing:.18em;margin-top:.35em}
+
+  /* ---------- masthead ---------- */
+  .masthead{padding:26px 0 0}
+  .masthead-row{
+    display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;
+    padding-bottom:20px;
+  }
+  .back-link{
+    font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.14em;
+    text-transform:uppercase;text-decoration:none;color:var(--ink-60);
+    border-bottom:1px solid transparent;padding-bottom:2px;
+    transition:color .2s,border-color .2s;justify-self:start;
+  }
+  .back-link:hover,.back-link:focus-visible{color:var(--red);border-color:var(--red)}
+  .wordmark{text-align:center;text-decoration:none;display:block}
+  .wordmark .wm{
+    font-family:var(--serif);font-weight:600;font-size:24px;letter-spacing:.34em;
+    text-transform:uppercase;text-indent:.34em; /* optically re-center tracked caps */
+    color:var(--ink);line-height:1;
+  }
+  .wordmark .wm-sub{
+    font-family:var(--mono);font-size:8.5px;font-weight:500;letter-spacing:.32em;
+    text-transform:uppercase;color:var(--ink-60);margin-top:7px;text-indent:.32em;
+  }
+  .masthead-cat{justify-self:end;text-align:right}
+  @media (max-width:760px){
+    .masthead-row{grid-template-columns:1fr auto;grid-template-rows:auto auto;row-gap:18px}
+    .wordmark{grid-column:1 / -1;grid-row:2;order:2}
+    .masthead-cat{grid-row:1}
+  }
+
+  /* ---------- section running heads ---------- */
+  .running-head{
+    display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+    padding:14px 0 10px;border-bottom:1px solid var(--rule);
+  }
+  .running-head .rh-title{
+    font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--ink);
+  }
+  .running-head .rh-title .num{color:var(--red);margin-right:.9em}
+
+  /* ---------- hero / frontispiece ---------- */
+  .frontispiece{padding:84px 0 92px;text-align:center;position:relative}
+  .frontispiece .fp-eyebrow{margin-bottom:34px}
+  .fp-ornament{
+    font-family:var(--serif);font-size:15px;letter-spacing:.9em;text-indent:.9em;
+    color:var(--ink-60);margin:30px 0;
+  }
+  .frontispiece h1{
+    font-family:var(--serif);font-weight:300;
+    font-size:clamp(38px,6.2vw,68px);
+    line-height:1.12;letter-spacing:-.012em;
+    max-width:17em;margin:0 auto;
+  }
+  .frontispiece h1 em{font-style:italic;font-weight:400}
+  .frontispiece .fp-dek{
+    max-width:33em;margin:34px auto 0;
+    font-size:18px;line-height:1.75;color:var(--ink-60);
+    font-weight:300;
+  }
+  .frontispiece .fp-dek strong{font-weight:500;color:var(--ink)}
+  .fp-stamp{position:absolute;right:2%;top:46px}
+  @media (max-width:760px){
+    .frontispiece{padding:64px 0 70px}
+    .fp-stamp{position:static;display:inline-block;margin-top:40px}
+  }
+
+  /* ---------- talent plate ---------- */
+  .talent{padding:64px 0 30px}
+  .talent-grid{
+    display:grid;grid-template-columns:minmax(0,7fr) minmax(0,9fr);
+    gap:56px;align-items:start;margin-top:48px;
+  }
+  @media (max-width:860px){.talent-grid{grid-template-columns:1fr;gap:44px}}
+
+  figure.plate{position:relative}
+  .plate-img-box{
+    border:1px solid var(--ink);
+    padding:10px;background:var(--paper);
+    position:relative;
+  }
+  .plate-img-box::after{content:"";position:absolute;inset:6px;border:1px solid var(--rule-soft);pointer-events:none}
+  .plate-img{
+    position:relative;overflow:hidden;background:var(--paper-shade);
+  }
+  .plate-img img{
+    width:100%;aspect-ratio:4/5;object-fit:cover;object-position:top center;
+    filter:grayscale(1) contrast(1.1) brightness(1.06) sepia(.30) saturate(.85);
+    mix-blend-mode:multiply;
+  }
+  figure.plate figcaption{
+    margin-top:14px;
+    font-family:var(--mono);font-size:10.5px;line-height:1.8;
+    letter-spacing:.08em;color:var(--ink-60);
+  }
+  figure.plate figcaption .cap-no{color:var(--red);font-weight:600}
+  .plate-corner-stamp{position:absolute;right:-14px;bottom:64px;z-index:2}
+  @media (max-width:860px){.plate-corner-stamp{right:2px}}
+
+  .talent-id .t-discipline{margin-bottom:14px}
+  .talent-id h2{
+    font-family:var(--serif);font-weight:600;
+    font-size:clamp(38px,5vw,56px);line-height:1.02;letter-spacing:-.015em;
+  }
+  .talent-id .t-bio{
+    margin-top:20px;font-size:16.5px;line-height:1.7;color:var(--ink-60);max-width:32em;
+    font-weight:300;
+  }
+  .talent-id .t-bio strong{color:var(--ink);font-weight:500}
+
+  /* specimen label */
+  .specimen{
+    margin-top:30px;border:1px solid var(--ink);background:var(--paper-deep);
+    padding:18px 20px 16px;position:relative;
+  }
+  .specimen::after{content:"";position:absolute;inset:4px;border:1px solid var(--rule-soft);pointer-events:none}
+  .specimen dl{
+    display:grid;grid-template-columns:auto 1fr;column-gap:22px;row-gap:7px;
+    font-family:var(--mono);font-size:11px;letter-spacing:.1em;
+  }
+  .specimen dt{color:var(--ink-40);text-transform:uppercase;font-weight:500}
+  .specimen dd{color:var(--ink);font-weight:500;text-transform:uppercase}
+  .specimen dd .red{color:var(--red)}
+
+  /* condition report / trust strip */
+  .condition{
+    margin-top:26px;display:grid;grid-template-columns:1fr 1fr 1fr;
+    border-top:1px solid var(--ink);border-bottom:1px solid var(--rule);
+  }
+  .condition>div{
+    padding:16px 8px 14px;text-align:center;
+  }
+  .condition>div+div{border-left:1px solid var(--rule-soft)}
+  .condition .c-val{
+    font-family:var(--serif);font-size:27px;font-weight:600;line-height:1;letter-spacing:-.01em;
+  }
+  .condition .c-val sup{font-size:12px;font-weight:400;color:var(--ink-60);top:-.9em;position:relative}
+  .condition .c-key{margin-top:8px;font-family:var(--mono);font-size:9px;font-weight:500;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--ink-60)}
+  @media (max-width:400px){.condition .c-val{font-size:22px}}
+
+  /* ---------- collection index (offerings) ---------- */
+  .index-sec{padding:56px 0 40px}
+  .index-note{margin:18px 0 0;max-width:44em;font-size:15.5px;color:var(--ink-60);font-weight:300;font-style:italic}
+  .index-list{margin-top:36px;border-top:1px solid var(--ink)}
+  .index-row{
+    display:grid;
+    grid-template-columns:118px minmax(0,1fr) 205px 128px;
+    gap:26px;align-items:center;
+    padding:26px 0;
+    border-bottom:1px solid var(--rule);
+    position:relative;
+    transition:background-color .25s;
+  }
+  .index-row:hover{background:linear-gradient(to right,transparent,var(--paper-deep) 12%,var(--paper-deep) 88%,transparent)}
+  .index-row .ir-no{
+    font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.1em;
+    color:var(--ink-40);line-height:1.9;transition:color .25s;
+  }
+  .index-row:hover .ir-no{color:var(--red)}
+  .index-row .ir-no b{display:block;font-size:10px;color:inherit;font-weight:600}
+  .ir-body h3{
+    font-family:var(--serif);font-size:24px;font-weight:600;line-height:1.15;letter-spacing:-.01em;
+  }
+  .ir-body .ir-medium{
+    margin-top:7px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;
+    color:var(--ink-60);line-height:1.75;
+  }
+  .ir-body .ir-medium .gtee{color:var(--red);font-weight:500}
+  .ir-price{text-align:right}
+  .ir-price .p-main{
+    font-family:var(--serif);font-size:21px;font-weight:600;letter-spacing:-.01em;line-height:1.15;
+  }
+  .ir-price .p-main.poa{font-size:14px;font-family:var(--mono);font-weight:600;letter-spacing:.14em}
+  .ir-price .p-sub{
+    margin-top:5px;font-family:var(--mono);font-size:9px;font-weight:500;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--ink-60);
+  }
+  .ir-cta{justify-self:end}
+  .btn{
+    display:inline-block;cursor:pointer;text-decoration:none;text-align:center;
+    font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--ink);background:transparent;
+    border:1px solid var(--ink);
+    padding:12px 22px 11px;min-width:118px;
+    transition:background-color .2s,color .2s;
+  }
+  .btn:hover,.btn:focus-visible{background:var(--ink);color:var(--paper)}
+  .btn-solid{background:var(--ink);color:var(--paper)}
+  .btn-solid:hover,.btn-solid:focus-visible{background:var(--red);border-color:var(--red);color:var(--paper)}
+  :focus-visible{outline:2px solid var(--red);outline-offset:3px}
+
+  @media (max-width:900px){
+    .index-row{grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto;row-gap:16px}
+    .index-row .ir-no{grid-column:1/-1;line-height:1.5}
+    .index-row .ir-no b{display:inline;margin-right:1.2em}
+    .ir-price{grid-row:2;grid-column:1;text-align:left;align-self:end}
+    .ir-cta{grid-row:2;grid-column:2;align-self:end}
+    .ir-body{grid-column:1/-1}
+  }
+
+  /* ---------- accession form (order moment) ---------- */
+  .accession-sec{padding:56px 0 44px}
+  .accession{
+    margin-top:40px;border:1px solid var(--ink);background:var(--paper);position:relative;
+  }
+  .accession::before{content:"";position:absolute;inset:5px;border:1px solid var(--rule-soft);pointer-events:none}
+  .acc-head{
+    display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap;
+    padding:20px 34px;border-bottom:1px solid var(--ink);
+  }
+  .acc-head .ah-t{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase}
+  .acc-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .acc-obj{padding:34px;border-right:1px solid var(--rule)}
+  .acc-obj h3{
+    font-family:var(--serif);font-size:29px;font-weight:600;line-height:1.15;letter-spacing:-.012em;max-width:11em;
+  }
+  .acc-obj .obj-medium{
+    margin-top:10px;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;color:var(--ink-60);line-height:1.8;
+  }
+  .provenance{
+    margin-top:24px;padding:16px 18px;background:var(--paper-deep);
+    border-left:2px solid var(--red);
+    font-size:15px;line-height:1.7;font-style:italic;color:var(--ink-60);
+  }
+  .provenance .pv-label{
+    display:block;font-style:normal;font-family:var(--mono);font-size:9px;font-weight:600;
+    letter-spacing:.22em;text-transform:uppercase;color:var(--red);margin-bottom:8px;
+  }
+  /* edition ledger */
+  .ledger{margin-top:26px}
+  .ledger .lg-row{display:flex;justify-content:space-between;align-items:baseline;
+    font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--ink-60);margin-bottom:9px}
+  .ledger .lg-row .lg-num{color:var(--ink);font-weight:600}
+  .ledger .lg-row .lg-num i{font-style:normal;color:var(--red)}
+  .lg-bar{position:relative;height:7px;border:1px solid var(--ink);background:var(--paper)}
+  .lg-bar .lg-fill{position:absolute;left:0;top:0;bottom:0;width:9.4%;background:var(--red)}
+  .lg-foot{margin-top:8px;font-family:var(--mono);font-size:9px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--ink-40)}
+
+  .acc-form{padding:34px;position:relative}
+  .acc-form .cf-label{
+    font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--ink);margin-bottom:16px;
+  }
+  .tier{display:block;cursor:pointer;position:relative;margin-bottom:10px}
+  .tier input{position:absolute;opacity:0;pointer-events:none}
+  .tier .tier-box{
+    display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:baseline;
+    border:1px solid var(--rule);padding:14px 16px;
+    transition:border-color .2s,background-color .2s;
+  }
+  .tier .t-opt{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.14em;color:var(--ink-40)}
+  .tier .t-name{font-family:var(--serif);font-size:16.5px;font-weight:500;line-height:1.35}
+  .tier .t-name small{
+    display:block;font-family:var(--mono);font-size:9.5px;font-weight:400;
+    letter-spacing:.08em;color:var(--ink-60);margin-top:3px;text-transform:uppercase;
+  }
+  .tier .t-price{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.04em}
+  .tier input:checked + .tier-box{border-color:var(--ink);background:var(--paper-deep);box-shadow:inset 0 0 0 1px var(--ink)}
+  .tier input:checked + .tier-box .t-opt{color:var(--red)}
+  .tier input:focus-visible + .tier-box{outline:2px solid var(--red);outline-offset:2px}
+  .acc-total{
+    display:flex;justify-content:space-between;align-items:baseline;
+    border-top:1px solid var(--ink);margin-top:22px;padding-top:18px;
+  }
+  .acc-total .tt-label{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-60)}
+  .acc-total .tt-val{font-family:var(--serif);font-size:31px;font-weight:600;letter-spacing:-.01em}
+  .acc-cta{margin-top:20px}
+  .acc-cta .btn{width:100%;padding:16px 22px 15px}
+  .acc-gtee{
+    margin-top:14px;text-align:center;font-family:var(--mono);font-size:9px;font-weight:500;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--ink-60);line-height:2;
+  }
+  .acc-gtee b{color:var(--red);font-weight:600}
+  /* acquired stamp overlay */
+  .acquired-stamp{
+    position:absolute;right:26px;bottom:118px;z-index:3;
+    transform:rotate(-11deg) scale(1);
+    display:none;
+  }
+  .accession.stamped .acquired-stamp{display:inline-block;animation:stampIn .38s cubic-bezier(.2,1.6,.4,1) both}
+  @keyframes stampIn{
+    0%{opacity:0;transform:rotate(-11deg) scale(2.1)}
+    62%{opacity:1;transform:rotate(-11deg) scale(.96)}
+    100%{opacity:.88;transform:rotate(-11deg) scale(1)}
+  }
+  @media (max-width:860px){
+    .acc-grid{grid-template-columns:1fr}
+    .acc-obj{border-right:none;border-bottom:1px solid var(--rule)}
+    .acc-obj,.acc-form{padding:26px 22px}
+    .acc-head{padding:18px 22px}
+    .acquired-stamp{bottom:96px;right:14px}
+  }
+
+  /* ---------- certificate (the moment it lands) ---------- */
+  .cert-sec{padding:56px 0 48px}
+  .cert-lede{margin:18px 0 0;max-width:42em;font-size:15.5px;color:var(--ink-60);font-weight:300;font-style:italic}
+  .certificate{
+    margin:40px auto 0;max-width:760px;
+    border:1px solid var(--ink);background:var(--paper);
+    position:relative;padding:8px;
+  }
+  .cert-inner{border:1px solid var(--ink);padding:44px 48px 40px;position:relative}
+  .cert-inner::before{content:"";position:absolute;inset:4px;border:1px solid var(--rule-soft);pointer-events:none}
+  .cert-top{text-align:center}
+  .cert-top .ct-arch{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.4em;text-transform:uppercase;color:var(--ink-60);text-indent:.4em}
+  .cert-top h3{
+    margin-top:14px;font-family:var(--serif);font-weight:600;font-size:clamp(24px,3.4vw,31px);
+    letter-spacing:.06em;text-transform:uppercase;line-height:1.2;
+  }
+  .cert-top .ct-no{margin-top:10px;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.2em;color:var(--red)}
+  .cert-orn{text-align:center;font-size:13px;letter-spacing:.8em;text-indent:.8em;color:var(--ink-60);margin:22px 0}
+  .cert-fields{
+    display:grid;grid-template-columns:1fr 1fr;gap:0;
+    border-top:1px solid var(--ink);border-left:1px solid var(--rule);
+  }
+  .cert-fields>div{
+    border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);
+    padding:13px 16px 11px;
+  }
+  .cert-fields .wide{grid-column:1/-1}
+  .cf-k{font-family:var(--mono);font-size:8.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-40)}
+  .cf-v{margin-top:5px;font-family:var(--serif);font-size:16.5px;font-weight:500;line-height:1.4}
+  .cf-v.mono-v{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.08em}
+  .cf-v .red{color:var(--red)}
+  .film-row{background:var(--paper-deep)}
+  .film-row .film-line{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+  .film-link{
+    font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--red);text-decoration:none;border-bottom:1px solid var(--red);padding-bottom:2px;white-space:nowrap;
+  }
+  .film-link:hover{color:var(--ink);border-color:var(--ink)}
+  .cert-foot{
+    margin-top:26px;display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;
+  }
+  .cert-sign .cs-line{
+    font-family:var(--serif);font-style:italic;font-size:23px;line-height:1;
+    border-bottom:1px solid var(--ink);padding:0 26px 8px 4px;display:inline-block;
+    transform:rotate(-1.5deg);
+  }
+  .cert-sign .cs-cap{margin-top:8px;font-family:var(--mono);font-size:8.5px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-40)}
+  /* circular seal */
+  .seal{width:104px;height:104px;position:relative;flex:none;mix-blend-mode:multiply;opacity:.9;transform:rotate(8deg)}
+  .seal svg{width:100%;height:100%;display:block}
+  @media (max-width:640px){
+    .cert-inner{padding:30px 20px 28px}
+    .cert-fields{grid-template-columns:1fr}
+    .cert-fields>div{border-right:1px solid var(--rule)}
+  }
+
+  /* ---------- conditions of acquisition ---------- */
+  .conditions{padding:52px 0 26px}
+  .cond-grid{
+    margin-top:36px;display:grid;grid-template-columns:1fr 1fr 1fr;
+    border-top:1px solid var(--ink);
+  }
+  .cond{padding:26px 26px 30px;border-bottom:1px solid var(--rule);position:relative}
+  .cond+.cond{border-left:1px solid var(--rule-soft)}
+  .cond .cd-no{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.18em;color:var(--red)}
+  .cond h4{margin-top:12px;font-family:var(--serif);font-size:19.5px;font-weight:600;line-height:1.3;letter-spacing:-.008em}
+  .cond p{margin-top:9px;font-size:14.5px;line-height:1.65;color:var(--ink-60);font-weight:300}
+  @media (max-width:760px){
+    .cond-grid{grid-template-columns:1fr}
+    .cond+.cond{border-left:none}
+  }
+
+  /* ---------- footer ---------- */
+  footer{padding:40px 0 56px;text-align:center}
+  .foot-rule{margin-bottom:30px}
+  footer .f-main{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--ink)}
+  footer .f-main .sep{color:var(--red);margin:0 .7em}
+  footer .colophon{
+    margin-top:14px;font-family:var(--mono);font-size:9px;font-weight:400;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--ink-40);line-height:2.1;
+  }
+
+  /* ---------- reveal ---------- */
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+    .accession.stamped .acquired-stamp{animation:none;opacity:.88}
+    *{transition-duration:.001s !important;animation-duration:.001s !important}
+  }
+</style>
+</head>
+<body>
+
+<div class="frame" aria-hidden="true"></div>
+
+<!-- ══════════════ MASTHEAD ══════════════ -->
+<header class="masthead">
+  <div class="wrap">
+    <div class="masthead-row">
+      <a class="back-link" href="index.html">&larr; All directions</a>
+      <a class="wordmark" href="#" aria-label="FanGram — The Archive">
+        <span class="wm">FanGram</span>
+        <span class="wm-sub">The Permanent Record of Fandom</span>
+      </a>
+      <div class="masthead-cat">
+        <div class="plate-no">CAT. FG.2026.047</div>
+        <div class="plate-no" style="margin-top:3px">VOL. I &middot; CRICKET &mdash; FIRST VERTICAL</div>
+      </div>
+    </div>
+    <hr class="rule-double">
+  </div>
+</header>
+
+<!-- ══════════════ I. FRONTISPIECE ══════════════ -->
+<section class="frontispiece wrap reveal" aria-labelledby="hero-h">
+  <span class="stamp fp-stamp" aria-hidden="true">Opened<small>MMXXVI &middot; Bombay</small></span>
+  <p class="meta fp-eyebrow"><span class="meta-red">FG.2026.001</span> &nbsp;&middot;&nbsp; Frontispiece &nbsp;&middot;&nbsp; Catalogue of Devotion</p>
+  <h1 id="hero-h">Where fans connect with <em>the talent they admire</em> &mdash; and the moment is entered into the record.</h1>
+  <div class="fp-ornament" aria-hidden="true">&#10045;&ensp;&#10045;&ensp;&#10045;</div>
+  <p class="fp-dek">FanGram is the archive of real fandom &mdash; the record where <strong>talent, fans and brands</strong> meet. Every video <strong>filmed per order, never AI</strong>. Every signature witnessed on camera. Every edition numbered, sealed and catalogued &mdash; so that what passes between a hero and a fan is never lost, and never in doubt.</p>
+  <p class="meta" style="margin-top:32px"><span class="meta-red">Built for Talent</span> &nbsp;&middot;&nbsp; Loved by Fans &nbsp;&middot;&nbsp; <span class="meta-red">Trusted by Brands</span></p>
+  <p class="fp-dek" style="max-width:31em;margin-top:16px">Opening with cricket &mdash; built for every stage. <strong>Music &middot; Film &middot; Creators &middot; Athletes &middot; Performers</strong> to enter the record next.</p>
+</section>
+
+<!-- ══════════════ II. THE TALENT PLATE ══════════════ -->
+<section class="talent wrap" aria-labelledby="talent-h">
+  <div class="running-head reveal">
+    <span class="rh-title"><span class="num">II.</span>Artists of the Collection &mdash; Plate I</span>
+    <span class="plate-no">FG.2026.047.P1</span>
+  </div>
+
+  <div class="talent-grid">
+    <figure class="plate reveal">
+      <div class="plate-img-box">
+        <div class="plate-img">
+          <img src="assets/players/bumrah.jpg" alt="Valmik Rao, fast bowler, rendered as an archival duotone plate">
+        </div>
+      </div>
+      <span class="stamp plate-corner-stamp" aria-hidden="true">Verified<small>FanGram Archive</small></span>
+      <figcaption>
+        <span class="cap-no">PLATE I.</span> RAO, VALMIK (b. 1994). AT THE TOP OF HIS MARK.<br>
+        TONED REFERENCE PRINT &middot; ARCHIVAL IVORY &middot; REF FG.2026.047.P1
+      </figcaption>
+    </figure>
+
+    <div class="talent-id reveal">
+      <p class="meta t-discipline"><span class="meta-red">Vol. I &middot; First on the record:</span> Fast bowling &middot; Cricket</p>
+      <h2 id="talent-h">Valmik Rao</h2>
+      <p class="t-bio">The most feared yorker in the modern game &mdash; and the <strong>first name entered</strong> into an archive built for every discipline to come. Every work commissioned from Rao is <strong>made for one person, once</strong> &mdash; filmed, witnessed, numbered, and yours.</p>
+
+      <div class="specimen" role="group" aria-label="Catalogue specimen data for Valmik Rao">
+        <dl>
+          <dt>Accession</dt><dd><span class="red">FG.2026.047</span></dd>
+          <dt>Classification</dt><dd>Fast Bowler &middot; Test / ODI / T20</dd>
+          <dt>Active</dt><dd>2016 &ndash; Present</dd>
+          <dt>Provenance</dt><dd>Ahmedabad, India</dd>
+          <dt>Status</dt><dd>Accepting commissions</dd>
+        </dl>
+      </div>
+
+      <div class="condition" role="group" aria-label="Condition report — trust indicators">
+        <div>
+          <div class="c-val">4.9<sup>/5</sup></div>
+          <div class="c-key">Collector Rating</div>
+        </div>
+        <div>
+          <div class="c-val">3,410</div>
+          <div class="c-key">Works Delivered</div>
+        </div>
+        <div>
+          <div class="c-val">1 day</div>
+          <div class="c-key">Replies Within</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ III. THE COLLECTION INDEX ══════════════ -->
+<section class="index-sec wrap" aria-labelledby="index-h">
+  <div class="running-head reveal">
+    <span class="rh-title" id="index-h"><span class="num">III.</span>The Collection Index &mdash; Works Available from V. Rao</span>
+    <span class="plate-no">FG.2026.047.01&ndash;05</span>
+  </div>
+  <p class="index-note reveal">Five classes of work are offered &mdash; for the fans who follow, and the brands who want in. Each is executed per order; none exists before it is commissioned.</p>
+
+  <div class="index-list">
+
+    <article class="index-row reveal">
+      <div class="ir-no"><b>No. 01</b>FG.2026.047.01</div>
+      <div class="ir-body">
+        <h3>Personal video</h3>
+        <p class="ir-medium">MEDIUM: SINGLE-CHANNEL VIDEO, 30&ndash;90 SEC &middot; <span class="gtee">FILMED PER ORDER, NEVER AI</span> &middot; DELIVERED AS PRIVATE LINK</p>
+      </div>
+      <div class="ir-price">
+        <div class="p-main">&#8377;2,499</div>
+        <div class="p-sub">Fixed price &middot; No variants</div>
+      </div>
+      <div class="ir-cta"><a href="#" class="btn btn-solid">Book</a></div>
+    </article>
+
+    <article class="index-row reveal">
+      <div class="ir-no"><b>No. 02</b>FG.2026.047.02</div>
+      <div class="ir-body">
+        <h3>Brand video</h3>
+        <p class="ir-medium">MEDIUM: COMMERCIAL COMMISSION &middot; SPONSORED MOMENTS &amp; LICENSED BRAND FILM &middot; ACCESS TO AUTHENTIC FAN COMMUNITIES</p>
+      </div>
+      <div class="ir-price">
+        <div class="p-main poa">Price on<br>application</div>
+        <div class="p-sub">For brands &middot; enquiries first</div>
+      </div>
+      <div class="ir-cta"><a href="#" class="btn">Contact&nbsp;us</a></div>
+    </article>
+
+    <article class="index-row reveal">
+      <div class="ir-no"><b>No. 03</b>FG.2026.047.03</div>
+      <div class="ir-body">
+        <h3>Direct message</h3>
+        <p class="ir-medium">MEDIUM: WRITTEN CORRESPONDENCE &middot; <span class="gtee">REAL REPLY OR YOUR MONEY BACK</span> &middot; ANSWERED WITHIN 1 DAY</p>
+      </div>
+      <div class="ir-price">
+        <div class="p-main">&#8377;1,199</div>
+        <div class="p-sub">Per message</div>
+      </div>
+      <div class="ir-cta"><a href="#" class="btn">Write</a></div>
+    </article>
+
+    <article class="index-row reveal">
+      <div class="ir-no"><b>No. 04</b>FG.2026.047.04</div>
+      <div class="ir-body">
+        <h3>Signed merchandise</h3>
+        <p class="ir-medium">MEDIUM: OBJECTS OF RECORD &middot; <span class="gtee">SIGNED ON CAMERA, SEALED, NUMBERED</span> &middot; LIMITED EDITIONS</p>
+      </div>
+      <div class="ir-price">
+        <div class="p-main">from &#8377;12,999</div>
+        <div class="p-sub">Editions of 500 or fewer</div>
+      </div>
+      <div class="ir-cta"><a href="#accession" class="btn">Shop</a></div>
+    </article>
+
+    <article class="index-row reveal">
+      <div class="ir-no"><b>No. 05</b>FG.2026.047.05</div>
+      <div class="ir-body">
+        <h3>A seat in his world</h3>
+        <p class="ir-medium">MEDIUM: STANDING MEMBERSHIP &middot; DISPATCHES, EARLY ACCESS &amp; THE INNER CIRCLE &middot; RENEWED MONTHLY</p>
+      </div>
+      <div class="ir-price">
+        <div class="p-main">from &#8377;149<span style="font-size:.6em;font-weight:400">/mo</span></div>
+        <div class="p-sub">Membership &middot; Cancel anytime</div>
+      </div>
+      <div class="ir-cta"><a href="#" class="btn">Join</a></div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ══════════════ IV. ACCESSION FORM — SIGNED MERCH ORDER ══════════════ -->
+<section class="accession-sec wrap" id="accession" aria-labelledby="acc-h">
+  <div class="running-head reveal">
+    <span class="rh-title" id="acc-h"><span class="num">IV.</span>Form of Accession &mdash; Signed Merchandise</span>
+    <span class="plate-no">FG.2026.047.04-A</span>
+  </div>
+
+  <div class="accession reveal" id="accCard">
+    <div class="acc-head">
+      <span class="ah-t">Accession Form &middot; No. 04</span>
+      <span class="plate-no">LOT FG.2026.047.04-A &middot; SEASON MMXXVI</span>
+    </div>
+    <div class="acc-grid">
+
+      <div class="acc-obj">
+        <p class="meta" style="margin-bottom:12px"><span class="meta-red">Object:</span> Match-worn &amp; signed</p>
+        <h3>Test jersey, worn by V.&nbsp;Rao, signed in the collector&rsquo;s name</h3>
+        <p class="obj-medium">COTTON-POLY MATCH SHIRT &middot; INK SIGNATURE, OBVERSE &middot; SIGNED ON CAMERA, SEALED, NUMBERED &middot; DISPATCHED WITH CERTIFICATE OF RECORD</p>
+
+        <div class="provenance">
+          <span class="pv-label">Provenance</span>
+          Worn by Valmik Rao, third Test v. Australia, Wankhede Stadium, 14 February 2026 &mdash; the 7-for-41 innings. Passed directly from player to Archive; never a third hand between.
+        </div>
+
+        <div class="ledger" role="group" aria-label="Edition ledger, number 47 of 500">
+          <div class="lg-row">
+            <span>Edition ledger</span>
+            <span class="lg-num">No. <i>47</i> / 500</span>
+          </div>
+          <div class="lg-bar" aria-hidden="true"><span class="lg-fill"></span></div>
+          <p class="lg-foot">46 acquired &middot; 453 remain in the edition &middot; ledger closes when subscribed</p>
+        </div>
+      </div>
+
+      <div class="acc-form">
+        <p class="cf-label">Conservation &mdash; select one</p>
+
+        <label class="tier">
+          <input type="radio" name="tier" value="12999" data-name="Archival sleeve" checked>
+          <span class="tier-box">
+            <span class="t-opt">OPT. A</span>
+            <span class="t-name">Archival sleeve, unframed
+              <small>Acid-free tissue &middot; sealed archival wallet</small>
+            </span>
+            <span class="t-price">&#8377;12,999</span>
+          </span>
+        </label>
+
+        <label class="tier">
+          <input type="radio" name="tier" value="18499" data-name="Conservation frame">
+          <span class="tier-box">
+            <span class="t-opt">OPT. B</span>
+            <span class="t-name">Conservation frame
+              <small>Museum glass &middot; cotton rag mount</small>
+            </span>
+            <span class="t-price">&#8377;18,499</span>
+          </span>
+        </label>
+
+        <label class="tier">
+          <input type="radio" name="tier" value="27999" data-name="Vitrine mount">
+          <span class="tier-box">
+            <span class="t-opt">OPT. C</span>
+            <span class="t-name">Vitrine mount
+              <small>UV case &middot; engraved brass edition plate</small>
+            </span>
+            <span class="t-price">&#8377;27,999</span>
+          </span>
+        </label>
+
+        <div class="acc-total">
+          <span class="tt-label">Total, as conserved</span>
+          <span class="tt-val" id="accTotal">&#8377;12,999</span>
+        </div>
+
+        <div class="acc-cta">
+          <button type="button" class="btn btn-solid" id="acquireBtn">Acquire &mdash; enter the record</button>
+        </div>
+        <p class="acc-gtee"><b>&#10045;</b> Signed on camera, sealed, numbered &middot; refund-backed</p>
+      </div>
+
+    </div>
+    <span class="stamp acquired-stamp" id="acquiredStamp" aria-hidden="true">Acquired<small>FG Archive &middot; MMXXVI</small></span>
+  </div>
+</section>
+
+<!-- ══════════════ V. CERTIFICATE OF RECORD — THE MOMENT IT LANDS ══════════════ -->
+<section class="cert-sec wrap" aria-labelledby="cert-h">
+  <div class="running-head reveal">
+    <span class="rh-title" id="cert-h"><span class="num">V.</span>The Moment It Lands &mdash; Certificate of Record</span>
+    <span class="plate-no">FG.2026.047.04-A/47</span>
+  </div>
+  <p class="cert-lede reveal">What the collector holds, after. Not a receipt &mdash; a record. The signing itself was filmed, and the film is filed beside the object forever.</p>
+
+  <div class="certificate reveal" aria-label="Certificate of record for edition 47 of 500">
+    <div class="cert-inner">
+      <div class="cert-top">
+        <p class="ct-arch">The FanGram Archive &middot; Catalogue of Devotion</p>
+        <h3>Certificate of Record</h3>
+        <p class="ct-no">EDITION No. 47 / 500 &middot; REF FG.2026.047.04-A/47</p>
+      </div>
+      <div class="cert-orn" aria-hidden="true">&#10045;&ensp;&#10045;&ensp;&#10045;</div>
+
+      <div class="cert-fields">
+        <div class="wide">
+          <div class="cf-k">Object of record</div>
+          <div class="cf-v">Test jersey, worn &amp; signed &mdash; Wankhede, 14 Feb 2026</div>
+        </div>
+        <div>
+          <div class="cf-k">Signed by</div>
+          <div class="cf-v">Valmik Rao</div>
+        </div>
+        <div>
+          <div class="cf-k">Held by</div>
+          <div class="cf-v">Rohan S., Pune</div>
+        </div>
+        <div>
+          <div class="cf-k">Edition</div>
+          <div class="cf-v mono-v"><span class="red">47</span> / 500 &middot; SEALED</div>
+        </div>
+        <div>
+          <div class="cf-k">Entered into record</div>
+          <div class="cf-v mono-v">02 MAR 2026 &middot; 11:47 IST</div>
+        </div>
+        <div class="wide film-row">
+          <div class="cf-k">Film of the signing &mdash; witnessed</div>
+          <div class="cf-v mono-v film-line">
+            <span>REF FG.F.2026.047-B &middot; 0:58 &middot; NEVER AI</span>
+            <a class="film-link" href="#">View the film &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="cert-foot">
+        <div class="cert-sign">
+          <span class="cs-line">Valmik Rao</span>
+          <p class="cs-cap">Signature of the artist, as filmed</p>
+        </div>
+        <div class="seal" aria-hidden="true">
+          <svg viewBox="0 0 104 104">
+            <defs>
+              <path id="sealArc" d="M 52 9 a 43 43 0 1 1 -0.01 0"/>
+            </defs>
+            <circle cx="52" cy="52" r="50" fill="none" stroke="#B3271E" stroke-width="2.5"/>
+            <circle cx="52" cy="52" r="45.5" fill="none" stroke="#B3271E" stroke-width="1"/>
+            <circle cx="52" cy="52" r="30" fill="none" stroke="#B3271E" stroke-width="1"/>
+            <text fill="#B3271E" font-family="IBM Plex Mono, monospace" font-size="8.2" font-weight="600" letter-spacing="2.6">
+              <textPath href="#sealArc" startOffset="0">&#183; WITNESSED &#183; SEALED &#183; NUMBERED&nbsp;</textPath>
+            </text>
+            <text x="52" y="59" text-anchor="middle" fill="#B3271E" font-family="Source Serif 4, serif" font-size="21" font-weight="600" letter-spacing="1">FG</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ VI. CONDITIONS OF ACQUISITION ══════════════ -->
+<section class="conditions wrap" aria-labelledby="cond-h">
+  <div class="running-head reveal">
+    <span class="rh-title" id="cond-h"><span class="num">VI.</span>Conditions of Acquisition</span>
+    <span class="plate-no">FG.2026.000.T</span>
+  </div>
+  <div class="cond-grid">
+    <div class="cond reveal">
+      <span class="cd-no">CLAUSE I</span>
+      <h4>Filmed per order, never AI</h4>
+      <p>No work exists before it is commissioned. Every video is made by the artist, for one collector, on camera. Nothing generated; everything witnessed.</p>
+    </div>
+    <div class="cond reveal">
+      <span class="cd-no">CLAUSE II</span>
+      <h4>Real reply or your money back</h4>
+      <p>Correspondence is answered by the artist or the record is voided and the fee returned in full. The Archive holds no unanswered entries.</p>
+    </div>
+    <div class="cond reveal">
+      <span class="cd-no">CLAUSE III</span>
+      <h4>Signed on camera, sealed, numbered</h4>
+      <p>Every object is signed on film, sealed in archival housing, and entered in a closed edition ledger. Its number is yours alone, in perpetuity.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer>
+  <div class="wrap">
+    <hr class="rule-double foot-rule">
+    <p class="f-main">Direction 07<span class="sep">&middot;</span>The Archive<span class="sep">&middot;</span>FanGram design exploration</p>
+    <p class="colophon">Set in Source Serif 4 &amp; IBM Plex Mono on archival ivory &middot; one accession red<br>Filmed per order, never AI &middot; The permanent record of fandom</p>
+    <p class="f-main" style="margin-top:16px">FanGram <span class="sep">&mdash;</span> talent, fans, brands.</p>
+  </div>
+</footer>
+
+<script>
+  // Conservation tier -> total
+  (function(){
+    var total = document.getElementById('accTotal');
+    var radios = document.querySelectorAll('input[name="tier"]');
+    var fmt = function(n){ return '₹' + Number(n).toLocaleString('en-IN'); };
+    radios.forEach(function(r){
+      r.addEventListener('change', function(){ total.textContent = fmt(r.value); });
+    });
+  })();
+
+  // Acquire -> ACQUIRED stamp
+  (function(){
+    var btn = document.getElementById('acquireBtn');
+    var card = document.getElementById('accCard');
+    btn.addEventListener('click', function(){
+      card.classList.add('stamped');
+      btn.textContent = 'Entered in the ledger — No. 47';
+      btn.setAttribute('disabled','');
+      btn.style.opacity = '.55';
+      btn.style.cursor = 'default';
+    });
+  })();
+
+  // Reveal on scroll
+  (function(){
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var els = document.querySelectorAll('.reveal');
+    if (reduced || !('IntersectionObserver' in window)) {
+      els.forEach(function(el){ el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    els.forEach(function(el){ io.observe(el); });
+  })();
+</script>
+
+</body>
+</html>

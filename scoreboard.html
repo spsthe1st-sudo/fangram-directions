@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Direction 11 · Scoreboard — FanGram</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAF9F4;
+  --ink:#101010;
+  --ink-soft:#54524B;
+  --hair:#DBD8CE;
+  --amber:#FFB300;
+  --mono:'IBM Plex Mono',monospace;
+  --sans:'IBM Plex Sans',sans-serif;
+  --cond:'IBM Plex Sans Condensed',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  font-variant-numeric:tabular-nums;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+@media(max-width:600px){.wrap{padding:0 16px}}
+
+/* ---------- utility type ---------- */
+.mono{font-family:var(--mono)}
+.lbl{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+.lbl-ink{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
+.hl{background:var(--amber);color:var(--ink);padding:0 .18em}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+/* ---------- nav ---------- */
+header.top{border-bottom:2px solid var(--ink);background:var(--paper);position:sticky;top:0;z-index:50}
+.nav{display:flex;align-items:center;justify-content:space-between;height:58px;gap:16px}
+.wordmark{font-family:var(--cond);font-weight:700;font-size:24px;letter-spacing:.015em;text-transform:uppercase;text-decoration:none;display:flex;align-items:center;gap:7px;line-height:1}
+.wordmark .sq{width:9px;height:9px;background:var(--amber);display:inline-block;transform:translateY(-1px)}
+.nav-mid{font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--ink-soft)}
+.backlink{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border:1px solid var(--ink);padding:7px 12px;transition:background .15s,color .15s;white-space:nowrap}
+.backlink:hover{background:var(--ink);color:var(--paper)}
+@media(max-width:760px){.nav-mid{display:none}.wordmark{font-size:20px}}
+
+/* ---------- ticker ---------- */
+.ticker{background:var(--ink);color:var(--paper);overflow:hidden;border-bottom:1px solid var(--ink)}
+.ticker-inner{display:flex;white-space:nowrap;width:max-content;animation:tick 46s linear infinite}
+.ticker:hover .ticker-inner{animation-play-state:paused}
+.ticker span.item{font-family:var(--mono);font-size:11px;letter-spacing:.04em;padding:8px 0;display:inline-block}
+.ticker span.item b{color:var(--amber);font-weight:600}
+.ticker span.item i{font-style:normal;color:#8a8a85}
+.ticker span.sep{color:#555;padding:8px 18px}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ---------- section headers ---------- */
+.sec{padding:0 0 88px}
+.sec-head{border-top:2px solid var(--ink);display:flex;align-items:baseline;gap:18px;padding:14px 0 0;margin-bottom:40px;flex-wrap:wrap}
+.ov-chip{background:var(--ink);color:var(--amber);font-family:var(--mono);font-size:11px;letter-spacing:.12em;padding:4px 9px;font-weight:600;white-space:nowrap}
+.sec-head h2{font-family:var(--cond);font-weight:700;font-size:clamp(20px,2.6vw,28px);text-transform:uppercase;letter-spacing:.01em}
+.sec-head .annot{margin-left:auto;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+@media(max-width:600px){.sec-head .annot{display:none}}
+
+/* ---------- hero ---------- */
+.hero{padding:56px 0 88px}
+.hero-meta{display:flex;justify-content:space-between;margin-bottom:34px}
+.hero-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:32px;align-items:end}
+.hero-left{grid-column:1/9}
+.hero-right{grid-column:9/13}
+h1{
+  font-family:var(--cond);font-weight:700;text-transform:uppercase;
+  font-size:clamp(52px,9.2vw,124px);line-height:.9;letter-spacing:-.008em;
+}
+h1 .dot{color:var(--amber)}
+.hero-sub{max-width:52ch;margin-top:28px;font-size:17px;line-height:1.6;color:var(--ink)}
+.hero-sub b{font-weight:600}
+.hero-foot{margin-top:26px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--ink-soft)}
+
+.stat-table{border-top:2px solid var(--ink);width:100%}
+.stat-table caption{text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;padding:10px 0 12px;color:var(--ink)}
+.stat-table .row{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--hair);padding:10px 0;gap:12px}
+.stat-table .row:last-child{border-bottom:2px solid var(--ink)}
+.stat-table .k{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+.stat-table .v{font-family:var(--mono);font-size:15px;font-weight:600;text-align:right;white-space:nowrap}
+.stat-table .v sup{font-size:9px;color:var(--ink-soft)}
+@media(max-width:900px){.hero-left,.hero-right{grid-column:1/13}}
+
+/* ---------- talent ---------- */
+.talent-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:32px}
+.t-photo{grid-column:1/5}
+.t-info{grid-column:5/13}
+@media(max-width:860px){.t-photo{grid-column:1/13;max-width:420px}.t-info{grid-column:1/13}}
+.photo-frame{border:1px solid var(--ink);position:relative;background:var(--ink)}
+.photo-frame img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:top;filter:grayscale(1) contrast(1.14) brightness(1.05)}
+.photo-frame .tag{position:absolute;top:0;right:0;background:var(--amber);color:var(--ink);font-family:var(--mono);font-size:10px;letter-spacing:.12em;font-weight:600;padding:5px 9px}
+.photo-frame .strip{position:absolute;left:0;right:0;bottom:0;background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:10px;letter-spacing:.12em;padding:7px 10px;display:flex;justify-content:space-between}
+.photo-frame .strip b{color:var(--amber);font-weight:600}
+.photo-cap{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);padding-top:8px}
+
+.t-name{font-family:var(--cond);font-weight:700;text-transform:uppercase;font-size:clamp(40px,5.4vw,68px);line-height:.92;letter-spacing:-.005em}
+.t-role{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin:14px 0 26px;color:var(--ink)}
+.t-role b{background:var(--ink);color:var(--amber);padding:2px 7px;font-weight:600}
+
+table.score{width:100%;border-collapse:collapse;border-top:2px solid var(--ink)}
+table.score th{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);font-weight:500;text-align:right;padding:9px 0 9px 14px;border-bottom:1px solid var(--ink)}
+table.score th:first-child{text-align:left;padding-left:0}
+table.score td{font-family:var(--mono);font-size:13px;text-align:right;padding:9px 0 9px 14px;border-bottom:1px solid var(--hair)}
+table.score td:first-child{text-align:left;padding-left:0;font-weight:600;letter-spacing:.08em;font-size:11px}
+table.score tr:last-child td{border-bottom:2px solid var(--ink)}
+table.score td.best{font-weight:600}
+.score-cap{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);padding-top:8px;text-align:right}
+
+.trust{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);margin-top:34px}
+.trust .cell{padding:18px 20px;border-right:1px solid var(--hair)}
+.trust .cell:first-child{padding-left:0}
+.trust .cell:last-child{border-right:none}
+.trust .big{font-family:var(--mono);font-weight:600;font-size:clamp(24px,3vw,34px);line-height:1;letter-spacing:-.01em}
+.trust .big small{font-size:.45em;color:var(--ink-soft);font-weight:500}
+.trust .cap{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-top:8px}
+@media(max-width:640px){.trust{grid-template-columns:1fr}.trust .cell{border-right:none;border-bottom:1px solid var(--hair);padding-left:0}.trust .cell:last-child{border-bottom:none}}
+
+/* ---------- rate card ---------- */
+.rate-head{display:flex;justify-content:space-between;align-items:baseline;margin:64px 0 0;border-top:2px solid var(--ink);padding-top:12px}
+.rate-head h3{font-family:var(--cond);font-weight:700;font-size:22px;text-transform:uppercase}
+.ratecard{width:100%;border-collapse:collapse;margin-top:18px}
+.ratecard thead th{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);font-weight:500;text-align:left;padding:0 14px 10px 0;border-bottom:2px solid var(--ink)}
+.ratecard thead th.r{text-align:right}
+.ratecard tbody tr{border-bottom:1px solid var(--hair);transition:background .12s}
+.ratecard tbody tr:last-child{border-bottom:2px solid var(--ink)}
+.ratecard tbody tr:hover{background:#F2F0E8}
+.ratecard td{padding:20px 14px 20px 0;vertical-align:middle}
+.ratecard .no{font-family:var(--mono);font-size:11px;color:var(--ink-soft);width:34px}
+.ratecard .off b{font-family:var(--cond);font-weight:700;font-size:19px;text-transform:uppercase;letter-spacing:.01em;display:block;line-height:1.15}
+.ratecard .off span{font-size:13px;color:var(--ink-soft);display:block;margin-top:3px;max-width:34ch}
+.ratecard .terms{font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink);line-height:1.7;max-width:30ch}
+.ratecard .terms .arr{background:var(--ink);color:var(--paper);padding:2px 7px;letter-spacing:.14em;font-weight:600;white-space:nowrap}
+.ratecard .rate{text-align:right;white-space:nowrap;font-family:var(--mono)}
+.ratecard .rate .fig{font-size:19px;font-weight:600;letter-spacing:-.01em}
+.ratecard .rate .from{font-size:10px;color:var(--ink-soft);margin-right:4px;text-transform:lowercase}
+.ratecard .rate .unit{font-size:10px;color:var(--ink-soft)}
+.ratecard .rate .chip{display:inline-block;font-size:8.5px;letter-spacing:.14em;border:1px solid var(--ink);padding:2px 6px;margin-top:6px;font-weight:600}
+.ratecard .rate .dash{font-size:19px;color:var(--ink)}
+.ratecard .act{text-align:right;padding-right:0;white-space:nowrap}
+.btn{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;border:1px solid var(--ink);background:transparent;color:var(--ink);padding:10px 16px;cursor:pointer;text-decoration:none;transition:background .15s,color .15s}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn.solid{background:var(--ink);color:var(--paper)}
+.btn.solid:hover{background:var(--amber);color:var(--ink);border-color:var(--amber)}
+.btn.amber{background:var(--amber);border-color:var(--amber);color:var(--ink)}
+.btn.amber:hover{background:var(--ink);border-color:var(--ink);color:var(--amber)}
+.rate-foot{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);padding-top:10px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+@media(max-width:820px){
+  .ratecard,.ratecard tbody,.ratecard tr,.ratecard td{display:block;width:100%}
+  .ratecard thead{display:none}
+  .ratecard tbody tr{border:1px solid var(--ink);border-bottom:none;padding:18px 16px}
+  .ratecard tbody tr:last-child{border-bottom:1px solid var(--ink)}
+  .ratecard td{padding:0}
+  .ratecard .no{margin-bottom:6px}
+  .ratecard .off{margin-bottom:10px}
+  .ratecard .terms{max-width:none;margin-bottom:14px}
+  .ratecard .rate{text-align:left;display:flex;align-items:baseline;gap:10px;margin-bottom:14px}
+  .ratecard .rate .chip{margin-top:0}
+  .ratecard .act{text-align:left}
+}
+
+/* ---------- order card ---------- */
+.order-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:32px}
+.order-copy{grid-column:1/5}
+.order-card-wrap{grid-column:5/13}
+@media(max-width:900px){.order-copy,.order-card-wrap{grid-column:1/13}}
+.order-copy p{font-size:15px;line-height:1.65;color:var(--ink);margin-top:14px;max-width:38ch}
+.order-copy .g{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin-top:26px;line-height:2.1}
+.order-copy .g b{color:var(--ink);font-weight:600}
+
+.ocard{border:1px solid var(--ink);background:var(--paper)}
+.ocard-head{background:var(--ink);color:var(--paper);display:flex;justify-content:space-between;align-items:center;padding:10px 16px;gap:10px;flex-wrap:wrap}
+.ocard-head .l{font-family:var(--mono);font-size:11px;letter-spacing:.12em;font-weight:600}
+.ocard-head .l b{color:var(--amber);font-weight:600}
+.ocard-head .r{font-family:var(--mono);font-size:11px;letter-spacing:.1em}
+.ocard-body{padding:8px 20px 20px}
+.orow{display:grid;grid-template-columns:130px 1fr;gap:16px;align-items:baseline;border-bottom:1px solid var(--hair);padding:16px 0}
+.orow:last-of-type{border-bottom:none}
+.orow .ok{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);padding-top:4px}
+@media(max-width:560px){.orow{grid-template-columns:1fr;gap:8px}}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip-btn{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--ink);background:transparent;color:var(--ink);padding:7px 12px;cursor:pointer;transition:background .12s,color .12s}
+.chip-btn:hover{background:#EFEDE4}
+.chip-btn[aria-pressed="true"]{background:var(--amber);border-color:var(--amber);font-weight:600}
+.ofield{width:100%;border:none;border-bottom:1px solid var(--ink);background:transparent;font-family:var(--mono);font-size:15px;padding:6px 2px;color:var(--ink);border-radius:0}
+.ofield:focus{outline:none;border-bottom:2px solid var(--amber)}
+.ofield::placeholder{color:#B4B1A6}
+textarea.ofield{resize:vertical;min-height:74px;line-height:1.6;font-size:13.5px}
+.balls{display:flex;justify-content:flex-end;gap:14px;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);padding-top:8px}
+.balls b{color:var(--ink);font-weight:600}
+.balls.low b{background:var(--amber);padding:0 5px}
+.orow.status .sv{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
+.cursor{display:inline-block;width:8px;height:14px;background:var(--amber);vertical-align:-2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.ocard-foot{border-top:2px solid var(--ink);display:flex;justify-content:space-between;align-items:center;padding:16px 20px;gap:14px;flex-wrap:wrap}
+.ocard-foot .pay{font-family:var(--mono)}
+.ocard-foot .pay .k{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);display:block}
+.ocard-foot .pay .v{font-size:24px;font-weight:600;letter-spacing:-.01em}
+.ocard-sub{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);padding-top:10px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+
+/* ---------- lands ---------- */
+.lands-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:32px;align-items:start}
+.result-card{grid-column:1/8;border:1px solid var(--ink)}
+.fiq{grid-column:8/13}
+@media(max-width:900px){.result-card,.fiq{grid-column:1/13}}
+.rcard-head{background:var(--ink);color:var(--paper);display:flex;justify-content:space-between;padding:10px 16px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;flex-wrap:wrap;gap:8px}
+.rcard-head b{color:var(--amber);font-weight:600}
+.rthumb{position:relative;background:var(--ink)}
+.rthumb img{width:100%;aspect-ratio:16/8;object-fit:cover;object-position:50% 18%;filter:grayscale(1) contrast(1.14) brightness(.96)}
+.play{position:absolute;inset:0;margin:auto;width:64px;height:64px;border-radius:50%;background:var(--paper);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s,background .15s}
+.play:hover{background:var(--amber);transform:scale(1.06)}
+.play svg{margin-left:4px}
+.rthumb .len{position:absolute;right:10px;bottom:10px;background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:11px;padding:3px 8px;letter-spacing:.08em}
+.result-line{border-top:1px solid var(--ink);padding:14px 18px;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;display:flex;gap:10px;flex-wrap:wrap;align-items:baseline}
+.result-line .d{background:var(--amber);font-weight:600;padding:1px 7px}
+.result-line .m{color:var(--ink-soft)}
+.rmeta{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid var(--hair)}
+.rmeta .cell{padding:12px 18px;border-right:1px solid var(--hair)}
+.rmeta .cell:last-child{border-right:none}
+.rmeta .k{font-family:var(--mono);font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+.rmeta .v{font-family:var(--mono);font-size:13px;font-weight:600;margin-top:3px}
+@media(max-width:560px){.rmeta{grid-template-columns:1fr}.rmeta .cell{border-right:none;border-bottom:1px solid var(--hair)}.rmeta .cell:last-child{border-bottom:none}}
+.rcard-foot{border-top:2px solid var(--ink);padding:14px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.rcard-foot .note{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+
+.fiq-box{border-top:2px solid var(--ink)}
+.fiq-head{display:flex;justify-content:space-between;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--ink)}
+.fiq-head .t{font-family:var(--cond);font-weight:700;font-size:19px;text-transform:uppercase}
+.fiq-head .s{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+.fiq-row{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:baseline;padding:11px 0;border-bottom:1px solid var(--hair);font-family:var(--mono);font-size:12.5px}
+.fiq-row .rk{color:var(--ink-soft);font-size:11px}
+.fiq-row .pts{font-weight:600}
+.fiq-row.you{background:var(--ink);color:var(--paper);padding-left:10px;padding-right:10px;border-bottom:1px solid var(--ink)}
+.fiq-row.you .rk{color:var(--amber)}
+.fiq-row.you .nm b{color:var(--amber);font-weight:600;font-size:9px;letter-spacing:.12em;margin-left:8px}
+.fiq-strip{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:2px solid var(--ink);gap:10px;flex-wrap:wrap}
+.fiq-strip .pct{font-family:var(--mono);font-size:11px;letter-spacing:.12em;font-weight:600;text-transform:uppercase}
+.fiq-strip .pct em{font-style:normal;background:var(--amber);padding:2px 7px}
+.fiq-strip .cap{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.fiq-note{font-size:13.5px;line-height:1.65;color:var(--ink-soft);padding-top:14px;max-width:40ch}
+
+/* ---------- footer ---------- */
+footer{background:var(--ink);color:var(--paper);margin-top:8px}
+.foot-inner{padding:64px 0 40px}
+.stumps{font-family:var(--cond);font-weight:700;text-transform:uppercase;font-size:clamp(56px,10vw,120px);line-height:.9;letter-spacing:-.008em}
+.stumps .dot{color:var(--amber)}
+.foot-guar{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-top:44px;border-top:1px solid #333;padding-top:22px}
+.foot-guar .g .n{font-family:var(--mono);font-size:10px;color:var(--amber);letter-spacing:.14em;font-weight:600}
+.foot-guar .g .t{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-top:8px;line-height:1.8;color:#DDDBD3}
+@media(max-width:720px){.foot-guar{grid-template-columns:1fr}}
+.foot-base{border-top:1px solid #333;margin-top:40px;padding:18px 0 0;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8a8a85}
+.foot-base b{color:var(--paper);font-weight:500}
+
+/* ---------- reveal ---------- */
+.rv{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .ticker-inner{animation:none}
+  .ticker{overflow-x:auto}
+  .cursor{animation:none}
+  .rv{opacity:1;transform:none;transition:none}
+  *{transition-duration:.01ms !important}
+}
+:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="top">
+  <div class="wrap nav">
+    <a class="wordmark" href="#top">Fangram<span class="sq"></span></a>
+    <div class="nav-mid">TALENT × FANS × BRANDS · EVERY FIGURE REAL</div>
+    <a class="backlink" href="index.html">← All directions</a>
+  </div>
+  <div class="ticker" aria-label="Live platform commentary">
+    <div class="ticker-inner">
+      <span class="item">&nbsp;&nbsp;<b>OV 118.5</b> — Brand partner books a sponsored moment with a verified fan community. <i>ON THE RECORD.</i></span><span class="sep">···</span>
+      <span class="item"><b>OV 118.4</b> — V. RAO to Rohan, Pune: birthday video, 0:42. <i>DELIVERED.</i></span><span class="sep">···</span>
+      <span class="item"><b>OV 118.3</b> — Direct message answered in 4h 12m. <i>REAL REPLY.</i></span><span class="sep">···</span>
+      <span class="item"><b>OV 118.2</b> — Bat Nº 047/500 signed on camera, sealed. <i>WITNESSED.</i></span><span class="sep">···</span>
+      <span class="item"><b>OV 118.1</b> — New member takes a seat at ₹149/MO. <i>INNER CIRCLE.</i></span><span class="sep">···</span>
+      <span class="item"><b>OV 117.6</b> — Refund honoured in full, 11 minutes. <i>PROMISE KEPT.</i></span><span class="sep">···</span>
+      <span class="item"><b>OV 117.5</b> — AI-generated content this over: 0. <i>AS ALWAYS.</i></span><span class="sep">···</span>
+      <span class="item" aria-hidden="true"><b>OV 118.5</b> — Brand partner books a sponsored moment with a verified fan community. <i>ON THE RECORD.</i></span><span class="sep" aria-hidden="true">···</span>
+      <span class="item" aria-hidden="true"><b>OV 118.4</b> — V. RAO to Rohan, Pune: birthday video, 0:42. <i>DELIVERED.</i></span><span class="sep" aria-hidden="true">···</span>
+      <span class="item" aria-hidden="true"><b>OV 118.3</b> — Direct message answered in 4h 12m. <i>REAL REPLY.</i></span><span class="sep" aria-hidden="true">···</span>
+      <span class="item" aria-hidden="true"><b>OV 118.2</b> — Bat Nº 047/500 signed on camera, sealed. <i>WITNESSED.</i></span><span class="sep" aria-hidden="true">···</span>
+      <span class="item" aria-hidden="true"><b>OV 118.1</b> — New member takes a seat at ₹149/MO. <i>INNER CIRCLE.</i></span><span class="sep" aria-hidden="true">···</span>
+      <span class="item" aria-hidden="true"><b>OV 117.6</b> — Refund honoured in full, 11 minutes. <i>PROMISE KEPT.</i></span><span class="sep" aria-hidden="true">···</span>
+      <span class="item" aria-hidden="true"><b>OV 117.5</b> — AI-generated content this over: 0. <i>AS ALWAYS.</i></span><span class="sep" aria-hidden="true">···</span>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero wrap">
+  <div class="hero-meta">
+    <span class="lbl">Season 2026 · Innings 01</span>
+    <span class="lbl">Sheet Nº 11 — Scoreboard</span>
+  </div>
+  <div class="hero-grid">
+    <div class="hero-left rv">
+      <h1>Real fandom<br>keeps score<span class="dot">.</span></h1>
+      <p class="hero-sub">Where fans connect with the talent they admire — and every promise goes on the record. <b>Built for talent, loved by fans, trusted by brands.</b> No hype reels, no filler, no fakes. Just the figures: <b>filmed per order, never AI</b>, refund-backed, signed on camera, numbered each.</p>
+      <p class="hero-foot">FANGRAM — THE HOME OF REAL FANDOM. LAUNCHING WITH CRICKET, BUILT FOR EVERY STAGE.</p>
+      <p class="hero-foot" style="margin-top:10px"><span class="hl">NEXT UP</span>&nbsp; MUSIC · FILM · CREATORS · ATHLETES · PERFORMERS</p>
+    </div>
+    <div class="hero-right rv d1">
+      <div class="stat-table" aria-label="The platform, in figures">
+        <div class="lbl-ink" style="padding:10px 0 12px">The platform, in figures</div>
+        <div class="row"><span class="k">Videos filmed per order</span><span class="v" data-count="41262">41,262</span></div>
+        <div class="row"><span class="k">AI-generated content</span><span class="v"><span class="hl">0</span><sup>&thinsp;*</sup></span></div>
+        <div class="row"><span class="k">Real reply, or refunded</span><span class="v">100%</span></div>
+        <div class="row"><span class="k">Median delivery</span><span class="v">2.1 DAYS</span></div>
+        <div class="row"><span class="k">Editions numbered</span><span class="v">EVERY ONE</span></div>
+      </div>
+      <p class="lbl" style="padding-top:10px">* Filmed per order, never AI. Independently audited.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TALENT PAGE ============ -->
+<section class="sec wrap" id="talent">
+  <div class="sec-head rv">
+    <span class="ov-chip">OV 1</span>
+    <h2>The Talent Page</h2>
+    <span class="annot">Field set · Rate card published</span>
+  </div>
+
+  <div class="talent-grid">
+    <div class="t-photo rv">
+      <div class="photo-frame">
+        <img src="assets/players/bumrah.jpg" alt="Valmik Rao, fast bowler, portrait in black and white">
+        <span class="tag">IN FORM</span>
+        <div class="strip"><span>TALENT Nº <b>011</b></span><span>EST. 2019</span></div>
+      </div>
+      <p class="photo-cap">V. Rao — game face, pre-spell. Press photograph, treated.</p>
+    </div>
+
+    <div class="t-info">
+      <div class="rv d1">
+        <p class="lbl-ink" style="margin-bottom:12px">First vertical · Cricket · Our launch talent</p>
+        <h3 class="t-name">Valmik Rao</h3>
+        <p class="t-role">Right-arm fast · <b>Nº 93</b> · India</p>
+      </div>
+
+      <table class="score rv d2" aria-label="Career figures">
+        <thead>
+          <tr><th>Format</th><th>M</th><th>W</th><th>Ave</th><th>Econ</th><th>Best</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>T20</td><td>89</td><td>121</td><td>19.4</td><td>6.91</td><td class="best">5/12</td></tr>
+          <tr><td>ODI</td><td>64</td><td>118</td><td>21.2</td><td>4.61</td><td class="best">6/19</td></tr>
+          <tr><td>TEST</td><td>25</td><td>103</td><td>18.7</td><td>2.84</td><td class="best">6/27</td></tr>
+        </tbody>
+      </table>
+      <p class="score-cap">Career figures to date. The décor here is the data.</p>
+
+      <div class="trust rv d3" aria-label="Trust figures">
+        <div class="cell">
+          <div class="big">4.9<small>&thinsp;/5.0</small></div>
+          <div class="cap">Rating · 12,338 verified</div>
+        </div>
+        <div class="cell">
+          <div class="big" data-count="3410">3,410</div>
+          <div class="cap">Videos delivered</div>
+        </div>
+        <div class="cell">
+          <div class="big">1 DAY</div>
+          <div class="cap">Typical reply time</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- rate card -->
+  <div class="rate-head rv">
+    <h3>Rate Card — V. Rao</h3>
+    <span class="lbl">All rates in INR · Effective this season</span>
+  </div>
+  <table class="ratecard rv d1">
+    <thead>
+      <tr>
+        <th>Nº</th><th>Offering</th><th>Terms</th><th class="r">Rate</th><th class="r">Book</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="no">01</td>
+        <td class="off"><b>Personal video</b><span>A message from Valmik, filmed for one person only.</span></td>
+        <td class="terms">Filmed per order, never AI · delivered within 5 days</td>
+        <td class="rate"><span class="fig">₹2,499</span><br><span class="chip">FIXED PRICE</span></td>
+        <td class="act"><a class="btn solid" href="#booking">Book →</a></td>
+      </tr>
+      <tr>
+        <td class="no">02</td>
+        <td class="off"><b>Brand video</b><span>Sponsored moments and licensed brand video — real access to authentic fan communities.</span></td>
+        <td class="terms"><span class="arr">By arrangement</span><br>brands talk to us first</td>
+        <td class="rate"><span class="dash">—</span></td>
+        <td class="act"><a class="btn" href="#booking">Contact us →</a></td>
+      </tr>
+      <tr>
+        <td class="no">03</td>
+        <td class="off"><b>Direct message</b><span>Write to him. He writes back.</span></td>
+        <td class="terms">Per message · real reply or your money back</td>
+        <td class="rate"><span class="fig">₹1,199</span><span class="unit">&thinsp;/MSG</span></td>
+        <td class="act"><a class="btn" href="#booking">Write →</a></td>
+      </tr>
+      <tr>
+        <td class="no">04</td>
+        <td class="off"><b>Signed merchandise</b><span>Match-ready kit, signed by hand, numbered by edition.</span></td>
+        <td class="terms">Signed on camera, sealed, numbered · editions of 500</td>
+        <td class="rate"><span class="from">from</span><span class="fig">₹12,999</span></td>
+        <td class="act"><a class="btn" href="#booking">Shop →</a></td>
+      </tr>
+      <tr>
+        <td class="no">05</td>
+        <td class="off"><b>A seat in his world</b><span>The inner circle: training clips, Q&amp;As, first access.</span></td>
+        <td class="terms">Monthly · cancel anytime · 1,204 members</td>
+        <td class="rate"><span class="from">from</span><span class="fig">₹149</span><span class="unit">&thinsp;/MO</span></td>
+        <td class="act"><a class="btn" href="#booking">Join →</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="rate-foot">
+    <span>Every order goes on the record</span>
+    <span>Refund-backed · No gambling, ever · Never fake</span>
+  </div>
+</section>
+
+<!-- ============ ORDER MOMENT ============ -->
+<section class="sec wrap" id="booking">
+  <div class="sec-head rv">
+    <span class="ov-chip">OV 2</span>
+    <h2>The Booking — a scorecard entry</h2>
+    <span class="annot">Personal video · Rate fixed</span>
+  </div>
+
+  <div class="order-grid">
+    <div class="order-copy rv">
+      <span class="lbl-ink">How an order reads here</span>
+      <p>No forms that feel like forms. A booking on FanGram is an entry on the card — occasion, recipient, brief. Filled in by you, honoured by him, kept on the record.</p>
+      <p>Your brief is an innings: <strong>240 balls</strong>, one per character. Say what matters before the overs run out.</p>
+      <div class="g">
+        <b>01</b> — Filmed per order, never AI<br>
+        <b>02</b> — Real reply or your money back<br>
+        <b>03</b> — Delivered within 5 days, or refunded
+      </div>
+    </div>
+
+    <div class="order-card-wrap rv d1">
+      <form class="ocard" id="orderForm">
+        <div class="ocard-head">
+          <span class="l">ORDER Nº <b>VR-3411</b> — PERSONAL VIDEO · V. RAO</span>
+          <span class="r">RATE ₹2,499 · FIXED</span>
+        </div>
+        <div class="ocard-body">
+          <div class="orow">
+            <span class="ok">Occasion</span>
+            <div class="chips" role="group" aria-label="Choose an occasion">
+              <button type="button" class="chip-btn" aria-pressed="true">A birthday</button>
+              <button type="button" class="chip-btn" aria-pressed="false">A wedding</button>
+              <button type="button" class="chip-btn" aria-pressed="false">A pep talk</button>
+              <button type="button" class="chip-btn" aria-pressed="false">Just because</button>
+            </div>
+          </div>
+          <div class="orow">
+            <label class="ok" for="recipient">Recipient</label>
+            <input class="ofield" id="recipient" type="text" value="Rohan" autocomplete="off" spellcheck="false">
+          </div>
+          <div class="orow">
+            <label class="ok" for="brief">Your brief</label>
+            <div>
+              <textarea class="ofield" id="brief" maxlength="240" placeholder="He turns 12 on Saturday. He bowls fast, just like you — tell him to keep the wrist straight and the head still."></textarea>
+              <div class="balls" id="ballCount" aria-live="polite">
+                <span>Balls left <b id="ballsLeft">240</b></span>
+                <span><b id="oversLeft">40.0</b> OV</span>
+              </div>
+            </div>
+          </div>
+          <div class="orow status">
+            <span class="ok">Status</span>
+            <span class="sv" id="orderStatus">Taking guard <span class="cursor" aria-hidden="true"></span></span>
+          </div>
+        </div>
+        <div class="ocard-foot">
+          <div class="pay">
+            <span class="k">To pay — no extras, no “from”</span>
+            <span class="v">₹2,499</span>
+          </div>
+          <button class="btn amber" type="submit" id="bookBtn">Book — ₹2,499</button>
+        </div>
+      </form>
+      <div class="ocard-sub">
+        <span>Filmed per order, never AI</span>
+        <span>Delivered in 5 days or refunded in full</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE MOMENT IT LANDS ============ -->
+<section class="sec wrap" id="lands">
+  <div class="sec-head rv">
+    <span class="ov-chip">OV 3</span>
+    <h2>The moment it lands</h2>
+    <span class="annot">Result posted · Reputation updated</span>
+  </div>
+
+  <div class="lands-grid">
+    <div class="result-card rv">
+      <div class="rcard-head">
+        <span>RESULT — ORDER Nº <b>VR-3298</b></span>
+        <span>PERSONAL VIDEO · V. RAO</span>
+      </div>
+      <div class="rthumb">
+        <img src="assets/players/bumrah.jpg" alt="Still from Valmik Rao's delivered birthday video">
+        <button class="play" type="button" aria-label="Play Rohan's birthday video">
+          <svg width="20" height="22" viewBox="0 0 20 22" aria-hidden="true"><path d="M0 0 L20 11 L0 22 Z" fill="#101010"/></svg>
+        </button>
+        <span class="len">0:42</span>
+      </div>
+      <div class="result-line">
+        <span class="d">Delivered</span>
+        <span>0:42</span>
+        <span class="m">·</span>
+        <span>Shared 14 times</span>
+      </div>
+      <div class="rmeta">
+        <div class="cell"><div class="k">For</div><div class="v">ROHAN</div></div>
+        <div class="cell"><div class="k">Occasion</div><div class="v">A BIRTHDAY</div></div>
+        <div class="cell"><div class="k">Turnaround</div><div class="v">1D 22H</div></div>
+      </div>
+      <div class="rcard-foot">
+        <span class="note">Watched 9 times before breakfast</span>
+        <a class="btn solid" href="#lands">Share the link →</a>
+      </div>
+    </div>
+
+    <div class="fiq rv d1">
+      <div class="fiq-box">
+        <div class="fiq-head">
+          <span class="t">Fan IQ · Season 26</span>
+          <span class="s">Prediction league</span>
+        </div>
+        <div class="fiq-row"><span class="rk">213</span><span class="nm">A. IYER</span><span class="pts">2,851</span></div>
+        <div class="fiq-row you"><span class="rk">214</span><span class="nm">R. MEHTA<b>YOU</b></span><span class="pts">2,847</span></div>
+        <div class="fiq-row"><span class="rk">215</span><span class="nm">K. NAIR</span><span class="pts">2,839</span></div>
+        <div class="fiq-strip">
+          <span class="pct"><em>TOP 2%</em>&nbsp; of all predictors</span>
+          <span class="cap">Streak 11 · First in line for drops</span>
+        </div>
+        <p class="fiq-note">Reputation lives natively here. Call the moment, keep the streak, climb the card — your standing as a fan is a figure too, and figures don't lie.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap foot-inner">
+    <div class="stumps rv">Stumps<span class="dot">.</span></div>
+    <div class="foot-guar">
+      <div class="g"><div class="n">GUARANTEE 01</div><div class="t">Filmed per order, never AI</div></div>
+      <div class="g"><div class="n">GUARANTEE 02</div><div class="t">Real reply or your money back</div></div>
+      <div class="g"><div class="n">GUARANTEE 03</div><div class="t">Signed on camera, sealed, numbered</div></div>
+    </div>
+    <div class="foot-base">
+      <span><b>Direction 11 · Scoreboard · FanGram design exploration</b></span>
+      <span>FanGram — talent, fans, brands.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* reveal on scroll */
+  var rvs = document.querySelectorAll('.rv');
+  if('IntersectionObserver' in window && !reduced){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    },{threshold:.12});
+    rvs.forEach(function(el){ io.observe(el); });
+  } else {
+    rvs.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  /* count-up on integer stats */
+  function countUp(el){
+    var target = parseInt(el.getAttribute('data-count'),10);
+    var t0 = null, dur = 900;
+    function fmt(n){ return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,','); }
+    function step(ts){
+      if(!t0) t0 = ts;
+      var p = Math.min((ts - t0)/dur, 1);
+      p = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmt(Math.round(target * p));
+      if(p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  var counters = document.querySelectorAll('[data-count]');
+  if(!reduced && 'IntersectionObserver' in window){
+    var cio = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ countUp(e.target); cio.unobserve(e.target); }
+      });
+    },{threshold:.5});
+    counters.forEach(function(el){ cio.observe(el); });
+  }
+
+  /* occasion chips */
+  var chips = document.querySelectorAll('.chip-btn');
+  chips.forEach(function(c){
+    c.addEventListener('click', function(){
+      chips.forEach(function(o){ o.setAttribute('aria-pressed','false'); });
+      c.setAttribute('aria-pressed','true');
+    });
+  });
+
+  /* brief = 240 balls */
+  var brief = document.getElementById('brief');
+  var ballsLeft = document.getElementById('ballsLeft');
+  var oversLeft = document.getElementById('oversLeft');
+  var ballWrap = document.getElementById('ballCount');
+  var status = document.getElementById('orderStatus');
+  function updateBalls(){
+    var rem = 240 - brief.value.length;
+    ballsLeft.textContent = rem;
+    oversLeft.textContent = Math.floor(rem/6) + '.' + (rem % 6);
+    ballWrap.classList.toggle('low', rem <= 30);
+    if(!booked){
+      status.innerHTML = brief.value.length > 0
+        ? 'Innings in progress <span class="cursor" aria-hidden="true"></span>'
+        : 'Taking guard <span class="cursor" aria-hidden="true"></span>';
+    }
+  }
+  brief.addEventListener('input', updateBalls);
+
+  /* book */
+  var booked = false;
+  document.getElementById('orderForm').addEventListener('submit', function(ev){
+    ev.preventDefault();
+    booked = true;
+    status.innerHTML = '<span class="hl">Entry confirmed</span>&nbsp; on the record';
+    var btn = document.getElementById('bookBtn');
+    btn.textContent = 'Booked ✓';
+    btn.disabled = true;
+    btn.style.opacity = '.55';
+    btn.style.cursor = 'default';
+  });
+})();
+</script>
+</body>
+</html>
