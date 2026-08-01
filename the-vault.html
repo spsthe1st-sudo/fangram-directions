@@ -175,6 +175,52 @@ footer{border-top:1px solid var(--gline);padding:74px 0 40px;background:var(--bg
 .socs a{width:38px;height:38px;border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:border-color .25s;cursor:pointer}
 .socs a:hover{border-color:var(--gold)}
 .socs svg{width:14px;height:14px;fill:var(--mut)}
+
+/* TALENT PAGE — five-row menu · trust strip · order & delivery moments (added, palette-matched) */
+.tstrip{display:flex;flex-wrap:wrap;border:1px solid var(--line);max-width:620px;margin:0 auto 60px;background:var(--bg)}
+.tstrip .ts{flex:1;min-width:150px;text-align:center;padding:22px 16px;border-right:1px solid var(--line)}
+.tstrip .ts:last-child{border-right:none}
+.tstrip .tsn{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:34px;color:var(--gold);line-height:1}
+.tstrip .tsl{font-size:9.5px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--faint);margin-top:9px}
+@media(max-width:560px){.tstrip .ts{border-right:none;border-bottom:1px solid var(--line)}.tstrip .ts:last-child{border-bottom:none}}
+
+.tpwrap{display:grid;grid-template-columns:.82fr 1.18fr;gap:56px;align-items:start}
+@media(max-width:960px){.tpwrap{grid-template-columns:1fr;gap:36px}}
+.tportrait{max-width:320px;width:100%;margin:0 auto}
+.tmenu .tfeat{align-items:center;padding:24px 0}
+.tmenu .tfeat:first-child{padding-top:0}
+.tprice{margin-left:auto;flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:11px}
+.tprice .amt{font-family:'Fraunces',serif;font-size:19px;color:var(--gold2);white-space:nowrap;text-align:right}
+.tprice .amt .pre{font-style:italic;font-size:12px;color:var(--faint);margin-right:5px}
+.tprice .amt .u{font-size:11px;color:var(--faint);font-style:italic}
+.tprice .amt.enq{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+@media(max-width:560px){.tmenu .tfeat{flex-wrap:wrap}.tprice{margin-left:72px;align-items:flex-start;margin-top:4px}.tprice .amt{text-align:left}}
+
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:820px){.mgrid{grid-template-columns:1fr}}
+.mcard{border:1px solid var(--line);background:var(--bg);padding:30px 28px;display:flex;flex-direction:column;transition:border-color .3s}
+.mcard:hover{border-color:var(--gline)}
+.mcard h3{font-family:'Fraunces',serif;font-weight:400;font-size:22px;margin:14px 0 4px}
+.ofield{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:13px 0;border-bottom:1px solid var(--line)}
+.ofield .k{color:var(--faint);letter-spacing:.14em;text-transform:uppercase;font-size:10px;font-weight:700}
+.ofield .v{color:var(--ink);font-size:14px}
+.onote{font-family:'Fraunces',serif;font-style:italic;color:var(--mut);font-size:13.5px;line-height:1.65;padding:16px 0 4px}
+.onote .ct{display:block;margin-top:10px;font-family:'Inter',sans-serif;font-style:normal;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+.opay{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-top:auto;padding-top:22px}
+.opay .amt{font-family:'Fraunces',serif;font-size:26px;color:var(--gold2);line-height:1}
+.opay .sm{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-top:6px}
+.mguar{margin-top:18px;display:inline-flex;align-items:center;gap:9px;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.mguar svg{width:15px;height:15px;stroke:var(--gold);fill:none;flex:none}
+
+.vframe{position:relative;aspect-ratio:16/10;border:1px solid var(--gline);padding:8px;background:var(--bg2)}
+.vframe .vin{position:relative;width:100%;height:100%;overflow:hidden;border:1px solid var(--line)}
+.vframe img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(.85) sepia(.4) contrast(1.04) brightness(.72)}
+.vframe .vtone{position:absolute;inset:0;background:linear-gradient(0deg,rgba(11,9,8,.62),rgba(11,9,8,0) 55%)}
+.vframe .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;border:1px solid var(--gline);background:rgba(18,15,12,.55);display:flex;align-items:center;justify-content:center}
+.vframe .play svg{width:20px;height:20px;fill:var(--gold);margin-left:3px}
+.vframe .dur{position:absolute;right:12px;bottom:12px;font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--gold2);background:rgba(11,9,8,.72);border:1px solid var(--gline);border-radius:2px;padding:4px 9px}
+.dact{display:flex;align-items:center;gap:22px;margin-top:auto;padding-top:20px}
+.dact .prlink{cursor:pointer}
 </style>
 </head>
 <body>
@@ -217,12 +263,105 @@ footer{border-top:1px solid var(--gline);padding:74px 0 40px;background:var(--bg
 <section class="prod" id="products">
   <div class="wrap">
     <div class="shead rev">
-      <div class="no">— Gallery II —</div>
-      <h2>Available for <em>acquisition.</em></h2>
+      <div class="no">— Gallery II · The talent page —</div>
+      <h2>Everything <em>Valmik Rao</em> offers.</h2>
       <div class="rule"></div>
-      <p>The launch collection — signed cricket pieces in limited, individually numbered runs, available for pre-order. New verticals, new vaults to come.</p>
+      <p>One page, one fast bowler, five ways in — a video made for you, a line straight to him, a signed piece for the vault, or a seat in his world. Pick, pay, and it's on its way.</p>
     </div>
-    <div class="prgrid" id="prgrid"></div>
+
+    <div class="tstrip rev">
+      <div class="ts"><div class="tsn">4.9</div><div class="tsl">Average rating</div></div>
+      <div class="ts"><div class="tsn">3,410</div><div class="tsl">Delivered</div></div>
+      <div class="ts"><div class="tsn">1 day</div><div class="tsl">Replies in</div></div>
+    </div>
+
+    <div class="tpwrap rev">
+      <div class="tportrait">
+        <div class="pframe"><div class="pinner">
+          <img src="assets/players/bumrah.jpg" alt="Valmik Rao, fast bowler" loading="lazy">
+          <div class="tone" aria-hidden="true"></div>
+          <div class="lamp" aria-hidden="true"></div>
+        </div></div>
+        <div class="pmeta"><div class="nm" style="font-size:22px">Valmik Rao</div><div class="rl">Fast bowler · Launch talent</div></div>
+      </div>
+
+      <div class="tmenu">
+        <div class="tfeat">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3z"/></svg></div>
+          <div style="flex:1;min-width:0"><h3>Personal video</h3><p>A message filmed just for you — a birthday, a pep talk, a shout to a mate. Filmed per order, never AI.</p></div>
+          <div class="tprice"><div class="amt">₹2,499</div><a class="prlink" href="#moment">Book</a></div>
+        </div>
+
+        <div class="tfeat">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M4 10v4l10 4V6L4 10z"/><path d="M14 8.5a3.5 3.5 0 010 7"/><path d="M6 14.5V18l3 1"/></svg></div>
+          <div style="flex:1;min-width:0"><h3>Brand video</h3><p>Licensed talent films for campaigns and launches — scoped to your brief, filmed and cleared for use.</p></div>
+          <div class="tprice"><div class="amt enq">On request</div><a class="prlink" href="#brands">Contact us</a></div>
+        </div>
+
+        <div class="tfeat">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M4 4h16v12H9l-4 4V4z"/><path d="M8 9.5h8M8 12.5h5"/></svg></div>
+          <div style="flex:1;min-width:0"><h3>Direct message</h3><p>Write to him and get a real, personal reply — never a bot. Real reply or your money back.</p></div>
+          <div class="tprice"><div class="amt">₹1,199<span class="u"> / message</span></div><a class="prlink" href="#moment">Write</a></div>
+        </div>
+
+        <div class="tfeat">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M21 8l-9-5-9 5v8l9 5 9-5V8z"/><path d="M3.3 8.3L12 13l8.7-4.7M12 13v9"/></svg></div>
+          <div style="flex:1;min-width:0"><h3>Signed merchandise</h3><p>Jerseys, blades, match balls and framed photography, in numbered runs. Signed on camera, sealed, numbered.</p></div>
+          <div class="tprice"><div class="amt"><span class="pre">from</span>₹12,999</div><a class="prlink" href="#authenticity">Shop</a></div>
+        </div>
+
+        <div class="tfeat">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><circle cx="9" cy="9" r="4.2"/><path d="M12 12l7 7M16.5 15.5l2-2M14.5 17.5l2-2"/></svg></div>
+          <div style="flex:1;min-width:0"><h3>A seat in his world</h3><p>Membership to the inside — training clips, first dibs on every drop and members-only nets sessions.</p></div>
+          <div class="tprice"><div class="amt"><span class="pre">from</span>₹149<span class="u"> / mo</span></div><a class="prlink">Join</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="moment">
+  <div class="wrap">
+    <div class="shead rev">
+      <div class="no">— Pick · pay · get —</div>
+      <h2>The order, then the <em>delivery.</em></h2>
+      <div class="rule"></div>
+      <p>What it looks like to book a personal video from Valmik Rao — and what lands a few days later.</p>
+    </div>
+    <div class="mgrid rev">
+      <div class="mcard">
+        <div class="tagpre">Order · Personal video</div>
+        <h3>A message for Rohan</h3>
+        <div style="margin-top:12px">
+          <div class="ofield"><span class="k">For</span><span class="v">Rohan</span></div>
+          <div class="ofield"><span class="k">Occasion</span><span class="v">A birthday</span></div>
+          <div class="onote">"Rohan turns 21 on Sunday — he's watched every over you've bowled since he was twelve. A quick happy birthday from you would floor him."<span class="ct">231 / 250 characters</span></div>
+        </div>
+        <div class="opay">
+          <div><div class="amt">₹2,499</div><div class="sm">One-time · no mandate</div></div>
+          <a class="b1">Pay ₹2,499</a>
+        </div>
+        <div class="mguar"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg>Filmed per order, never AI</div>
+      </div>
+
+      <div class="mcard">
+        <div class="tagpre">Delivered · four days later</div>
+        <div class="vframe" style="margin-top:12px">
+          <div class="vin">
+            <img src="assets/players/bumrah.jpg" alt="Valmik Rao's personal video for Rohan" loading="lazy">
+            <div class="vtone" aria-hidden="true"></div>
+          </div>
+          <div class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="dur">0:42</div>
+        </div>
+        <h3>Valmik Rao &rarr; Rohan</h3>
+        <p style="font-size:13px;color:var(--mut);margin-top:2px">0:42, filmed on camera just for him. Watermark-free, yours to keep and yours to share.</p>
+        <div class="dact">
+          <a class="prlink">Share the link</a>
+          <a class="prlink" style="color:var(--mut);border-color:var(--line)">Download</a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -277,7 +416,7 @@ footer{border-top:1px solid var(--gline);padding:74px 0 40px;background:var(--bg
       <div class="tstage rev" aria-label="A signed bat displayed under museum light with a numbered plaque">
         <div class="in">
           <div class="beam"></div><div class="item"></div>
-          <div class="plaque"><div class="a">Willow blade, hand-signed — J. Bumrah</div><div class="b">Piece № 047 · Verified · MMXXVI</div></div>
+          <div class="plaque"><div class="a">Willow blade, hand-signed — V. Rao</div><div class="b">Piece № 047 · Verified · MMXXVI</div></div>
         </div>
       </div>
       <div>
@@ -345,7 +484,7 @@ footer{border-top:1px solid var(--gline);padding:74px 0 40px;background:var(--bg
 </footer>
 
 <script>
-const players=[["Virat Kohli","Batsman","kohli"],["Rohit Sharma","Batsman","sharma"],["Jasprit Bumrah","Fast bowler","bumrah"],["Ravindra Jadeja","All-rounder","jadeja"],["KL Rahul","Batsman · WK","rahul"],["Hardik Pandya","All-rounder","pandya"],["Shubman Gill","Batsman","gill"],["Rishabh Pant","Batsman · WK","pant"],["Suryakumar Yadav","Batsman","yadav"],["Mohammed Siraj","Fast bowler","siraj"]];
+const players=[["Virat Kohli","Batsman","kohli"],["Rohit Sharma","Batsman","sharma"],["Valmik Rao","Fast bowler","bumrah"],["Ravindra Jadeja","All-rounder","jadeja"],["KL Rahul","Batsman · WK","rahul"],["Hardik Pandya","All-rounder","pandya"],["Shubman Gill","Batsman","gill"],["Rishabh Pant","Batsman · WK","pant"],["Suryakumar Yadav","Batsman","yadav"],["Mohammed Siraj","Fast bowler","siraj"]];
 document.getElementById('pgrid').innerHTML=players.map((p,i)=>`
   <article class="pcard rev" style="transition-delay:${i*45}ms">
     <div class="pframe"><div class="pinner">
@@ -354,20 +493,6 @@ document.getElementById('pgrid').innerHTML=players.map((p,i)=>`
       <div class="lamp" aria-hidden="true"></div>
     </div></div>
     <div class="pmeta"><div class="nm">${p[0]}</div><div class="rl">${p[1]}</div></div>
-  </article>`).join('');
-
-const icons={
-jersey:`<svg viewBox="0 0 48 48" fill="none" stroke-width="1.3"><path d="M17 8l-9 5 4 7 3-2v18h18V18l3 2 4-7-9-5c-1.5 2.4-4 4-7 4s-5.5-1.6-7-4z"/><path d="M20 30h8" opacity=".55"/><path d="M28 34c1.4-1.2 3.2-1 4 .2" opacity=".8"/></svg>`,
-ball:`<svg viewBox="0 0 48 48" fill="none" stroke-width="1.3"><circle cx="24" cy="24" r="15"/><path d="M14 13.5c4 3.5 4 17.5 0 21M34 13.5c-4 3.5-4 17.5 0 21" opacity=".7"/><path d="M20 22l3 3 5-5.5" opacity=".85"/></svg>`,
-bat:`<svg viewBox="0 0 48 48" fill="none" stroke-width="1.3"><path d="M20 6h8v22c0 4-1.4 6-4 6s-4-2-4-6V6z"/><path d="M22 34v7h4v-7" opacity=".8"/><path d="M23 16c1-.8 2.4-.6 3 .3" opacity=".8"/></svg>`,
-frame:`<svg viewBox="0 0 48 48" fill="none" stroke-width="1.3"><rect x="8" y="6" width="32" height="36" rx="2"/><rect x="13" y="11" width="22" height="22" rx="1" opacity=".6"/><path d="M17 38c2-1.4 4.4-1.2 6 .2" opacity=".8"/></svg>`};
-const prods=[["Official Team Jersey","Hand-signed by your chosen talent, on the number.","jersey","№ 001–500"],["Signed Match Ball","Premium red leather, an authenticated silver signature.","ball","№ 001–500"],["Willow Grade Bat","Full-size professional blade, signed on the face.","bat","№ 001–300"],["Signed Photo Frame","Action photography in a museum-grade frame.","frame","№ 001–500"]];
-document.getElementById('prgrid').innerHTML=prods.map((p,i)=>`
-  <article class="prcard rev" style="transition-delay:${i*60}ms">
-    <div class="tagpre">Pre-order</div>
-    <div class="prfig"><div class="lamp" aria-hidden="true"></div>${icons[p[2]]}<div class="pedestal" aria-hidden="true"></div></div>
-    <h3>${p[0]}</h3><div class="pno">${p[3]}</div><p>${p[1]}</p>
-    <span class="prlink">View piece</span>
   </article>`).join('');
 
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});

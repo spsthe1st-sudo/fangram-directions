@@ -179,6 +179,47 @@ section{padding:110px 0}
 .tfeat h3{font-family:'Space Grotesk';font-weight:600;font-size:18px;margin-bottom:4px}
 .tfeat p{font-size:13px;color:var(--mut)}
 
+/* TALENT PAGE MENU + ORDER/DELIVERY (reuses .tfeat / .glass / .tagpre / .pts) */
+.tstrip{display:flex;flex-wrap:wrap;gap:9px;align-items:center}
+.tstrip .pts{margin-top:0}
+.mrow{align-items:center;flex-wrap:wrap;transition:border-color .3s,transform .3s}
+.mrow:hover{border-color:rgba(56,225,255,.4);transform:translateY(-2px)}
+.mrow .mbody{flex:1;min-width:210px}
+.mend{display:flex;align-items:center;gap:22px;margin-left:auto}
+.price{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:21px;line-height:1;text-align:right;white-space:nowrap}
+.price .top,.price .sub{display:block;font-family:'Inter',sans-serif;font-weight:600;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+.price .top{margin-bottom:6px}
+.price .sub{margin-top:6px}
+.price.quote{font-family:'Inter',sans-serif;font-weight:600;font-size:13px;color:var(--mut);line-height:1.35;white-space:normal;max-width:112px}
+.mcta{font-size:12.5px;font-weight:700;color:#07050f;background:linear-gradient(90deg,var(--vio),var(--cyan));padding:0 18px;border-radius:11px;min-height:44px;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;cursor:pointer;transition:filter .2s,border-color .2s;box-shadow:0 0 20px rgba(139,92,255,.28)}
+.mcta:hover{filter:brightness(1.12)}
+.mcta svg{width:14px;height:14px;stroke:currentColor}
+.mcta.ghost{background:none;color:var(--ink);border:1px solid var(--gborder);box-shadow:none}
+.mcta.ghost:hover{border-color:var(--cyan);filter:none}
+.paygrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+@media(max-width:860px){.paygrid{grid-template-columns:1fr}}
+.ocard{padding:26px;display:flex;flex-direction:column}
+.orow{display:flex;justify-content:space-between;gap:14px;padding:12px 0;border-bottom:1px solid var(--gborder);font-size:13.5px;align-items:baseline}
+.orow .k{color:var(--mut)}
+.orow .v{font-family:'Space Grotesk',sans-serif;font-weight:600;text-align:right}
+.onote{background:rgba(255,255,255,.03);border:1px solid var(--gborder);border-radius:12px;padding:14px 15px;margin:16px 0 4px}
+.onote p{font-size:13px;color:var(--ink);line-height:1.5;margin:0}
+.ometa{display:flex;justify-content:space-between;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-top:10px}
+.paybtn{width:100%;justify-content:center;margin-top:18px}
+.guar{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;color:var(--mut);margin-top:14px}
+.guar svg{width:15px;height:15px;stroke:var(--cyan);flex:none;fill:none}
+.vframe{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:16/10;border:1px solid var(--gborder)}
+.vframe img{width:100%;height:100%;object-fit:cover;object-position:center 12%;filter:grayscale(1) contrast(1.06) brightness(.8)}
+.vframe .vtone{position:absolute;inset:0;background:linear-gradient(160deg,rgba(139,92,255,.5),rgba(56,225,255,.4));mix-blend-mode:color}
+.vframe .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:rgba(10,8,22,.5);border:1px solid var(--gborder);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center}
+.vframe .play svg{width:20px;height:20px;fill:var(--ink)}
+.vframe .dur,.vframe .who{position:absolute;font-family:'Space Grotesk',sans-serif;font-weight:700;background:rgba(10,8,22,.7);border:1px solid var(--gborder);backdrop-filter:blur(6px)}
+.vframe .dur{right:12px;bottom:12px;font-size:11px;padding:5px 10px;border-radius:8px}
+.vframe .who{left:12px;top:12px;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);border-color:rgba(56,225,255,.3);padding:5px 10px;border-radius:8px}
+.linkfield{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.03);border:1px solid var(--gborder);border-radius:11px;padding:11px 14px;font-size:12.5px;color:var(--mut);font-family:'Space Grotesk',sans-serif}
+.linkfield span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:640px){.mend{margin-left:0;width:100%;justify-content:space-between;margin-top:4px}}
+
 /* CTA */
 .cta{padding:140px 0;text-align:center;position:relative;overflow:hidden}
 .cta .halo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:720px;height:420px;background:radial-gradient(50% 50% at 50% 50%,rgba(139,92,255,.22),transparent 70%)}
@@ -207,7 +248,7 @@ footer{border-top:1px solid var(--gborder);padding:70px 0 36px;background:rgba(2
 
 <nav aria-label="Main">
   <a class="logo" href="#top">Fan<span>Gram</span></a>
-  <div class="nl"><a href="#players">Talent</a><a href="#products">Drops</a><a href="#process">How it works</a><a href="#authenticity">Verified</a><a href="#brands">Brands</a></div>
+  <div class="nl"><a href="#players">Talent</a><a href="#talentpage">Pricing</a><a href="#products">Drops</a><a href="#process">How it works</a><a href="#authenticity">Verified</a><a href="#brands">Brands</a></div>
   <a class="ncta" href="#products">Claim your Fan #</a>
 </nav>
 
@@ -215,7 +256,7 @@ footer{border-top:1px solid var(--gborder);padding:70px 0 36px;background:rgba(2
   <div class="orbwrap" aria-hidden="true">
     <div class="ring ring1"></div><div class="ring ring2"></div><div class="orb"></div>
     <div class="sil"><img src="assets/players/kohli.jpg" alt=""><div class="tone"></div></div>
-    <div class="chip glass c1"><div class="l">Your aura</div><div class="b">1,240</div><div class="s">Top 3% of Bumrah fans</div></div>
+    <div class="chip glass c1"><div class="l">Your aura</div><div class="b">1,240</div><div class="s">Top 3% of Valmik Rao fans</div></div>
     <div class="chip glass c2"><div class="l">Fan number</div><div class="b">#0214</div><div class="s">OG · since day one</div></div>
   </div>
   <div class="wrap hero-in">
@@ -251,10 +292,114 @@ footer{border-top:1px solid var(--gborder);padding:70px 0 36px;background:rgba(2
   </div>
 </section>
 
+<section id="talentpage">
+  <div class="wrap">
+    <div class="shead rev">
+      <div><span class="kick">02 · The talent page</span><h2>One page.<br><span class="g">Five ways in.</span></h2></div>
+      <p>Pick how you show up for the talent you back. Fixed prices, real delivery — pay once, get the actual thing.</p>
+    </div>
+
+    <div class="tfeat glass rev" style="align-items:center;flex-wrap:wrap;gap:22px;padding:20px 24px;margin-bottom:20px">
+      <div class="aura" style="width:100px;height:100px;margin:0;flex:none">
+        <div class="ring ring1" aria-hidden="true" style="animation-duration:22s"></div>
+        <div class="core"><img src="assets/players/bumrah.jpg" alt="Valmik Rao" loading="lazy"><div class="tone" style="background:linear-gradient(135deg,rgba(139,92,255,.8),rgba(56,225,255,.6))"></div></div>
+      </div>
+      <div style="flex:1;min-width:220px">
+        <span class="kick">Launch talent · Cricket</span>
+        <h3 class="sg" style="font-weight:600;font-size:25px;margin:7px 0 3px">Valmik Rao</h3>
+        <div style="font-size:13px;color:var(--mut)">Fast bowler · India · Verified</div>
+        <div class="tstrip" style="margin-top:14px">
+          <span class="pts">★ 4.9</span>
+          <span class="pts">3,410 delivered</span>
+          <span class="pts">Replies in 1 day</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tfeat glass rev mrow">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3z"/></svg></div>
+      <div class="mbody"><h3>Personal video</h3><p>A video made for your moment — a birthday, a hello, a good-luck. Filmed per order, never AI. Yours in 3 days.</p></div>
+      <div class="mend">
+        <div class="price">₹2,499<span class="sub">one-time</span></div>
+        <a class="mcta" href="#order">Book <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+
+    <div class="tfeat glass rev mrow">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2"/><path d="M9 13l3 2 3-2" opacity=".7"/></svg></div>
+      <div class="mbody"><h3>Brand video</h3><p>Talent-fronted films for your campaign, with full usage rights. Scoped and quoted per brief.</p></div>
+      <div class="mend">
+        <div class="price quote">Priced per campaign</div>
+        <a class="mcta ghost" href="mailto:brands@fangram.com">Contact us <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+
+    <div class="tfeat glass rev mrow">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M21 11.5a8 8 0 01-11.6 7.1L4 20l1.4-5A8 8 0 1121 11.5z"/></svg></div>
+      <div class="mbody"><h3>Direct message</h3><p>Write once and get a real reply from Valmik — or your money back. No bots, no interns.</p></div>
+      <div class="mend">
+        <div class="price">₹1,199<span class="sub">per message</span></div>
+        <a class="mcta ghost" href="#order">Write <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+
+    <div class="tfeat glass rev mrow">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M8 4L4 6.5 6 11l2-1v10h8V10l2 1 2-4.5L16 4a4 4 0 01-8 0z"/></svg></div>
+      <div class="mbody"><h3>Signed merchandise</h3><p>Match-worn shirts and blades, signed on camera, sealed and numbered — editions of 500.</p></div>
+      <div class="mend">
+        <div class="price"><span class="top">from</span>₹12,999</div>
+        <a class="mcta ghost" href="#products">Shop <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+
+    <div class="tfeat glass rev mrow">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 9.5a2 2 0 012-2h14a2 2 0 012 2 2 2 0 000 4 2 2 0 01-2 2H5a2 2 0 01-2-2 2 2 0 000-4z"/><path d="M13 8v9" stroke-dasharray="2 2"/></svg></div>
+      <div class="mbody"><h3>A seat in their world</h3><p>Monthly access: early drops, behind-the-nets clips and members-only messages.</p></div>
+      <div class="mend">
+        <div class="price"><span class="top">from</span>₹149<span class="sub">/ month</span></div>
+        <a class="mcta ghost" href="#">Join <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+
+    <div class="paygrid">
+      <div class="glass ocard rev" id="order">
+        <span class="tagpre">Personal video · Your order</span>
+        <div style="margin-top:18px">
+          <div class="orow"><span class="k">To</span><span class="v">Rohan</span></div>
+          <div class="orow"><span class="k">Occasion</span><span class="v">Birthday</span></div>
+          <div class="orow" style="border-bottom:none"><span class="k">From</span><span class="v">You</span></div>
+        </div>
+        <div class="onote">
+          <p>It's for my best mate Rohan — turning 25, your biggest fan alive. He learned to bowl copying your action. Wish him a happy birthday and tell him to keep sending down those yorkers.</p>
+          <div class="ometa"><span>Your note</span><span>188 / 250</span></div>
+        </div>
+        <a class="mcta paybtn" href="#">Pay ₹2,499</a>
+        <div class="ometa" style="justify-content:center;margin-top:12px;color:var(--mut)">One-time · no mandate · no auto-renew</div>
+        <div class="guar"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 2l7 4v6c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-4z"/><path d="M9 12l2 2 4-4"/></svg>Filmed per order, never AI</div>
+      </div>
+
+      <div class="glass ocard rev">
+        <span class="tagpre">Delivered · 3 days later</span>
+        <div class="vframe" style="margin-top:18px">
+          <img src="assets/players/bumrah.jpg" alt="Valmik Rao's video message for Rohan" loading="lazy">
+          <div class="vtone"></div>
+          <div class="who">For Rohan</div>
+          <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="dur">0:42</div>
+        </div>
+        <div style="font-size:13px;color:var(--mut);margin:16px 0 14px">A 42-second message from Valmik, made just for Rohan.</div>
+        <div class="linkfield"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:15px;height:15px;stroke:var(--cyan);flex:none"><path d="M10 13a5 5 0 007 0l2-2a5 5 0 00-7-7l-1 1"/><path d="M14 11a5 5 0 00-7 0l-2 2a5 5 0 007 7l1-1"/></svg><span>fangram.com/v/rohan-8f2a</span></div>
+        <a class="mcta paybtn" href="#" style="margin-top:14px">Share the link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v7a1 1 0 001 1h14a1 1 0 001-1v-7M16 6l-4-4-4 4M12 2v14"/></svg></a>
+        <div class="guar"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M20 6L9 17l-5-5"/></svg>Yours to keep — download it, share it, replay it forever.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="products">
   <div class="wrap">
     <div class="shead rev">
-      <div><span class="kick">02 · The drops</span><h2>Available for <span class="g">pre-order.</span></h2></div>
+      <div><span class="kick">03 · The drops</span><h2>Available for <span class="g">pre-order.</span></h2></div>
       <p>Four exclusive signed collectibles. Limited, numbered, verified.</p>
     </div>
     <div class="prgrid" id="prgrid"></div>
@@ -264,7 +409,7 @@ footer{border-top:1px solid var(--gborder);padding:70px 0 36px;background:rgba(2
 <section id="process">
   <div class="wrap">
     <div class="shead rev">
-      <div><span class="kick">03 · The flow</span><h2>Simple. Secure. <span class="g">Official.</span></h2></div>
+      <div><span class="kick">04 · The flow</span><h2>Simple. Secure. <span class="g">Official.</span></h2></div>
       <p>How pre-orders work, in three easy steps.</p>
     </div>
     <div class="steps rev">
@@ -316,7 +461,7 @@ footer{border-top:1px solid var(--gborder);padding:70px 0 36px;background:rgba(2
         <div class="sealtag"><span class="dot"></span>Scan verified · Authentic</div>
       </div>
       <div>
-        <span class="kick rev">04 · The proof layer</span>
+        <span class="kick rev">05 · The proof layer</span>
         <h2 class="sg rev" style="font-weight:600;font-size:clamp(30px,4vw,46px);letter-spacing:-.02em;line-height:1.1;margin:14px 0 16px">Authenticity you can <span class="g" style="background:linear-gradient(90deg,var(--vio),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent">verify.</span></h2>
         <p class="rev" style="color:var(--mut);font-size:15px;margin-bottom:24px">Every signing session is filmed. Every item carries a scannable seal tied to its number. Proof that lives on-chain of custody, not on promises.</p>
         <div class="tfeat glass rev">
@@ -339,7 +484,7 @@ footer{border-top:1px solid var(--gborder);padding:70px 0 36px;background:rgba(2
 <section id="brands">
   <div class="wrap">
     <div class="shead rev">
-      <div><span class="kick">05 · For brands</span><h2>Reach fans through the <span class="g">talent they trust.</span></h2></div>
+      <div><span class="kick">06 · For brands</span><h2>Reach fans through the <span class="g">talent they trust.</span></h2></div>
       <p>No cold audiences. Just verified communities that already show up for the talent they love.</p>
     </div>
     <div class="tfeat glass rev">
@@ -391,7 +536,7 @@ footer{border-top:1px solid var(--gborder);padding:70px 0 36px;background:rgba(2
 </footer>
 
 <script>
-const players=[["Virat Kohli","Batsman","kohli"],["Rohit Sharma","Batsman","sharma"],["Jasprit Bumrah","Fast bowler","bumrah"],["Ravindra Jadeja","All-rounder","jadeja"],["KL Rahul","Batsman · WK","rahul"],["Hardik Pandya","All-rounder","pandya"],["Shubman Gill","Batsman","gill"],["Rishabh Pant","Batsman · WK","pant"],["Suryakumar Yadav","Batsman","yadav"],["Mohammed Siraj","Fast bowler","siraj"]];
+const players=[["Virat Kohli","Batsman","kohli"],["Rohit Sharma","Batsman","sharma"],["Valmik Rao","Fast bowler","bumrah"],["Ravindra Jadeja","All-rounder","jadeja"],["KL Rahul","Batsman · WK","rahul"],["Hardik Pandya","All-rounder","pandya"],["Shubman Gill","Batsman","gill"],["Rishabh Pant","Batsman · WK","pant"],["Suryakumar Yadav","Batsman","yadav"],["Mohammed Siraj","Fast bowler","siraj"]];
 const grads=[["#8b5cff","#38e1ff"],["#38e1ff","#ff5ce1"],["#ff5ce1","#8b5cff"],["#6a8bff","#38ffd1"],["#a25cff","#38b6ff"],["#38e1ff","#8b5cff"],["#ff5ca8","#8b5cff"],["#5cffdd","#8b5cff"],["#8b5cff","#ff8a5c"],["#38e1ff","#5c7dff"]];
 document.getElementById('pgrid').innerHTML=players.map((p,i)=>{
   const[a,b]=grads[i%grads.length];
