@@ -252,7 +252,7 @@ footer{padding:70px 0 36px;background:var(--bg)}
 
 <nav aria-label="Main">
   <a class="logo" href="#top">FAN<span>GRAM</span></a>
-  <div class="nl"><a href="#players">Talent</a><a href="#products">Drops</a><a href="#process">How it works</a><a href="#brands">For brands</a><a href="#authenticity">Verified</a></div>
+  <div class="nl"><a href="#players">Talent</a><a href="#products">Drops</a><a href="#process">How it works</a><a href="#brands">For brands</a><a href="#authenticity">Verified</a><a class="fgwt-open" href="#">Product demo</a></div>
   <a class="ncta" href="#products">Claim your Fan #</a>
 </nav>
 
@@ -268,6 +268,8 @@ footer{padding:70px 0 36px;background:var(--bg)}
       <a class="b1" href="#products">Select your signed item</a>
       <a class="b2" href="#players">Meet the talent
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" width="15" height="15"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="b2 fgwt-open" href="#">See the experience
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" width="14" height="14"><path d="M8 5v14l11-7z"/></svg></a>
     </div>
   </div>
   <div class="hstats">
@@ -548,5 +550,297 @@ document.querySelectorAll('.rev').forEach(el=>io.observe(el));
   upd();
 })();
 </script>
+
+<!-- ============================================================
+     FANGRAM PRODUCT DEMO — themeable, self-contained walkthrough.
+     Paste this whole block just before </body>. It is fully
+     namespaced (#fgwt, .fgwt-*, IIFE JS) so it never collides with
+     the host page. To make it feel native to THIS direction, edit
+     ONLY the THEME OVERRIDES variables below — colours, fonts,
+     radius, surface. The structure and JS must stay intact.
+     Add a trigger anywhere in the page: any element with
+     class="fgwt-open" opens the demo (e.g. a nav link or hero button).
+     ============================================================ -->
+<style>
+#fgwt{
+  /* ===== THEME OVERRIDES — set these to the direction's tokens ===== */
+  --fgwt-ground: #0a0b0f;        /* page-behind scrim tone */
+  --fgwt-bg: #0e1016;            /* demo panel background */
+  --fgwt-surface: #151824;       /* cards / phone screen */
+  --fgwt-surface2: #1c1f2b;      /* rows / insets */
+  --fgwt-ink: #f2f4f8;           /* primary text */
+  --fgwt-mut: #9aa0b0;           /* secondary text */
+  --fgwt-faint: #5c6272;         /* tertiary / captions */
+  --fgwt-accent: #ff3d3d;        /* the ONE accent (CTA, active) */
+  --fgwt-accent-ink: #ffffff;    /* text on accent */
+  --fgwt-good: #3ad07f;          /* success / delivered */
+  --fgwt-line: rgba(242,244,248,.1);
+  --fgwt-radius: 12px;
+  --fgwt-font: 'Inter', sans-serif;        /* UI font */
+  --fgwt-display: 'Archivo', sans-serif;   /* headings font */
+  /* ================================================================= */
+  position: fixed; inset: 0; z-index: 9000; display: none;
+  font-family: var(--fgwt-font); color: var(--fgwt-ink);
+}
+#fgwt.on{ display: block; }
+#fgwt *{ box-sizing: border-box; }
+.fgwt-scrim{ position: absolute; inset: 0; background: color-mix(in srgb, var(--fgwt-ground) 82%, transparent); backdrop-filter: blur(6px); }
+.fgwt-modal{ position: relative; max-width: 1080px; margin: 3vh auto; height: 94vh; background: var(--fgwt-bg);
+  border: 1px solid var(--fgwt-line); border-radius: calc(var(--fgwt-radius) + 6px); overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 40px 120px rgba(0,0,0,.5); }
+@media(max-width:560px){ .fgwt-modal{ margin: 0; height: 100vh; border-radius: 0; } }
+.fgwt-head{ display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 22px 26px 14px; }
+.fgwt-eyebrow{ font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fgwt-accent); font-weight: 700; }
+.fgwt-title{ font-family: var(--fgwt-display); font-weight: 900; text-transform: uppercase; letter-spacing: -.02em; font-size: clamp(20px,2.6vw,30px); line-height: 1.1; margin-top: 8px; }
+.fgwt-x{ flex: none; background: var(--fgwt-surface); color: var(--fgwt-mut); border: 1px solid var(--fgwt-line); border-radius: 999px; width: 40px; height: 40px; font-size: 16px; cursor: pointer; }
+.fgwt-x:hover{ color: var(--fgwt-ink); }
+.fgwt-tabs{ display: flex; gap: 8px; flex-wrap: wrap; padding: 0 26px 14px; border-bottom: 1px solid var(--fgwt-line); }
+.fgwt-tab{ font: 600 12.5px/1 var(--fgwt-font); letter-spacing: .04em; text-transform: uppercase; padding: 11px 18px; border: 1px solid var(--fgwt-line); border-radius: 999px; background: transparent; color: var(--fgwt-mut); cursor: pointer; }
+.fgwt-tab.on{ background: var(--fgwt-ink); color: var(--fgwt-bg); border-color: var(--fgwt-ink); }
+.fgwt-body{ flex: 1; overflow-y: auto; padding: 22px 26px 30px; }
+.fgwt-steps{ display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 22px; }
+.fgwt-step{ display: inline-flex; align-items: center; gap: 8px; font: 600 12px var(--fgwt-font); padding: 8px 15px; border: 1px solid var(--fgwt-line); border-radius: 999px; background: var(--fgwt-surface); color: var(--fgwt-mut); cursor: pointer; }
+.fgwt-step.on{ border-color: var(--fgwt-accent); color: var(--fgwt-accent); }
+.fgwt-step i{ font-style: normal; opacity: .6; }
+.fgwt-split{ display: grid; grid-template-columns: 1fr 340px; gap: clamp(20px,4vw,52px); align-items: start; }
+@media(max-width:820px){ .fgwt-split{ grid-template-columns: 1fr; } .fgwt-phone{ margin: 0 auto; } }
+.fgwt-copy h3{ font-family: var(--fgwt-display); font-weight: 900; text-transform: uppercase; letter-spacing: -.02em; font-size: clamp(20px,2.4vw,28px); line-height: 1.12; margin-bottom: 12px; }
+.fgwt-copy p{ color: var(--fgwt-mut); font-size: 15px; line-height: 1.6; margin-bottom: 12px; max-width: 52ch; }
+.fgwt-note{ font-size: 12.5px; color: var(--fgwt-faint); }
+/* phone / screen */
+.fgwt-phone{ width: 340px; max-width: 100%; }
+.fgwt-screen{ background: linear-gradient(160deg, color-mix(in srgb, var(--fgwt-accent) 7%, var(--fgwt-surface)), var(--fgwt-surface) 58%); border: 1px solid var(--fgwt-line); border-radius: calc(var(--fgwt-radius) + 8px); overflow: hidden; min-height: 480px; padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+.fgwt-cap{ font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fgwt-faint); }
+.fgwt-row{ display: flex; justify-content: space-between; gap: 10px; align-items: center; padding: 12px 4px; border-bottom: 1px solid var(--fgwt-line); font-size: 13.5px; }
+.fgwt-row b{ font-weight: 700; }
+.fgwt-row .fgwt-cta{ font: 700 11px var(--fgwt-font); text-transform: uppercase; letter-spacing: .06em; color: var(--fgwt-accent); border: 1px solid var(--fgwt-accent); border-radius: 999px; padding: 6px 12px; }
+.fgwt-hdr{ font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--fgwt-faint); margin-top: 12px; padding-bottom: 4px; border-bottom: 1px solid var(--fgwt-line); }
+.fgwt-btn{ margin-top: auto; background: var(--fgwt-accent); color: var(--fgwt-accent-ink); border: 0; border-radius: var(--fgwt-radius); padding: 14px; font: 700 14px var(--fgwt-font); cursor: pointer; }
+.fgwt-tl{ list-style: none; margin: 6px 0; padding: 0; }
+.fgwt-tl li{ position: relative; padding: 9px 0 9px 24px; border-left: 1px solid var(--fgwt-line); margin-left: 6px; }
+.fgwt-tl li::before{ content:''; position: absolute; left: -5px; top: 15px; width: 9px; height: 9px; border-radius: 50%; background: var(--fgwt-surface2); border: 1px solid var(--fgwt-line); }
+.fgwt-tl li.done::before{ background: var(--fgwt-good); border-color: var(--fgwt-good); }
+.fgwt-tl li.now::before{ background: var(--fgwt-accent); border-color: var(--fgwt-accent); }
+.fgwt-tl b{ display: block; font-size: 13px; }
+.fgwt-tl span{ font-size: 11.5px; color: var(--fgwt-faint); }
+.fgwt-req{ border: 1px solid var(--fgwt-line); border-radius: var(--fgwt-radius); padding: 11px; margin-top: 8px; }
+.fgwt-req .fgwt-rh{ display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; }
+.fgwt-req .fgwt-rn{ font-size: 12px; color: var(--fgwt-mut); margin: 5px 0; }
+.fgwt-mini{ font: 700 11px var(--fgwt-font); text-transform: uppercase; letter-spacing: .06em; padding: 6px 12px; border-radius: 999px; cursor: pointer; }
+.fgwt-mini.solid{ background: var(--fgwt-accent); color: var(--fgwt-accent-ink); border: 0; }
+.fgwt-mini.ghost{ background: transparent; color: var(--fgwt-mut); border: 1px solid var(--fgwt-line); }
+.fgwt-play{ height: 190px; border-radius: var(--fgwt-radius); background: var(--fgwt-surface2); display: grid; place-items: center; font-size: 30px; color: var(--fgwt-ink); }
+.fgwt-good{ color: var(--fgwt-good); }
+.fgwt-hide{ display: none !important; }
+@media(prefers-reduced-motion:reduce){ .fgwt-scrim{ backdrop-filter: none; } }
+</style>
+
+<div id="fgwt" role="dialog" aria-modal="true" aria-label="FanGram product demo">
+  <div class="fgwt-scrim" data-fgwt-close></div>
+  <div class="fgwt-modal">
+    <div class="fgwt-head">
+      <div>
+        <p class="fgwt-eyebrow">Product demo · Phase 1</p>
+        <h2 class="fgwt-title">See the whole experience.</h2>
+      </div>
+      <button class="fgwt-x" data-fgwt-close aria-label="Close">✕</button>
+    </div>
+    <div class="fgwt-tabs" role="tablist">
+      <button class="fgwt-tab on" data-fgwt-tab="fan">1 · Fan experience</button>
+      <button class="fgwt-tab" data-fgwt-tab="talent">2 · Talent side</button>
+      <button class="fgwt-tab" data-fgwt-tab="dash">3 · Dashboards</button>
+    </div>
+    <div class="fgwt-body">
+
+      <!-- FAN -->
+      <div data-fgwt-panel="fan">
+        <div class="fgwt-steps">
+          <button class="fgwt-step on" data-fgwt-s="fan" data-i="0"><i>1</i> Talent page</button>
+          <button class="fgwt-step" data-fgwt-s="fan" data-i="1"><i>2</i> Book a video</button>
+          <button class="fgwt-step" data-fgwt-s="fan" data-i="2"><i>3</i> Track it</button>
+          <button class="fgwt-step" data-fgwt-s="fan" data-i="3"><i>4</i> Receive it</button>
+        </div>
+        <div class="fgwt-split" data-fgwt-view="fan-0">
+          <div class="fgwt-copy">
+            <h3>One page. Every offering. Pick, pay, get.</h3>
+            <p>The fan opens the talent's page and sees everything they offer, each with its own price and promise. No hunting, no "how much" — the whole menu, upfront.</p>
+            <p class="fgwt-note">Launching with cricket, built for every stage — talent, fans, brands.</p>
+          </div>
+          <div class="fgwt-phone"><div class="fgwt-screen">
+            <p class="fgwt-cap">Valmik Rao · ★ 4.9 (3,410) · replies in 1 day</p>
+            <div class="fgwt-row"><span>🎥 Personal video</span><b>₹2,499 · Book</b></div>
+            <div class="fgwt-row"><span>🏢 Brand video</span><b>Contact us</b></div>
+            <div class="fgwt-row"><span>💬 Direct message</span><b>₹1,199 · Write</b></div>
+            <div class="fgwt-row"><span>🏏 Signed merchandise</span><b>from ₹12,999 · Shop</b></div>
+            <div class="fgwt-row"><span>🎟️ A seat in their world</span><b>from ₹149/mo · Join</b></div>
+            <p class="fgwt-hdr">Why fans trust the page</p>
+            <div class="fgwt-row"><span>Filmed per order, never AI</span><b class="fgwt-good">✓</b></div>
+          </div></div>
+        </div>
+        <div class="fgwt-split fgwt-hide" data-fgwt-view="fan-1">
+          <div class="fgwt-copy">
+            <h3>Booked in under a minute.</h3>
+            <p>Pick the occasion, say who it's for, write up to 250 characters. Pay by UPI, card or netbanking — a fixed price, one-time, no mandate.</p>
+            <p class="fgwt-note">Filmed per order, delivered within 7 days or a full refund.</p>
+          </div>
+          <div class="fgwt-phone"><div class="fgwt-screen">
+            <p class="fgwt-cap">Personal video · Valmik Rao</p>
+            <div class="fgwt-row"><span>For</span><b>Rohan</b></div>
+            <div class="fgwt-row"><span>Occasion</span><b>A birthday</b></div>
+            <p class="fgwt-note" style="padding:6px 0">"He has watched you since the trials. Tell him to keep going…"</p>
+            <div class="fgwt-row"><span>Total, once</span><b>₹2,499</b></div>
+            <button class="fgwt-btn">Pay ₹2,499</button>
+          </div></div>
+        </div>
+        <div class="fgwt-split fgwt-hide" data-fgwt-view="fan-2">
+          <div class="fgwt-copy">
+            <h3>Then it tracks itself.</h3>
+            <p>A status page and a notification at every move. If day 7 arrives without delivery, the refund fires on its own — the guarantee is code, not customer service.</p>
+          </div>
+          <div class="fgwt-phone"><div class="fgwt-screen">
+            <p class="fgwt-cap">Order #FG-2214 · Personal video</p>
+            <ul class="fgwt-tl">
+              <li class="done"><b>Booked</b><span>today, 6:12 pm · ₹2,499 paid</span></li>
+              <li class="done"><b>In Valmik's queue</b><span>records in batches</span></li>
+              <li class="now"><b>Recording</b><span>you'll hear the moment it's done</span></li>
+              <li><b>Quality check</b><span>played back once before it ships</span></li>
+              <li><b>Delivered</b><span>in-app + shareable link</span></li>
+            </ul>
+            <p class="fgwt-note">Day 7 without delivery = automatic full refund.</p>
+          </div></div>
+        </div>
+        <div class="fgwt-split fgwt-hide" data-fgwt-view="fan-3">
+          <div class="fgwt-copy">
+            <h3>Delivery is a moment, not a file.</h3>
+            <p>It lands in-app with a shareable link — built to be forwarded to the family group chat within the minute. Watch, share, download, tip, or book the next one.</p>
+          </div>
+          <div class="fgwt-phone"><div class="fgwt-screen">
+            <div class="fgwt-play">▶</div>
+            <p class="fgwt-cap">For Rohan · A birthday · 0:42</p>
+            <p class="fgwt-note">"Rohan! Valmik here. Your dad told me about the trials…"</p>
+            <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+              <button class="fgwt-mini ghost">Share the link</button>
+              <button class="fgwt-mini ghost">Download</button>
+              <button class="fgwt-mini solid">Book another</button>
+            </div>
+          </div></div>
+        </div>
+      </div>
+
+      <!-- TALENT -->
+      <div class="fgwt-hide" data-fgwt-panel="talent">
+        <div class="fgwt-steps">
+          <button class="fgwt-step on" data-fgwt-s="talent" data-i="0"><i>1</i> The queue</button>
+          <button class="fgwt-step" data-fgwt-s="talent" data-i="1"><i>2</i> Record</button>
+          <button class="fgwt-step" data-fgwt-s="talent" data-i="2"><i>3</i> Deliver</button>
+        </div>
+        <div class="fgwt-split" data-fgwt-view="talent-0">
+          <div class="fgwt-copy">
+            <h3>Requests arrive as a queue, not a flood.</h3>
+            <p>Every order is a card: who it's for, the occasion, the exact words, the money, the clock. Accept or pass — a pass refunds instantly. Clear five in one sitting.</p>
+          </div>
+          <div class="fgwt-phone"><div class="fgwt-screen">
+            <p class="fgwt-cap">Requests · 3 due this week · worth ₹7,497</p>
+            <div class="fgwt-req"><div class="fgwt-rh"><span>For Rohan</span><span>₹2,499</span></div><p class="fgwt-rn">A birthday · "watched you since the trials"</p><div style="display:flex;gap:6px;justify-content:flex-end"><button class="fgwt-mini ghost">Pass</button><button class="fgwt-mini solid">Accept</button></div></div>
+            <div class="fgwt-req"><div class="fgwt-rh"><span>For Coach Salvi</span><span>₹2,499</span></div><p class="fgwt-rn">A farewell · 30 years of the academy</p></div>
+          </div></div>
+        </div>
+        <div class="fgwt-split fgwt-hide" data-fgwt-view="talent-1">
+          <div class="fgwt-copy">
+            <h3>The edit kit is small on purpose.</h3>
+            <p>Record. Retake. Trim the ends. Send — plus automatic captions and light/audio cleanup. No timeline editor: raw is the product, and a talent clears the queue in minutes.</p>
+          </div>
+          <div class="fgwt-phone"><div class="fgwt-screen">
+            <p class="fgwt-cap">Pinned brief · Rohan (ROH-hun) · birthday</p>
+            <div class="fgwt-play">●</div>
+            <div class="fgwt-row"><span>Auto-captions</span><b>EN + हिन्दी ✓</b></div>
+            <div class="fgwt-row"><span>Light + audio</span><b>cleaned ✓</b></div>
+            <div style="display:flex;gap:8px;margin-top:8px"><button class="fgwt-mini ghost">↺ Retake</button><button class="fgwt-mini solid">Approve &amp; send</button></div>
+          </div></div>
+        </div>
+        <div class="fgwt-split fgwt-hide" data-fgwt-view="talent-2">
+          <div class="fgwt-copy">
+            <h3>Sent — and paid like work.</h3>
+            <p>The video ships, the earning is credited, the queue moves on. Paid direct messages work the same way: a separate moderated inbox, a real reply in the window, or the fan's money returns.</p>
+          </div>
+          <div class="fgwt-phone"><div class="fgwt-screen">
+            <p class="fgwt-cap">Delivered to Rohan</p>
+            <div class="fgwt-row"><span>Credited</span><b class="fgwt-good">₹2,499</b></div>
+            <div class="fgwt-row"><span>Next payout</span><b>Friday · auto</b></div>
+            <div class="fgwt-row"><span>Queue</span><b>2 left</b></div>
+            <p class="fgwt-hdr">The Direct Line</p>
+            <div class="fgwt-row"><span>Isha · ₹1,199 · moderated ✓</span><b>Reply</b></div>
+          </div></div>
+        </div>
+      </div>
+
+      <!-- DASHBOARDS -->
+      <div class="fgwt-hide" data-fgwt-panel="dash">
+        <div class="fgwt-steps">
+          <button class="fgwt-step on" data-fgwt-s="dash" data-i="0"><i>🎟</i> Fan logs in</button>
+          <button class="fgwt-step" data-fgwt-s="dash" data-i="1"><i>★</i> Talent logs in</button>
+        </div>
+        <div class="fgwt-split" data-fgwt-view="dash-0">
+          <div class="fgwt-copy">
+            <h3>The fan's home is their record of devotion.</h3>
+            <p>Orders and live statuses, replies on the Direct Line, their seat and when it renews, their Fan IQ standing and place on the Wall — everything they own, one screen.</p>
+          </div>
+          <div class="fgwt-phone"><div class="fgwt-screen">
+            <p class="fgwt-cap">Good evening, Aarav</p>
+            <div class="fgwt-row"><span>Pavilion seat</span><b>renews 12 Aug</b></div>
+            <p class="fgwt-hdr">Your orders</p>
+            <div class="fgwt-row"><span>▶ Personal video · Valmik</span><b class="fgwt-good">Delivered</b></div>
+            <div class="fgwt-row"><span>✉ Direct message · Ozair</span><b class="fgwt-good">Replied</b></div>
+            <div class="fgwt-row"><span>🏏 Signed merch · Thanvi</span><b>Shipped</b></div>
+          </div></div>
+        </div>
+        <div class="fgwt-split fgwt-hide" data-fgwt-view="dash-1">
+          <div class="fgwt-copy">
+            <h3>The talent's home is a business they run in minutes.</h3>
+            <p>The queue and its clock, the month's earnings and Friday's auto-payout, seats and their trend, and the controls: reply window, rates, and a pause that works.</p>
+          </div>
+          <div class="fgwt-phone"><div class="fgwt-screen">
+            <p class="fgwt-cap">Morning, Valmik</p>
+            <div class="fgwt-row"><span>This month</span><b>₹1,84,300</b></div>
+            <div class="fgwt-row"><span>Next payout</span><b>Friday · auto</b></div>
+            <div class="fgwt-row"><span>Seats</span><b>2,310 · ↑ 6%</b></div>
+            <p class="fgwt-hdr">Controls</p>
+            <div class="fgwt-row"><span>Reply window</span><b>1 day · change</b></div>
+            <div class="fgwt-row"><span>Video rate</span><b>₹2,499 · raise</b></div>
+          </div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var root = document.getElementById('fgwt');
+  if(!root) return;
+  function open(){ root.classList.add('on'); document.documentElement.style.overflow='hidden'; }
+  function close(){ root.classList.remove('on'); document.documentElement.style.overflow=''; }
+  document.querySelectorAll('.fgwt-open').forEach(function(b){ b.addEventListener('click', function(e){ e.preventDefault(); open(); }); });
+  root.querySelectorAll('[data-fgwt-close]').forEach(function(b){ b.addEventListener('click', close); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+  // tabs
+  root.querySelectorAll('[data-fgwt-tab]').forEach(function(t){
+    t.addEventListener('click', function(){
+      var name = t.getAttribute('data-fgwt-tab');
+      root.querySelectorAll('[data-fgwt-tab]').forEach(function(x){ x.classList.toggle('on', x===t); });
+      root.querySelectorAll('[data-fgwt-panel]').forEach(function(p){ p.classList.toggle('fgwt-hide', p.getAttribute('data-fgwt-panel')!==name); });
+    });
+  });
+  // steps
+  root.querySelectorAll('[data-fgwt-s]').forEach(function(s){
+    s.addEventListener('click', function(){
+      var grp = s.getAttribute('data-fgwt-s'), i = s.getAttribute('data-i');
+      root.querySelectorAll('[data-fgwt-s="'+grp+'"]').forEach(function(x){ x.classList.toggle('on', x===s); });
+      root.querySelectorAll('[data-fgwt-view^="'+grp+'-"]').forEach(function(v){ v.classList.toggle('fgwt-hide', v.getAttribute('data-fgwt-view')!==grp+'-'+i); });
+    });
+  });
+})();
+</script>
+<!-- ===== END FANGRAM PRODUCT DEMO ===== -->
 </body>
 </html>
